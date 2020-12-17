@@ -4,6 +4,8 @@ kind: IngressRoute
 metadata:
   name: ha-core-ingress
   namespace: home-assistant
+  labels:
+    app: traefik
 spec:
   entryPoints:
     - websecure
@@ -13,6 +15,9 @@ spec:
       services:
         - name: home-assistant-core
           port: 8123
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: kube-system
   tls:
     certResolver: cloudflare
     domains:
