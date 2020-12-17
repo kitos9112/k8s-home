@@ -40,6 +40,7 @@ spec:
       - --entrypoints.websecure.http.tls.certresolver=cloudflare
       - --entrypoints.websecure.http.tls.domains[0].main=msrpi.com
       - --entrypoints.websecure.http.tls.domains[0].sans=*.msrpi.com
+      - --entrypoints.https.http.middlewares=kube-system-traefik-forward-auth
       - --certificatesresolvers.cloudflare.acme.email=marcos.soutullo91@gmail.com
       - --certificatesresolvers.cloudflare.acme.storage=/etc/traefik/certs/acme.json
       - --certificatesResolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
