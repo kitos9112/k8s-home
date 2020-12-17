@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: namespace
+metadata:
+	name: home-assistant
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ha-core
+  namespace: home-assistant
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: charts/home-assistant
+      version: 'home-assistant-5.0.0'
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      interval: 1m
