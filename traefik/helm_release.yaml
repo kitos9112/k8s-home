@@ -29,6 +29,10 @@ spec:
         # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
         level: INFO
     additionalArguments:
+      - --providers.file.filename=/data/traefik-config.yaml
+      - --entrypoints.websecure.http.tls.certresolver=cloudflare
+      - --entrypoints.websecure.http.tls.domains[0].main=msrpi.com
+      - --entrypoints.websecure.http.tls.domains[0].sans=*.msrpi.com
       - --certificatesresolvers.cloudflare.acme.email=marcos.soutullo91@gmail.com
       - --certificatesresolvers.cloudflare.acme.storage=/etc/traefik/certs/acme.json
       - --certificatesResolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
