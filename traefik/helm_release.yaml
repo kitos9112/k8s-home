@@ -1,0 +1,84 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  interval: 5m
+  releaseName: traefik
+  chart:
+    spec:
+      chart: traefik
+      version: 9.11.0
+      sourceRef:
+        kind: HelmRepository
+        name: traefik
+        namespace: flux-system
+      interval: 1m
+  values:
+    ingressClass:
+      enabled: true
+      isDefaultClass: true
+    logs:
+      # Traefik logs concern everything that happens to Traefik itself (startup, configuration, events, shutdown, and so on).
+      general:
+        # By default, the logs use a text format (common), but you can
+        # also ask for the json format in the format option
+        # format: json
+        # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
+        level: INFO
+    additionalArguments:
+      - --certificatesresolvers.cloudflare.acme.email=marcos.soutullo91@gmail.com
+      - --certificatesresolvers.cloudflare.acme.storage=/etc/traefik/certs/acme.json
+      - --certificatesResolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
+      - --certificatesResolvers.cloudflare.acme.dnsChallenge.delayBeforeCheck=0
+    #  - "--providers.kubernetesingress.ingressclass=traefik-internal"
+    #  - "--log.level=DEBUG"
+    env:
+      - name: CF_API_EMAIL
+        valueFrom:
+          secretKeyRef:
+            name: cloudflare
+            key: cloudflare_account_email
+      - name: CF_API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cloudflare
+            key: cloudflare_api_key
+    service:
+      externalIPs:
+        - 10.10.10.54
+        - 10.10.10.60
+        - 10.10.10.62
+        - 10.10.10.64
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "50Mi"
+      limits:
+        cpu: "300m"
+        memory: "150Mi"
+    persistence:
+      enabled: true
+      size: 50Mi
+      storageClass: local-path
+      path: /etc/traefik/certs
+    # If hostNetwork is true, runs traefik in the host network namespace
+    # To prevent unschedulabel pods due to port collisions, if hostNetwork=true
+    # and replicas>1, a pod anti-affinity is recommended and will be set if the
+    # affinity is left as default.
+    hostNetwork: true
+    affinity:
+      # # This example pod anti-affinity forces the scheduler to put traefik pods
+      # # on nodes where no other traefik pods are scheduled.
+      # # It should be used when hostNetwork: true to prevent port conflicts
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - traefik
+            topologyKey: failure-domain.beta.kubernetes.io/zone
