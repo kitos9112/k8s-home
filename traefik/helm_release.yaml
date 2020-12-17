@@ -71,8 +71,8 @@ spec:
       dashboard:
         enabled: false
     ports:
-      # traefik:
-      #   expose: true
+      traefik:
+        expose: true
       web:
         redirectTo: websecure
     persistence:
