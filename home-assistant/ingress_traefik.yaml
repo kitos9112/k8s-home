@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ha-core-ingress
+  namespace: home-assistant
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ha.uk.msrpi.com`)
+      kind: Rule
+      services:
+        - name: home-assistant-core
+          port: 8123
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: ha.uk.msrpi.com
