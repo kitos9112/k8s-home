@@ -46,6 +46,10 @@ spec:
           secretKeyRef:
             name: cloudflare
             key: cloudflare_api_key
+    volumes:
+      - mountPath: /data
+        name: traefik-config
+        type: configMap
     service:
       externalIPs:
         - 10.10.10.54
@@ -90,23 +94,3 @@ spec:
                   values:
                     - traefik
             topologyKey: failure-domain.beta.kubernetes.io/zone
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: traefik-config
-  namespace: kube-system
-data:
-  traefik-config.yaml: |
-    http:
-      middlewares:
-        headers-default:
-          headers:
-            sslRedirect: true
-            browserXssFilter: true
-            contentTypeNosniff: true
-            forceSTSHeader: true
-            stsIncludeSubdomains: true
-            stsPreload: true
-            stsSeconds: 15552000
-            customFrameOptionsValue: SAMEORIGIN
