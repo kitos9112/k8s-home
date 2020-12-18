@@ -17,6 +17,8 @@ spec:
         namespace: flux-system
       interval: 1m
   values:
+    deployment:
+      dnsPolicy: ClusterFirstWithHostNet
     ingressClass:
       enabled: true
       isDefaultClass: true
@@ -27,7 +29,7 @@ spec:
         # also ask for the json format in the format option
         # format: json
         # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
-        level: DEBUG
+        level: INFO
       access:
         enabled: true
         fields:
