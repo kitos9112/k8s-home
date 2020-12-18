@@ -4,8 +4,6 @@ kind: IngressRoute
 metadata:
   name: ha-core-ingress
   namespace: home-assistant
-  labels:
-    app: traefik
 spec:
   entryPoints:
     - websecure
