@@ -27,7 +27,7 @@ spec:
         # also ask for the json format in the format option
         # format: json
         # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
-        level: INFO
+        level: DEBUG
       access:
         enabled: true
         fields:
@@ -40,7 +40,7 @@ spec:
       - --entrypoints.websecure.http.tls.certresolver=cloudflare
       - --entrypoints.websecure.http.tls.domains[0].main=uk.msrpi.com
       - --entrypoints.websecure.http.tls.domains[0].sans=*.uk.msrpi.com
-      - --entrypoints.https.http.middlewares=kube-system-traefik-forward-auth
+      #- --entrypoints.websecure.http.middlewares=kube-system-traefik-forward-auth
       - --certificatesresolvers.cloudflare.acme.email=marcos.soutullo91@gmail.com
       - --certificatesresolvers.cloudflare.acme.storage=/etc/traefik/certs/acme.json
       - --certificatesResolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
