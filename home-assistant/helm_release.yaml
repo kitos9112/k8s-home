@@ -16,6 +16,7 @@ spec:
         name: k8s-at-home
         namespace: flux-system
       interval: 1m
+  uninstall: {}
   values:
     controllerType: statefulset
     persistence:
