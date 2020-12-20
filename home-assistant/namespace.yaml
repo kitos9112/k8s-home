@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: home-assistant
   labels:
-    managed_by: flux
+    managed-by: flux

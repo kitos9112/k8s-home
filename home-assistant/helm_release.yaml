@@ -29,6 +29,6 @@ spec:
         ##   GKE, AWS & OpenStack)
         storageClass: local-path
         accessMode: ReadWriteOnce
-        size: 50Gi
+        size: 55Gi
         ## Do not delete the pvc upon helm uninstall
         skipuninstall: true
