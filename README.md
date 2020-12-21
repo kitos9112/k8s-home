@@ -13,5 +13,5 @@ flux bootstrap github --arch arm64 \
                       --personal \
                       --repository=k8s-home \
                       --owner=kitos9112 \
-                      --path= ./cluster
+                      --path=./cluster
 ```
