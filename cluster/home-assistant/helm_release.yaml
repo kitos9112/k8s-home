@@ -1,34 +1,34 @@
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2beta1
-# kind: HelmRelease
-# metadata:
-#   name: ha-core
-#   namespace: home-assistant
-# spec:
-#   interval: 5m
-#   releaseName: home-assistant-core
-#   chart:
-#     spec:
-#       chart: home-assistant
-#       version: 5.1.1
-#       sourceRef:
-#         kind: HelmRepository
-#         name: k8s-at-home
-#         namespace: flux-system
-#       interval: 1m
-#   values:
-#     persistence:
-#       config:
-#         enabled: true
-#         emptyDir: false
-#         ## Persistent Volume Storage Class
-#         ## If defined, storageClassName: <storageClass>
-#         ## If set to "-", storageClassName: "", which disables dynamic provisioning
-#         ## If undefined (the default) or set to null, no storageClassName spec is
-#         ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-#         ##   GKE, AWS & OpenStack)
-#         storageClass: local-path
-#         accessMode: ReadWriteOnce
-#         size: 55Gi
-#         ## Do not delete the pvc upon helm uninstall
-#         skipuninstall: false
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ha-core
+  namespace: home-assistant
+spec:
+  interval: 5m
+  releaseName: home-assistant-core
+  chart:
+    spec:
+      chart: home-assistant
+      version: 5.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      interval: 1m
+  values:
+    persistence:
+      config:
+        enabled: true
+        emptyDir: false
+        ## Persistent Volume Storage Class
+        ## If defined, storageClassName: <storageClass>
+        ## If set to "-", storageClassName: "", which disables dynamic provisioning
+        ## If undefined (the default) or set to null, no storageClassName spec is
+        ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+        ##   GKE, AWS & OpenStack)
+        storageClass: local-path
+        accessMode: ReadWriteOnce
+        size: 55Gi
+        ## Do not delete the pvc upon helm uninstall
+        skipuninstall: false
