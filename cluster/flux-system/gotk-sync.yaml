@@ -19,11 +19,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./
+  path: ./cluster
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
   validation: client
-
-
