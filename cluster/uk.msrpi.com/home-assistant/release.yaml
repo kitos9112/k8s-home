@@ -22,24 +22,24 @@ spec:
         enabled: true
         storageClass: local-path
         size: 5Gi
-      env:
-        TZ: Europe/London
-      envFrom:
-        - secretRef:
-            name: home-assistant-env
-      hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet
-      ingress:
+    env:
+      TZ: Europe/London
+    envFrom:
+      - secretRef:
+          name: home-assistant-env
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
+    ingress:
+      enabled: true
+      hosts:
+        - host: ha.uk.msrpi.com
+          paths:
+            - path: /
+              pathType: Prefix
+    monitoring:
+      enabled: true
+      serviceMonitor:
         enabled: true
-        hosts:
-          - host: ha.uk.msrpi.com
-            paths:
-              - path: /
-                pathType: Prefix
-      monitoring:
-        enabled: true
-        serviceMonitor:
-          enabled: true
     additionalVolumes:
       - name: sshkeys
         secret:
