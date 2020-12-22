@@ -9,18 +9,18 @@ need "yq"
 load_env
 
 function extract_ns() {
-  yq r "${1}/kustomization.yaml" "namespace"
+  yq eval ".namespace" "${1}/kustomization.yaml" 
 }
 
 # secret_template ns name
 function secret_template() {
-  rawJson='{ "apiVersion": "v1", "kind": "Secret" }'
+  rawJson="{apiVersion: \"v1\", kind: \"Secret\" }"
   namespace=${1}
   name=${2}
 
-  echo ${rawJson} | yq r --prettyPrint - \
-    | yq w - metadata.namespace ${namespace} \
-    | yq w - metadata.name ${name}
+  echo ${rawJson} | yq eval '.. style= ""' - \
+    | yq eval ".metadata.namespace = \"${namespace}\"" - \
+    | yq eval ".metadata.name = \"${name}\"" -
 }
 
 # expand_values file
@@ -33,12 +33,12 @@ function expand_template_file() {
 
 # process_secrets .secrets.yaml
 function process_secrets() {
-  expand_template_file ${1} | yq p - data
+  expand_template_file ${1} | yq eval '{"data": .}' -
 }
 
 # process_values .values.yaml
 function process_values() {
-  echo "values.yaml: $(expand_template_file ${1} | base64)" | yq p - data
+  echo "values.yaml: $(expand_template_file ${1} | base64)" | yq eval '{"data": .}' -
 }
 
 # file data-file
@@ -56,18 +56,15 @@ function write_sealed_secret() {
 
   echo "generating: ${sealedFile}"
   mkdir -p "cluster/secrets/${ns}"
-
-  yq m \
-    <(secret_template ${ns} ${sealedName}) \
-    ${3} \
-    | seal \
-    > "${sealedFile}"
+  yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' \
+              <(secret_template ${ns} ${sealedName}) ${3} \
+              | seal > "${sealedFile}"
 }
 
 function seal() {
   kubeseal --format=yaml \
-    | yq d - "spec.template" \
-    | yq d - "metadata.creationTimestamp"
+    | yq eval 'del(.spec.template)' - \
+    | yq eval 'del(.metadata.creationTimestamp)' -
 }
 
 function refresh_secrets() {

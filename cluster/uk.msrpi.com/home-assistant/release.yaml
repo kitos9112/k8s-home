@@ -1,0 +1,47 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ha-core
+  namespace: home-assistant
+spec:
+  interval: 5m
+  releaseName: home-assistant-core
+  chart:
+    spec:
+      chart: home-assistant
+      version: 5.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      interval: 1m
+  values:
+    persistence:
+      config:
+        enabled: true
+        storageClass: local-path
+        size: 5Gi
+      env:
+        TZ: Europe/London
+      envFrom:
+        - secretRef:
+            name: home-assistant-env
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      ingress:
+        enabled: true
+        hosts:
+          - host: ha.uk.msrpi.com
+            paths:
+              - path: /
+                pathType: Prefix
+      monitoring:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    additionalVolumes:
+      - name: sshkeys
+        secret:
+          secretName: github-credentials
+          defaultMode: 0700

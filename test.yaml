@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: home-assistant
+  name: home-assistant-env
+data:
+  HASS_HOME_LATITUDE: "MzQzNA=="
+  HASS_HOME_LONGITUDE: "MzQzNA=="
+  HASS_HOME_ELEVATION: "NDY="
+  HASS_BLINK_USERNAME: "bWFyY29zLnNvdXR1bGxvOTFAZ21haWwuY29t"
+  HASS_BLINK_PASSWORD: "MzQzNA=="
