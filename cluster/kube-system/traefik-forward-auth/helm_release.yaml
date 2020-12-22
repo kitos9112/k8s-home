@@ -1,0 +1,39 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik-forward-auth
+  namespace: kube-system
+spec:
+  interval: 1m
+  releaseName: traefik-forward-auth
+  chart:
+    spec:
+      chart: traefik-forward-auth
+      version: 5.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      interval: 1m
+  values:
+    image:
+      repository: thomseddon/traefik-forward-auth:2-arm64
+    logging:
+      level: warn
+    format: pretty
+    auth_host: auth.uk.msrpi.com
+    restrictions:
+      whitelist: "marcos.soutullo91@gmail.com,marcossoutullo91@gmail.com,marcossoutullo@gmail.com,marcos.soutullo@gmail.com,kitos9112@gmail.com"
+    cookie:
+      domain: "uk.msrpi.com"
+      csrfName: "uk.msrpi.com_csrf"
+    logoutRedirect: ""
+    middleware:
+      enabled: true
+      name: "traefik-forward-auth"
+    providers:
+      google:
+        enabled: true
+        clientId: ""
+        clientSecret: ""

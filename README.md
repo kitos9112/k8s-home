@@ -15,3 +15,13 @@ flux bootstrap github --arch arm64 \
                       --owner=kitos9112 \
                       --path=./cluster
 ```
+
+# Handle secrets using Bitnami kubesealed controller
+
+
+
+## Uninstall FluxCD alongside all CRDs
+
+```sh
+flux uninstall --resources --crds --namespace=flux-system
+```

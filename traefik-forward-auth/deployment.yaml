@@ -33,8 +33,8 @@ spec:
             - containerPort: 4181
               protocol: TCP
           env:
-            - name: CONFIG
-              value: "/config"
+            # - name: CONFIG
+            #   value: "/config"
             - name: WHITELIST
               value: "marcos.soutullo91@gmail.com,marcossoutullo91@gmail.com,marcossoutullo@gmail.com,marcos.soutullo@gmail.com,kitos9112@gmail.com"
             - name: COOKIE_DOMAIN
@@ -65,9 +65,9 @@ spec:
               mountPath: /config
               subPath: traefik-forward-auth.ini
       volumes:
-        - name: configs
-          configMap:
-            name: configs
+        # - name: configs
+        #   configMap:
+        #     name: configs
         - name: traefik-forward-auth-secrets
           secret:
             secretName: traefik-forward-auth-secrets

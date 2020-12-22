@@ -13,10 +13,10 @@ resources:
 #
 # Configs
 #
-configMapGenerator:
-  - name: configs
-    files:
-      - configs/traefik-forward-auth.ini
+# configMapGenerator:
+#   - name: configs
+#     files:
+#       - configs/traefik-forward-auth.ini
 
 #
 # Secrets
