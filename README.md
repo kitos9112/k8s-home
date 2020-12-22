@@ -7,9 +7,9 @@ I am a firm believe in GitOps and Kubernetes as the defacto cloud orchestrator.
 
 ```sh
 export GITHUB_TOKEN=0b4c09c596f1
-flux bootstrap github --arch arm64 \
-                      --branch master \
-                      --cluster-domain uk.msrpi.com \
+flux bootstrap github --arch=arm64 \
+                      --branch=master \
+                      --cluster-domain=uk.msrpi.com \
                       --personal \
                       --repository=k8s-home \
                       --owner=kitos9112 \
