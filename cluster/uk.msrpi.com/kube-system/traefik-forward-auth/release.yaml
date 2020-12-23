@@ -18,7 +18,7 @@ spec:
       interval: 1m
   values:
     image:
-      repository: thomseddon/traefik-forward-auth:2-arm64
+      tag: 2-arm64
     logging:
       level: warn
     format: pretty
