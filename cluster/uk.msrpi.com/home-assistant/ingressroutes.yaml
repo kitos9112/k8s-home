@@ -54,7 +54,6 @@ spec:
         - name: home-assistant-core-codeserver
           namespace: home-assistant
           port: 12321
-          scheme: tcp
   tls:
     certResolver: cloudflare
     domains:
