@@ -19,16 +19,12 @@ spec:
   values:
     deployment:
       dnsPolicy: ClusterFirstWithHostNet
+    hostNetwork: true
     ingressClass:
       enabled: true
       isDefaultClass: true
     logs:
-      # Traefik logs concern everything that happens to Traefik itself (startup, configuration, events, shutdown, and so on).
       general:
-        # By default, the logs use a text format (common), but you can
-        # also ask for the json format in the format option
-        # format: json
-        # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
         level: INFO
       access:
         enabled: true
@@ -43,23 +39,13 @@ spec:
       - --entrypoints.websecure.http.tls.domains[0].main=uk.msrpi.com
       - --entrypoints.websecure.http.tls.domains[0].sans=*.uk.msrpi.com
       #- --entrypoints.websecure.http.middlewares=kube-system-traefik-forward-auth
-      - --certificatesresolvers.cloudflare.acme.email=marcos.soutullo91@gmail.com
       - --certificatesresolvers.cloudflare.acme.storage=/etc/traefik/certs/acme.json
       - --certificatesResolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
       - --certificatesResolvers.cloudflare.acme.dnsChallenge.delayBeforeCheck=0
     #  - "--providers.kubernetesingress.ingressclass=traefik-internal"
-    #  - "--log.level=DEBUG"
-    env:
-      - name: CF_API_EMAIL
-        valueFrom:
-          secretKeyRef:
-            name: cloudflare
-            key: cloudflare_account_email
-      - name: CF_API_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cloudflare
-            key: cloudflare_api_key
+    envFrom:
+      - secretRef:
+          name: traefik-env
     volumes:
       - mountPath: /data
         name: traefik-config
@@ -90,8 +76,3 @@ spec:
       size: 50Mi
       storageClass: local-path
       path: /etc/traefik/certs
-    # If hostNetwork is true, runs traefik in the host network namespace
-    # To prevent unschedulabel pods due to port collisions, if hostNetwork=true
-    # and replicas>1, a pod anti-affinity is recommended and will be set if the
-    # affinity is left as default.
-    hostNetwork: true

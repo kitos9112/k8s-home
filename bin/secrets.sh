@@ -88,7 +88,7 @@ function write_kustomization() {
     apiVersion: kustomize.config.k8s.io/v1beta1
     kind: Kustomization
     resources:
-    $(find ${CLUSTER}/**/*.yaml | sed 's|^${CLUSTER}/|- ./|')
+    $(find ${CLUSTER}/**/*.yaml | awk -F"${CLUSTER}/" '{print "  - "$2}')
 EOF
 }
 
@@ -136,7 +136,7 @@ function usage() {
 
 [[ -z "$1" ]] && usage
 
-CLUSTER="cluster/secrets/uk.msrpi.com"
+CLUSTER="cluster/uk.msrpi.com/secrets"
 case "$1" in
   check)
     check_secrets "${@:2}"
