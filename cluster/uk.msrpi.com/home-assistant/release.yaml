@@ -23,8 +23,7 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: local-path
-        size: 50Gi
+        existingClaim: home-assistant-config-pvc
     env:
       TZ: Europe/London
     envFrom:
@@ -32,13 +31,13 @@ spec:
           name: home-assistant-env
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
-    ingress:
-      enabled: true
-      hosts:
-        - host: ha.uk.msrpi.com
-          paths:
-            - path: /
-              pathType: Prefix
+    # ingress:
+    #   enabled: true
+    #   hosts:
+    #     - host: ha.uk.msrpi.com
+    #       paths:
+    #         - path: /
+    #           pathType: Prefix
     monitoring:
       enabled: true
       serviceMonitor:
@@ -66,20 +65,6 @@ spec:
           - "/config/.vscode"
           - --auth
           - "none"
-        ingress:
-          enabled: true
-          annotations:
-            kubernetes.io/ingress.class: "nginx"
-            nginx.ingress.kubernetes.io/auth-url: "https://auth.eviljungle.com/oauth2/auth"
-            nginx.ingress.kubernetes.io/auth-signin: https://auth.eviljungle.com/oauth2/start
-          hosts:
-            - host: hass-vscode.eviljungle.com
-              paths:
-                - path: /
-                  pathType: Prefix
-          tls:
-            - hosts:
-                - hass-vscode.eviljungle.com
         volumeMounts:
           - name: config
             mountPath: /config

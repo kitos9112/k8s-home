@@ -15,3 +15,8 @@ spec:
         name: longhorn
         namespace: flux-system
       interval: 1m
+  values:
+    persistence:
+      defaultClassReplicaCount: 2
+    csi:
+      kubeletRootDir: /var/lib/kubelet

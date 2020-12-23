@@ -4,4 +4,6 @@ kind: Kustomization
 namespace: home-assistant
 resources:
   - namespace.yaml
+  - pvc.yaml
   - release.yaml
+  - ingressroutes.yaml

@@ -1,0 +1,61 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hass-core-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`hass.uk.msrpi.com`)
+      kind: Rule
+      services:
+        - name: home-assistant-core
+          namespace: home-assistant
+          port: 8123
+      # middlewares:
+      #   - name: traefik-forward-auth
+      #     namespace: kube-system
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: hass.uk.msrpi.com
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hass-core-ingress-noauth2
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`hass-app.uk.msrpi.com`)
+      kind: Rule
+      services:
+        - name: home-assistant-core
+          namespace: home-assistant
+          port: 8123
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: hass-app.uk.msrpi.com
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hass-vscode-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`hass-vscode.uk.msrpi.com`)
+      kind: Rule
+      services:
+        - name: ha-core-home-assistant-codeserver
+          namespace: home-assistant
+          port: 12321
+          scheme: tcp
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: hass-vscode.uk.msrpi.com
