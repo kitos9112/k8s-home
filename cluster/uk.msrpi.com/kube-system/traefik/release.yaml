@@ -47,9 +47,9 @@ spec:
       - --entrypoints.websecure.http.tls.domains[0].sans=*.uk.msrpi.com
       #- --entrypoints.websecure.http.middlewares=kube-system-traefik-forward-auth
       - --certificatesresolvers.cloudflare.acme.email=marcos.soutullo91@gmail.com
-      - --certificatesresolvers.cloudflare.acme.storage=/etc/traefik/certs/acme.json
-      - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
-      - --certificatesresolvers.cloudflare.acme.dnsChallenge.delayBeforeCheck=0
+      - --certificatesesolvers.cloudflare.acme.storage=/etc/traefik/certs/acme.json
+      - --certificatesResolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
+      - --certificatesResolvers.cloudflare.acme.dnsChallenge.delayBeforeCheck=0
       - --metrics.prometheus=true
       - --entryPoints.metrics.address=:8082
       - --metrics.prometheus.entryPoint=metrics
