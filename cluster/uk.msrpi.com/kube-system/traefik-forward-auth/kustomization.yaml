@@ -4,11 +4,5 @@ kind: Kustomization
 namespace: kube-system
 
 resources:
-  - pvc.yaml
   - release.yaml
-  - dashboard.yaml
-
-configMapGenerator:
-  - name: traefik-config
-    files:
-      - config/traefik-config.yaml
+  - ingressroute.yaml
