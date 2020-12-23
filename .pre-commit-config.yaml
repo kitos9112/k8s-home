@@ -24,3 +24,10 @@ repos:
     hooks:
       - id: shellcheck
         args: [--severity=error]
+  - repo: local
+    hooks:
+      - id: check-secrets
+        name: Ensure Secrets Exist
+        entry: bin/secrets.sh check
+        language: script
+        files: \.(crypt\.env|values\.yaml)$

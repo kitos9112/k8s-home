@@ -18,10 +18,10 @@ releaseFile=${1}
 [ -f "${releaseFile}" ] || _usage
 
 # extract release, repository and chart names
-name=$(yq r ${releaseFile} "metadata.name")
-repo=$(yq r ${releaseFile} "spec.chart.spec.sourceRef.name")
-chart=$(yq r ${releaseFile} "spec.chart.spec.chart")
+name=$(yq eval '.metadata.name' ${releaseFile})
+repo=$(yq eval '.spec.chart.spec.sourceRef.name' ${releaseFile})
+chart=$(yq eval '.spec.chart.spec.chart' ${releaseFile})
 
 # dump the values into template
-yq r ${releaseFile} "spec.values" \
+yq eval '.spec.values' ${releaseFile}  \
   | helm template ${name} "${repo}/${chart}" --values -

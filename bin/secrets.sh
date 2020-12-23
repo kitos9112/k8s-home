@@ -6,6 +6,8 @@ need "gomplate"
 need "kubectl"
 need "kubeseal"
 need "yq"
+
+# Load secret variables
 load_env
 
 function extract_ns() {
@@ -50,12 +52,12 @@ function write_sealed_secret() {
   parent=$(dirname "${file}")
   ns=$(extract_ns "${parent}")
   sealedName="${base%%.*}${resourceSuffix}"
-  sealedFile="cluster/secrets/${ns}/${sealedName}.yaml"
+  sealedFile="${CLUSTER}/${ns}/${sealedName}.yaml"
 
   [ "${file}" -ot "${sealedFile}" ] && return
 
   echo "generating: ${sealedFile}"
-  mkdir -p "cluster/secrets/${ns}"
+  mkdir -p "${CLUSTER}/${ns}"
   yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' \
               <(secret_template ${ns} ${sealedName}) ${3} \
               | seal > "${sealedFile}"
@@ -82,17 +84,17 @@ function refresh_secrets() {
 }
 
 function write_kustomization() {
-  cat <<EOF | sed -r 's/^ {4}//' > cluster/secrets/kustomization.yaml
+  cat <<EOF | sed -r 's/^ {4}//' > ${CLUSTER}/kustomization.yaml
     apiVersion: kustomize.config.k8s.io/v1beta1
     kind: Kustomization
     resources:
-    $(find cluster/secrets/**/*.yaml | sed 's|^cluster/secrets/|- ./|')
+    $(find ${CLUSTER}/**/*.yaml | sed 's|^${CLUSTER}/|- ./|')
 EOF
 }
 
 function wipe_secrets() {
   echo "== wiping all secrets"
-  rm -rf cluster/secrets
+  rm -rf ${CLUSTER}
 }
 
 function check_secret_exists() {
@@ -103,7 +105,7 @@ function check_secret_exists() {
   parent=$(dirname "${file}")
   ns=$(extract_ns "${parent}")
   sealedName="${base%%.*}${resourceSuffix}"
-  sealedFile="cluster/secrets/${ns}/${sealedName}.yaml"
+  sealedFile="${CLUSTER}/${ns}/${sealedName}.yaml"
 
   [ "${file}" -ot "${sealedFile}" ] && return
   echo "secret missing or outdated for: ${file}"
@@ -133,6 +135,8 @@ function usage() {
 }
 
 [[ -z "$1" ]] && usage
+
+CLUSTER="cluster/secrets/uk.msrpi.com"
 case "$1" in
   check)
     check_secrets "${@:2}"

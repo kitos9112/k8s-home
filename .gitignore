@@ -1,4 +1,3 @@
-**/*.env
 traefik/dashboard.yaml
 tests/**
 apps.old
