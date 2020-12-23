@@ -84,3 +84,7 @@ spec:
       enabled: true
       existingClaim: traefik-certs-pvc
       path: /etc/traefik/certs
+      annotations:
+        pv.beta.kubernetes.io/gid: "65532"
+    podSecurityContext:
+      fsGroup: 65532
