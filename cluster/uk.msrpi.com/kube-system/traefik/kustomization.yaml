@@ -12,3 +12,6 @@ configMapGenerator:
   - name: traefik-config
     files:
       - config/traefik-config.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
