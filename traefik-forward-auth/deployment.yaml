@@ -33,33 +33,6 @@ spec:
             - containerPort: 4181
               protocol: TCP
           env:
-            # - name: CONFIG
-            #   value: "/config"
-            - name: WHITELIST
-              value: "marcos.soutullo91@gmail.com,marcossoutullo91@gmail.com,marcossoutullo@gmail.com,marcos.soutullo@gmail.com,kitos9112@gmail.com"
-            - name: COOKIE_DOMAIN
-              value: "uk.msrpi.com"
-            - name: AUTH_HOST
-              value: "auth.uk.msrpi.com"
-            - name: LOG_LEVEL
-              value: "debug"
-            - name: LOG_FORMAT
-              value: pretty
-            - name: PROVIDERS_GOOGLE_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: traefik-forward-auth-secrets
-                  key: google-client-id
-            - name: PROVIDERS_GOOGLE_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: traefik-forward-auth-secrets
-                  key: google-client-secret
-            - name: SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: traefik-forward-auth-secrets
-                  key: secret
           volumeMounts:
             - name: configs
               mountPath: /config

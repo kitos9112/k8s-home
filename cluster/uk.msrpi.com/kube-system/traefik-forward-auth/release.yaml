@@ -22,18 +22,20 @@ spec:
     logging:
       level: warn
     format: pretty
-    auth_host: auth.uk.msrpi.com
-    restrictions:
-      whitelist: "marcos.soutullo91@gmail.com,marcossoutullo91@gmail.com,marcossoutullo@gmail.com,marcos.soutullo@gmail.com,kitos9112@gmail.com"
-    cookie:
-      domain: "uk.msrpi.com"
-      csrfName: "uk.msrpi.com_csrf"
     logoutRedirect: ""
     middleware:
       enabled: true
-      name: "traefik-forward-auth"
+      name: traefik-forward-auth
+    envFrom:
+      - secretRef:
+          name: traefik-forward-auth-env
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "50Mi"
+      limits:
+        cpu: "300m"
+        memory: "150Mi"
     providers:
       google:
         enabled: true
-        clientId: ""
-        clientSecret: ""
