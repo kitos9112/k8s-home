@@ -73,6 +73,5 @@ spec:
         redirectTo: websecure
     persistence:
       enabled: true
-      size: 50Mi
-      storageClass: local-path
+      existingClaim: traefik-certs-pvc
       path: /etc/traefik/certs
