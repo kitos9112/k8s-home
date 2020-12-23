@@ -51,7 +51,7 @@ spec:
     - match: Host(`hass-vscode.uk.msrpi.com`)
       kind: Rule
       services:
-        - name: ha-core-home-assistant-codeserver
+        - name: home-assistant-core-codeserver
           namespace: home-assistant
           port: 12321
           scheme: tcp
