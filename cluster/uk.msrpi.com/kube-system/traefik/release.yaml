@@ -5,7 +5,7 @@ metadata:
   name: traefik
   namespace: kube-system
 spec:
-  interval: 5m
+  interval: 1m
   releaseName: traefik
   chart:
     spec:
@@ -82,12 +82,12 @@ spec:
         expose: false
       web:
         redirectTo: websecure
-      # websecure:
-      #   tls:
-      #     enabled: true
-      #     certResolver: cloudflare
-      #     domains:
-      #       - name: "*.uk.msrpi.com"
+      websecure:
+        tls:
+          enabled: true
+          certResolver: cloudflare
+          domains:
+            - name: "*.uk.msrpi.com"
     persistence:
       enabled: true
       existingClaim: traefik-certs-pvc
