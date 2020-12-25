@@ -64,7 +64,7 @@ function write_sealed_secret() {
 }
 
 function seal() {
-  kubeseal --format=yaml \
+  kubeseal --controller-name=sealed-secrets --format=yaml \
     | yq eval 'del(.spec.template)' - \
     | yq eval 'del(.metadata.creationTimestamp)' -
 }
