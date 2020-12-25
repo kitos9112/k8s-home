@@ -15,8 +15,6 @@ spec:
         name: longhorn
         namespace: flux-system
       interval: 1m
-  dependsOn:
-    - kube-system/traefik-forward-auth
   values:
     persistence:
       defaultClassReplicaCount: 2
