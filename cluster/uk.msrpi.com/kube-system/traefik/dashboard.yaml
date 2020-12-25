@@ -15,20 +15,11 @@ spec:
         - name: api@internal
           kind: TraefikService
       middlewares:
-        # - name: traefik-forward-auth
-        #   namespace: kube-system
+        - name: traefik-forward-auth
+          namespace: kube-system
         - name: auth
           namespace: kube-system
   tls:
     certResolver: cloudflare
     domains:
       - main: traefik.uk.msrpi.com
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: auth
-  namespace: kube-system
-spec:
-  basicAuth:
-    secret: traefik-dashboard-bauth

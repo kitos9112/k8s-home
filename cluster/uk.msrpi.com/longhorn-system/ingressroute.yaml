@@ -15,7 +15,7 @@ spec:
           port: 80
           scheme: http
       middlewares:
-        - name: auth
+        - name: traefik-forward-auth
           namespace: kube-system
   tls:
     certResolver: cloudflare
