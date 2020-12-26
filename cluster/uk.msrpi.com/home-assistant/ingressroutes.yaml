@@ -54,6 +54,9 @@ spec:
         - name: home-assistant-core-codeserver
           namespace: home-assistant
           port: 12321
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: kube-system
   tls:
     certResolver: cloudflare
     domains:

@@ -16,6 +16,13 @@ spec:
         name: k8s-at-home
         namespace: flux-system
       interval: 1m
+  dependsOn:
+    - name: sealed-secrets
+      namespace: kube-system
+    - name: traefik
+      namespace: kube-system
+    - name: longhorn
+      namespace: longhorn-system
   values:
     image:
       repository: homeassistant/home-assistant
@@ -31,13 +38,6 @@ spec:
           name: home-assistant-env
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
-    # ingress:
-    #   enabled: true
-    #   hosts:
-    #     - host: ha.uk.msrpi.com
-    #       paths:
-    #         - path: /
-    #           pathType: Prefix
     monitoring:
       enabled: true
       serviceMonitor:
