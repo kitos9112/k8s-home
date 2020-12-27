@@ -10,9 +10,9 @@ spec:
     - match: Host(`grafana.uk.msrpi.com`)
       kind: Rule
       services:
-        - name: grafana
+        - name: kube-prometheus-stack-grafana
           namespace: monitoring
-          port: 3000
+          port: 80
           scheme: http
       middlewares:
         - name: traefik-forward-auth
