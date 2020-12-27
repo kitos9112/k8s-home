@@ -180,7 +180,7 @@ spec:
                 requests:
                   storage: 10Gi
         thanos:
-          image: quay.io/thanos/thanos:v0.17.2
+          image: raspbernetes/thanos:v0.17.2
           version: v0.17.2
           objectStorageConfig:
             name: thanos
