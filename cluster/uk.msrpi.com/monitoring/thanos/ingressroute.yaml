@@ -1,0 +1,23 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: thanos-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`thanos.uk.msrpi.com`)
+      kind: Rule
+      services:
+        - name: thanos-query-http
+          namespace: monitoring
+          port: 10902
+          scheme: http
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: kube-system
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: thanos.uk.msrpi.com

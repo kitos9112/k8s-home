@@ -33,8 +33,6 @@ spec:
       enabled: true
       deploymentStrategy:
         type: Recreate
-      podAnnotations:
-        backup.velero.io/backup-volumes: storage
       persistence:
         enabled: true
         storageClassName: longhorn
@@ -46,14 +44,6 @@ spec:
         #GF_DISABLE_SANITIZE_HTML: true
         #GF_PANELS_DISABLE_SANITIZE_HTML: true
         #VAR_BLOCKY_URL: "http://blocky.default.svc.cluster.local:4000"
-      ingress:
-        enabled: true
-        annotations:
-          kubernetes.io/ingress.class: "nginx"
-        hosts: [grafana.eviljungle.com]
-        tls:
-          - hosts:
-              - grafana.eviljungle.com
       plugins:
         - natel-discrete-panel
         - pr0ps-trackmap-panel
@@ -115,7 +105,7 @@ spec:
         - name: loki
           type: loki
           access: proxy
-          url: http://loki.logs.svc.cluster.local:3100
+          url: http://loki.logs.svc.uk.msrpi.com:3100
 
       grafana.ini:
         paths:
