@@ -75,7 +75,7 @@ spec:
         memory: "50Mi"
       limits:
         cpu: "300m"
-        memory: "150Mi"
+        memory: "350Mi"
     ingressRoute:
       dashboard:
         enabled: false
