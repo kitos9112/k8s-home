@@ -5,3 +5,4 @@ objstore:
     bucket: "{{ .THANOS_AWS_S3_BUCKET }}"
     access_key: "{{ .THANOS_AWS_ACCESS_KEY_ID }}"
     secret_key: "{{ .THANOS_AWS_SECRET_KEY }}"
+    endpoint: "s3-accesspoint.eu-west-2.amazonaws.com"
