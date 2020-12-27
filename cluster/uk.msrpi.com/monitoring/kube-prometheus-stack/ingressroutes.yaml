@@ -1,0 +1,23 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`grafana.uk.msrpi.com`)
+      kind: Rule
+      services:
+        - name: grafana
+          namespace: monitoring
+          port: 3000
+          scheme: http
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: kube-system
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: grafana.uk.msrpi.com

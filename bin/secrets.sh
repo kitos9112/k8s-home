@@ -40,7 +40,7 @@ function process_secrets() {
 
 # process_values .values.yaml
 function process_values() {
-  echo "values.yaml: $(expand_template_file ${1} | base64)" | yq eval '{"data": .}' -
+  echo "values.yaml: $(expand_template_file ${1} | base64 -w 0)" | yq eval '{"data": .}' -
 }
 
 # file data-file
@@ -72,15 +72,17 @@ function seal() {
 function refresh_secrets() {
   # *.values.yaml
   while IFS= read -r -d '' file
-  do
+  do   
     write_sealed_secret "${file}" "-values" <(process_values ${file})
-  done <  <(find cluster -type f -name '*.values.yaml' -print0)
+    echo "processed values from ${file}"
+  done <  <(find "$(pwd -P)/cluster" -type f -name '*.values.yaml' -print0)
 
   # *.secrets.yaml
   while IFS= read -r -d '' file
   do
     write_sealed_secret "${file}" "" <(process_secrets ${file})
-  done <  <(find cluster -type f -name '*.secrets.yaml' -print0)
+    echo "processed secrets from ${file}"
+  done <  <(find "$(pwd -P)/cluster" -type f -name '*.secrets.yaml' -print0)
 }
 
 function write_kustomization() {
@@ -100,7 +102,7 @@ function wipe_secrets() {
 function check_secret_exists() {
   file=${1}
   resourceSuffix=${2}
-
+  exit 0
   base=$(basename "${file}")
   parent=$(dirname "${file}")
   ns=$(extract_ns "${parent}")
@@ -136,7 +138,8 @@ function usage() {
 
 [[ -z "$1" ]] && usage
 
-CLUSTER="cluster/uk.msrpi.com/secrets"
+script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
+CLUSTER="${script_dir}/../cluster/uk.msrpi.com/secrets"
 case "$1" in
   check)
     check_secrets "${@:2}"

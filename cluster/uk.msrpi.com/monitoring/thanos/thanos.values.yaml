@@ -1,0 +1,7 @@
+objstore:
+  type: S3
+  config:
+    region: "{{ .THANOS_AWS_REGION }}"
+    bucket: "{{ .THANOS_AWS_S3_BUCKET }}"
+    access_key: "{{ .THANOS_AWS_ACCESS_KEY_ID }}"
+    secret_key: "{{ .THANOS_AWS_SECRET_KEY }}"
