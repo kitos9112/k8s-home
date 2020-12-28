@@ -1,0 +1,7 @@
+loki:
+  config:
+    storage_config:
+      aws:
+        s3: "s3://{{ .LOKI_AWS_ACCESS_KEY_ID }}:{{ .LOKI_AWS_SECRET_KEY }}@{{ .LOKI_AWS_REGION }}/loki"
+        s3forcepathstyle: true
+        bucketnames: "{{ .LOKI_AWS_S3_BUCKET }}"

@@ -105,7 +105,7 @@ spec:
         - name: loki
           type: loki
           access: proxy
-          url: http://loki.logs.svc.uk.msrpi.com:3100
+          url: http://loki:3100
 
       grafana.ini:
         paths:
