@@ -102,10 +102,6 @@ spec:
           access: proxy
           url: http://thanos-query-http:10902/
           isDefault: true
-        - name: loki
-          type: loki
-          access: proxy
-          url: http://loki:3100
 
       grafana.ini:
         paths:
