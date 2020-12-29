@@ -100,35 +100,36 @@ podDisruptionBudget: {}
 
 # Available collectors for kube-state-metrics. By default all available
 # collectors are enabled.
-collectors:
-  certificatesigningrequests: true
-  configmaps: true
-  cronjobs: true
-  daemonsets: true
-  deployments: true
-  endpoints: true
-  horizontalpodautoscalers: true
-  ingresses: true
-  jobs: true
-  limitranges: true
-  mutatingwebhookconfigurations: true
-  namespaces: true
-  networkpolicies: true
-  nodes: true
-  persistentvolumeclaims: true
-  persistentvolumes: true
-  poddisruptionbudgets: true
-  pods: true
-  replicasets: true
-  replicationcontrollers: true
-  resourcequotas: true
-  secrets: true
-  services: true
-  statefulsets: true
-  storageclasses: true
-  validatingwebhookconfigurations: true
-  verticalpodautoscalers: false
-  volumeattachments: true
+args:
+  resources:
+    certificatesigningrequests: true
+    configmaps: true
+    cronjobs: true
+    daemonsets: true
+    deployments: true
+    endpoints: true
+    horizontalpodautoscalers: true
+    ingresses: true
+    jobs: true
+    limitranges: true
+    mutatingwebhookconfigurations: true
+    namespaces: true
+    networkpolicies: true
+    nodes: true
+    persistentvolumeclaims: true
+    persistentvolumes: true
+    poddisruptionbudgets: true
+    pods: true
+    replicasets: true
+    replicationcontrollers: true
+    resourcequotas: true
+    secrets: true
+    services: true
+    statefulsets: true
+    storageclasses: true
+    validatingwebhookconfigurations: true
+    verticalpodautoscalers: false
+    volumeattachments: true
 
 # Enabling kubeconfig will pass the --kubeconfig argument to the container
 kubeconfig:
@@ -136,7 +137,7 @@ kubeconfig:
   # base64 encoded kube-config file
   secret:
 
-# Namespace to be enabled for collecting resources. By default all namespaces are collected.
+# Namespace to be enabled for collecting resources. By default all namespace are collected.
 # namespace: ""
 
 ## Override the deployment namespace
