@@ -19,5 +19,5 @@ spec:
   values:
     image:
       registry: k8s.gcr.io
-      repository: kube-state-metrics-arm64
+      repository: kube-state-metrics/kube-state-metrics
       tag: v2.0.0-beta
