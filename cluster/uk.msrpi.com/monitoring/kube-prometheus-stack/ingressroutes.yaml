@@ -10,7 +10,7 @@ spec:
     - match: Host(`grafana.uk.msrpi.com`)
       kind: Rule
       services:
-        - name: kube-prometheus-stack-grafana
+        - name: grafana
           namespace: monitoring
           port: 80
           scheme: http
