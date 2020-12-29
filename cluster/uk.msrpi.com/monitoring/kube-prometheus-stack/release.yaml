@@ -16,8 +16,23 @@ spec:
         namespace: flux-system
       interval: 5m
   timeout: 20m
+  test:
+    enable: false # Enable helm test
+  install:
+    remediation: # perform remediation when helm install fails
+      retries: 3
+  upgrade:
+    remediation: # perform remediation when helm upgrade fails
+      retries: 3
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
   values:
     alertmanager:
+      fullnameOverride: alertmanager
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -30,6 +45,7 @@ spec:
       retention: 120h
 
     grafana:
+      fullnameOverride: grafana
       enabled: true
       deploymentStrategy:
         type: Recreate
@@ -48,8 +64,11 @@ spec:
         - natel-discrete-panel
         - pr0ps-trackmap-panel
         - grafana-piechart-panel
+        - vonage-status-panel
+        - grafana-worldmap-panel
+        - btplc-status-dot-panel
+        - cloudflare-app
         - grafana-clock-panel
-        - https://github.com/panodata/grafana-map-panel/releases/download/0.9.0/grafana-map-panel-0.9.0.zip;grafana-worldmap-panel-ng
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
@@ -96,6 +115,7 @@ spec:
         dashboards:
           enabled: true
           searchNamespace: ALL
+
       additionalDataSources:
         - name: Prometheus
           type: prometheus
@@ -118,8 +138,11 @@ spec:
 
     prometheusOperator:
       enabled: true
+      manageCrds: true
+      createCustomResource: true
 
     nodeExporter:
+      fullnameOverride: node-exporter
       enabled: true
       serviceMonitor:
         relabelings:
@@ -140,6 +163,7 @@ spec:
             targetLabel: instance
 
     prometheus:
+      fullnameOverride: prometheus
       prometheusSpec:
         # image:
         #   repository: quay.io/prometheus/prometheus
@@ -179,13 +203,13 @@ spec:
       enabled: false
 
     kubeControllerManager:
-      enabled: false
+      enabled: true
 
     kubeScheduler:
-      enabled: false
+      enabled: true
 
     kubeProxy:
-      enabled: false
+      enabled: true
 
   valuesFrom:
     - kind: Secret
