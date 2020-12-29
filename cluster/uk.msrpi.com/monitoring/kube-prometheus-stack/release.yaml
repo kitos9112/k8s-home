@@ -172,6 +172,9 @@ spec:
             name: thanos
             key: object-store.yaml
 
+  kubeStateMetrics:
+    enabled: false
+
     kubeEtcd:
       enabled: false
 
