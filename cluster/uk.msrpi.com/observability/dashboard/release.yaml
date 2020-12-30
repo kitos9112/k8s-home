@@ -32,10 +32,10 @@ spec:
         traefik.ingress.kubernetes.io/router.tls: "true"
         traefik.ingress.kubernetes.io/router.tls.certresolver: "cloudflare"
         traefik.ingress.kubernetes.io/router.tls.domains.0.main: "dashboard.uk.msrpi.com"
-      persistence:
-        config:
-          enabled: true
-          storageClass: longhorn
-          accessMode: ReadWriteOnce
-          size: 1Gi
-          mountPath: /config
+    persistence:
+      config:
+        enabled: true
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        mountPath: /config
