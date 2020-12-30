@@ -9,6 +9,7 @@ spec:
   releaseName: sealed-secrets
   chart:
     spec:
+      # renovate: registryUrl=https://bitnami-labs.github.io/sealed-secrets/
       chart: sealed-secrets
       version: 1.13.2-r2
       sourceRef:

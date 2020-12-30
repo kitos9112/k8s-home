@@ -9,6 +9,7 @@ spec:
   releaseName: traefik
   chart:
     spec:
+      # renovate: registryUrl=https://helm.traefik.io/traefik
       chart: traefik
       version: 9.11.0
       sourceRef:

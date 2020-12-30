@@ -8,6 +8,7 @@ spec:
   releaseName: observability-jaeger
   chart:
     spec:
+      # renovate: registryUrl=https://jaegertracing.github.io/helm-charts
       chart: jaeger-operator
       version: 2.18.0
       sourceRef:

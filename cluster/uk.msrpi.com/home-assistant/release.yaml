@@ -9,6 +9,7 @@ spec:
   releaseName: home-assistant-core
   chart:
     spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts
       chart: home-assistant
       version: 5.2.1
       sourceRef:
