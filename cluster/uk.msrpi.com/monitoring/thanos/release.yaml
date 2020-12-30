@@ -26,6 +26,10 @@ spec:
       stores:
         - dnssrv+_grpc._tcp.thanos-store-grpc
         - dnssrv+_grpc._tcp.thanos-sidecar-grpc
+      storeDNSDiscovery: false
+      sidecarDNSDiscovery: false
+      ruleDNSDiscovery: false
+
     compact:
       retentionResolutionRaw: 7d
       # How long to retain samples of resolution 1 (5 minutes) in bucket. 0d - disables this retention
