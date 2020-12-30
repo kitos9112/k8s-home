@@ -3,7 +3,6 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
   name: home-cluster
-  namespace: flux-system
 spec:
   providerRef:
     name: discord
@@ -19,7 +18,6 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
   name: helmreleases
-  namespace: flux-system
 spec:
   providerRef:
     name: discord
