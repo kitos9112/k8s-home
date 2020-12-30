@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: observability
 
 resources:
-  - namespace.yaml
   - release.yaml
