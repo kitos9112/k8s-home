@@ -28,7 +28,14 @@ spec:
       annotations:
         kubernetes.io/ingress.class: "traefik"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        traefik.ingress.kubernetes.io/router.middlewares: "kube-system-traefik-forward-auth"
+        traefik.ingress.kubernetes.io/router.middlewares: "kube-system-traefik-forward-auth@kubernetescrd"
         traefik.ingress.kubernetes.io/router.tls: "true"
         traefik.ingress.kubernetes.io/router.tls.certresolver: "cloudflare"
         traefik.ingress.kubernetes.io/router.tls.domains.0.main: "dashboard.uk.msrpi.com"
+      persistence:
+        config:
+          enabled: true
+          storageClass: longhorn
+          accessMode: ReadWriteOnce
+          size: 1Gi
+          mountPath: /config
