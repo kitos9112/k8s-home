@@ -15,6 +15,4 @@ resources:
   - helm-chart-repositories/sealed-secrets.yaml
   - helm-chart-repositories/traefik.yaml
   - monitoring/flux-podmonitors.yaml
-# kustomize edit add resource discord-notifications/*.yaml
-# kustomize edit add resource helm-chart-repositories/*.yaml
-# kustomize edit add resource monitoring/*.yaml
+  - helm-chart-repositories/minio.yaml
