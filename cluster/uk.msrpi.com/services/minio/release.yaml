@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minio
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://helm.min.io/
+      chart: minio
+      version: 8.0.9
+      sourceRef:
+        kind: HelmRepository
+        name: minio-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: minio/minio
+      tag: RELEASE.2020-12-29T23-29-29Z
+    mcImage:
+      repository: minio/mc
+      tag: RELEASE.2020-12-18T10-53-53Z
+    helmKubectlJqImage:
+      repository: drnic/kubectl
+      tag: 1.16
+    persistence:
+      storageClass: longhorn
+      subPath: "minio"
+      accessMode: ReadWriteOnce
+      size: 75Gi
+    buckets:
+      - name: logs
+        policy: none
+        purge: false
+      - name: metrics
+        policy: none
+        purge: false
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "traefik"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        traefik.ingress.kubernetes.io/router.middlewares: "kube-system-traefik-forward-auth@kubernetescrd"
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        traefik.ingress.kubernetes.io/router.tls.certresolver: "cloudflare"
+        traefik.ingress.kubernetes.io/router.tls.domains.0.main: "minio.uk.msrpi.com"
+      hosts: [minio.uk.msrpi.com]
+      tls:
+        - hosts:
+            - minio.uk.msrpi.com
+    tolerations:
+      - key: "arm"
+        operator: "Exists"
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 1000Mi
+    securityContext:
+      enabled: false
+    metrics:
+      serviceMonitor:
+        enabled: true
+    nasgateway:
+      enabled: true
+      # Number of parallel instances
+      replicas: 1
+  valuesFrom:
+    - kind: Secret
+      name: "minio-values"
+      optional: false
