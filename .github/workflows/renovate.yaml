@@ -19,7 +19,6 @@ jobs:
           mkdir -p /tmp/bin
           echo "/tmp/bin" >> $GITHUB_PATH
           curl -sL -o "/tmp/bin/yq" "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
-          yq --version
 
       - name: Create HelmRelease annotations
         run: ./bin/create-helmrelease-annotations.sh
