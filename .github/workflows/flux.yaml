@@ -1,37 +1,42 @@
-# name: update-flux
+name: update-flux
 
-# on:
-#   workflow_dispatch:
-#   schedule:
-#     - cron: "0 0 * * *"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
 
-# jobs:
-#   components:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Check out code
-#         uses: actions/checkout@v2
-#       - name: Setup Flux CLI
-#         uses: billimek/flux2/action@isolate_flux_binary
-#       - name: Check for updates
-#         id: update
-#         run: |
-#           bin/flux install --arch=amd64 \
-#             --export > ./flux-system/gotk-components.yaml
+jobs:
+  flux-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
 
-#           VERSION="$(bin/flux -v)"
-#           echo "::set-output name=flux_version::$VERSION"
-#       - name: Create Pull Request
-#         uses: peter-evans/create-pull-request@v3
-#         with:
-#             token: ${{ secrets.GITHUB_TOKEN }}
-#             branch: update-flux
-#             commit-message: Update to ${{ steps.update.outputs.flux_version }}
-#             signoff: true
-#             committer: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
-#             author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
-#             title: Update to ${{ steps.update.outputs.flux_version }}
-#             body: |
-#               ${{ steps.update.outputs.flux_version }}
-#               Signed-off-by: Jeff Billimek <billimek@users.noreply.github.com>
-#             labels: dependencies
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@main
+
+      - name: Update Flux components
+        id: update
+        run: |
+          CURRENT_VERSION="$(flux -v)"
+          DESIRED_VERSION="v${CURRENT_VERSION#*flux --version }"
+          flux install --arch=arm64 \
+            --export > ./cluster/uk.msrpi.com/flux-system/gotk-components.yaml
+          echo "::set-output name=flux_version::$DESIRED_VERSION"
+
+      - name: Create pull request for Flux update
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.PAT }}
+          branch: "flux/update-${{ steps.update.outputs.flux_version }}"
+          delete-branch: true
+          title: "Update Flux components to ${{ steps.update.outputs.flux_version }} [ci-skip]"
+          signoff: true
+          committer: "Marcos Soutullo Rodriguez <marcos.soutullo91@gmail.com>"
+          author: "Marcos Soutullo Rodriguez <marcos.soutullo91@gmail.com>"
+          assignees: "kitos9112"
+          commit-message: "Update Flux components to ${{ steps.update.outputs.flux_version }} [ci-skip]"
+          body: |
+            Release notes: https://github.com/fluxcd/flux2/releases/tag/${{ steps.update.outputs.flux_version }}
+          labels: flux/update

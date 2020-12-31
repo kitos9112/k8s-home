@@ -16,13 +16,11 @@ jobs:
 
       - name: Install yq
         run: |
-          mkdir -p "${GITHUB_WORKSPACE}/bin"
-          echo "${GITHUB_WORKSPACE}/bin" >> $GITHUB_PATH
-          curl -sL -o "${GITHUB_WORKSPACE}/bin/yq" "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
-          chmod +x "${GITHUB_WORKSPACE}/bin/yq"
+          curl -sL -o "/tmp/yq" "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
+          install /tmp/yq /usr/bin
 
       - name: Create HelmRelease annotations
-        run: ./.github/create-helmrelease-annotations.sh
+        run: ./bin/create-helmrelease-annotations.sh
 
       - name: Create pull request for HelmRelease annotations
         uses: peter-evans/create-pull-request@v3
@@ -30,10 +28,10 @@ jobs:
           token: ${{ secrets.PAT }}
           branch: helm-release-annotations
           delete-branch: true
-          title: "[renovate] Create/Update HelmRelease A+nnotations [ci-skip]"
+          title: "[renovate] Create/Update HelmRelease Annotations [ci-skip]"
           signoff: true
-          committer: " Marcos Soutullo Rodriguez <marcos.soutullo91@gmail.com>"
-          author: " Marcos Soutullo Rodriguez <marcos.soutullo91@gmail.com>"
+          committer: "Marcos Soutullo Rodriguez <marcos.soutullo91@gmail.com>"
+          author: "Marcos Soutullo Rodriguez <marcos.soutullo91@gmail.com>"
           assignees: "kitos9112"
           commit-message: "Update HelmRelease annotations for Renovate [ci-skip]"
           body: |
