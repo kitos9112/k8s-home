@@ -16,6 +16,11 @@ for helm_release in $(find ${CLUSTER_ROOT} -name "*.yaml"); do
     # ignore flux-system namespace
     # ignore wrong apiVersion
     # ignore non HelmReleases
+
+    if [[ "${helm_release}" =~ .*"monitoring/kube-prometheus-stack/kube-state-metrics".* ]]; then
+        continue
+    fi
+
     if [[ "${helm_release}" =~ "flux-system"
         || $(yq eval '.apiVersion' "${helm_release}") != "helm.toolkit.fluxcd.io/v2beta1"
         || $(yq eval '.kind' "${helm_release}") != "HelmRelease" ]]; then

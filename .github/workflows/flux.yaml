@@ -22,7 +22,8 @@ jobs:
           CURRENT_VERSION="$(flux -v)"
           DESIRED_VERSION="v${CURRENT_VERSION#*flux version }"
           flux install --arch=arm64 \
-            --export > ./cluster/uk.msrpi.com/flux-system/gotk-components.yaml
+                       --cluster-domain=uk.msrpi.com \
+                       --export > ./cluster/uk.msrpi.com/flux-system/gotk-components.yaml
           echo "::set-output name=flux_version::$DESIRED_VERSION"
           rm -rf bin/flux
 
