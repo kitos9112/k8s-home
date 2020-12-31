@@ -10,4 +10,3 @@ spec:
   channel: flux
   secretRef:
     name: discord-notifications
-    
