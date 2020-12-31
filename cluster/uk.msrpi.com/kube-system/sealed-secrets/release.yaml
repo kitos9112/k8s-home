@@ -30,11 +30,9 @@ spec:
     #   namespace:
     #   # The timeout after which the scrape is ended
     #   scrapeTimeout:
-    # dashboards:
-    #   # If enabled, sealed-secrets will create a configmap with a dashboard in json that's going to be picked up by grafana
-    #   # See https://github.com/helm/charts/tree/master/stable/grafana#configuration - `sidecar.dashboards.enabled`
-    #   create: false
-    #   # Extra labels to apply to the dashboard configmaps
-    #   labels:
-    #   # The namespace where the dashboards are deployed, defaults to the installation namespace
-    #   namespace:
+    dashboards:
+      # If enabled, sealed-secrets will create a configmap with a dashboard in json that's going to be picked up by grafana
+      # See https://github.com/helm/charts/tree/master/stable/grafana#configuration - `sidecar.dashboards.enabled`
+      create: true
+      # The namespace where the dashboards are deployed, defaults to the installation namespace
+      namespace: monitoring
