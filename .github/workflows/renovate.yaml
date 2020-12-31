@@ -16,8 +16,9 @@ jobs:
 
       - name: Install yq
         run: |
-          curl -sL -o "/tmp/yq" "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
-          install /tmp/yq /usr/bin
+          mkdir -pv /tmp/bin
+          curl -sL -o "/tmp/bin/yq" "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
+          echo "::add-path::/tmp/bin"
 
       - name: Create HelmRelease annotations
         run: ./bin/create-helmrelease-annotations.sh
