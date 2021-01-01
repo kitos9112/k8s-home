@@ -21,6 +21,8 @@ spec:
       #   repository: grafana/loki
       #   tag: 1.5.0
       replicas: 2
+      ingress:
+        enabled: false
       persistence:
         enabled: false
       config:
