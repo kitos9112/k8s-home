@@ -23,6 +23,21 @@ spec:
       replicas: 2
       persistence:
         enabled: false
+      ingress:
+        enabled: true
+        hosts:
+          - host: "loki.uk.msrpi.com"
+            paths:
+              - path: /
+                pathType: Prefix
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "kube-system-traefik-forward-auth@kubernetescrd"
+          traefik.ingress.kubernetes.io/router.tls: "true"
+          traefik.ingress.kubernetes.io/router.tls.certresolver: "cloudflare"
+          traefik.ingress.kubernetes.io/router.tls.domains.0.main: "loki.uk.msrpi.com"
+
       config:
         auth_enabled: false
         server:
