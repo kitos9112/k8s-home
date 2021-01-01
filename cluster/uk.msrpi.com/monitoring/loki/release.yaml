@@ -27,9 +27,6 @@ spec:
         enabled: true
         hosts:
           - host: "loki.uk.msrpi.com"
-            paths:
-              - path: /
-                pathType: Prefix
         annotations:
           kubernetes.io/ingress.class: "traefik"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
