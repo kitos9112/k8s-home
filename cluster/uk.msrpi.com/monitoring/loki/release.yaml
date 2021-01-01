@@ -85,12 +85,6 @@ spec:
       # image:
       #   repository: grafana/promtail
       #   tag: 1.5.0
-      loki:
-        serviceName: 
-        servicePort: 3100
-        serviceScheme: http
-        # user: user
-        # password: pass
       serviceMonitor:
         enabled: true
       tolerations:
