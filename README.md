@@ -1,12 +1,14 @@
 # K8S @ HOME
 
 This repo contains my home infrastructure defined as Kubernetes manifests and other helper scripts.
-I am a firm believe in GitOps and Kubernetes as the defacto cloud orchestrator.
+I am a firm believer in GitOps and Kubernetes as the defacto cloud orchestrator.
+
+## Services running in the cluster
+#TODO
 
 ## Bootstrap cluster using Flux
 
 ```sh
-export GITHUB_TOKEN=0b4c09c596f1
 flux bootstrap github --arch=arm64 \
                       --branch=master \
                       --cluster-domain=uk.msrpi.com \
@@ -16,9 +18,8 @@ flux bootstrap github --arch=arm64 \
                       --path=./cluster/uk.msrpi.com
 ```
 
-# Handle secrets using Bitnami kubesealed controller
-
-
+## Handle secrets using Bitnami kubesealed controller
+#TODO
 
 ## Uninstall FluxCD alongside all CRDs
 
