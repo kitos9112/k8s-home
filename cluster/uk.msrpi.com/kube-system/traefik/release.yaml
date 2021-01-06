@@ -43,7 +43,6 @@ spec:
           headers:
             names:
               X-Forwarded-User: keep
-
     additionalArguments:
       - --providers.file.filename=/data/traefik-config.yaml
       - --entrypoints.websecure.http.tls.certresolver=cloudflare
@@ -95,3 +94,8 @@ spec:
       enabled: true
       existingClaim: traefik-certs-pvc
       path: /etc/traefik/certs
+    tlsOptions:
+      default:
+        sniStrict: true
+        minVersion: "VersionTLS13"
+        preferServerCipherSuites: true
