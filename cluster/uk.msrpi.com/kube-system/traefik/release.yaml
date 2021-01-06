@@ -88,8 +88,8 @@ spec:
         tls:
           enabled: true
           certResolver: cloudflare
-          domains:
-            - name: "*.uk.msrpi.com"
+          # domains:
+          #   - name: "*.uk.msrpi.com"
     persistence:
       enabled: true
       existingClaim: traefik-certs-pvc
