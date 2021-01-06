@@ -1,3 +1,3 @@
-traefik/dashboard.yaml
-tests/**
-apps.old
+# IDEs
+.vscode
+idea

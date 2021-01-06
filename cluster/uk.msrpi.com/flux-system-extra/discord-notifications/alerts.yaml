@@ -2,7 +2,8 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
-  name: home-cluster
+  name: k8s-home
+  namespace: flux-system
 spec:
   providerRef:
     name: discord
@@ -18,12 +19,31 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
   name: helmreleases
+  namespace: flux-system
 spec:
   providerRef:
     name: discord
-  eventSeverity: info
+  eventSeverity: error
   eventSources:
     - kind: HelmRelease
-      namespace: "*"
+      namespace: "kube-system"
+      name: "*"
+    - kind: HelmRelease
+      namespace: "longhorn-system"
+      name: "*"
+    - kind: HelmRelease
+      namespace: "home-assistant"
+      name: "*"
+    - kind: HelmRelease
+      namespace: "flux-system"
+      name: "*"
+    - kind: HelmRelease
+      namespace: "minio"
+      name: "*"
+    - kind: HelmRelease
+      namespace: "observability"
+      name: "*"
+    - kind: HelmRelease
+      namespace: "monitoring"
       name: "*"
   suspend: false
