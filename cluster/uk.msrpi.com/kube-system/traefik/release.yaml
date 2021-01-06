@@ -36,7 +36,7 @@ spec:
       isDefaultClass: true
     logs:
       general:
-        level: DEBUG
+        level: INFO
       access:
         enabled: true
         fields:
@@ -88,8 +88,8 @@ spec:
         tls:
           enabled: true
           certResolver: cloudflare
-          # domains:
-          #   - name: "*.uk.msrpi.com"
+          domains:
+            - name: "*.uk.msrpi.com"
     persistence:
       enabled: true
       existingClaim: traefik-certs-pvc
@@ -105,4 +105,3 @@ spec:
         curvePreferences:
           - CurveP521
           - CurveP384
-        sniStrict: true
