@@ -94,8 +94,8 @@ spec:
       enabled: true
       existingClaim: traefik-certs-pvc
       path: /etc/traefik/certs
-    # tlsOptions:
-    #   default:
-    #     sniStrict: true
-    #     minVersion: "VersionTLS13"
-    #     preferServerCipherSuites: true
+    tlsOptions:
+      kube-system:
+        sniStrict: true
+        minVersion: "VersionTLS13"
+        preferServerCipherSuites: true
