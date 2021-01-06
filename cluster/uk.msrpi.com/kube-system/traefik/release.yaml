@@ -98,4 +98,3 @@ spec:
       kube-system:
         sniStrict: true
         minVersion: "VersionTLS13"
-        preferServerCipherSuites: true
