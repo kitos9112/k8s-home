@@ -22,7 +22,7 @@ jobs:
           chmod +x "/tmp/bin/yq"
 
       - name: Create HelmRelease annotations
-        run: ./bin/create-helmrelease-annotations.sh
+        run: ./hack/create-helmrelease-annotations.sh
 
       - name: Create pull request for HelmRelease annotations
         uses: peter-evans/create-pull-request@v3

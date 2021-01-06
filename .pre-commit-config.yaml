@@ -28,6 +28,6 @@ repos:
     hooks:
       - id: check-secrets
         name: Ensure Secrets Exist
-        entry: bin/secrets.sh check
+        entry: hack/secrets.sh check
         language: script
         files: \.(crypt\.env|values\.yaml)$
