@@ -25,7 +25,6 @@ jobs:
                        --cluster-domain=uk.msrpi.com \
                        --export > ./cluster/uk.msrpi.com/flux-system/gotk-components.yaml
           echo "::set-output name=flux_version::$DESIRED_VERSION"
-          rm -rf bin/flux
 
       - name: Create pull request for Flux update
         uses: peter-evans/create-pull-request@v3
