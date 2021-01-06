@@ -1,3 +1,4 @@
+---
 loki:
   config:
     storage_config:

@@ -33,5 +33,5 @@ jobs:
       - name: Lint shell scripts
         uses: reviewdog/action-shellcheck@v1
         with:
-          path: "./bin"
+          path: "./hack"
           level: "error"

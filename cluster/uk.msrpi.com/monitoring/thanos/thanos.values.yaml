@@ -1,3 +1,4 @@
+---
 objstore:
   type: S3
   config:

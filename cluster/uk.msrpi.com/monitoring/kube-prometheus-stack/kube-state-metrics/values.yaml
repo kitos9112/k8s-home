@@ -1,3 +1,4 @@
+---
 # Default values for kube-state-metrics.
 prometheusScrape: true
 image:

@@ -1,3 +1,4 @@
+---
 grafana:
   adminPassword: "{{ .GRAFANA_ADMIN_PASSWORD }}"
   grafana.ini:

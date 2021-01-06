@@ -57,9 +57,9 @@ spec:
           - ReadWriteOnce
       env:
         GF_EXPLORE_ENABLED: true
-        #GF_DISABLE_SANITIZE_HTML: true
-        #GF_PANELS_DISABLE_SANITIZE_HTML: true
-        #VAR_BLOCKY_URL: "http://blocky.default.svc.cluster.local:4000"
+        # GF_DISABLE_SANITIZE_HTML: true
+        # GF_PANELS_DISABLE_SANITIZE_HTML: true
+        # VAR_BLOCKY_URL: "http://blocky.default.svc.cluster.local:4000"
       plugins:
         - natel-discrete-panel
         - pr0ps-trackmap-panel
@@ -92,7 +92,6 @@ spec:
           1-node-exporter:
             url: https://grafana.com/api/dashboards/11074/revisions/9/download
             datasource: Prometheus
-
 
       sidecar:
         datasources:

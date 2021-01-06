@@ -61,12 +61,13 @@ function write_sealed_secret() {
   yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' \
               <(secret_template ${ns} ${sealedName}) ${3} \
               | seal > "${sealedFile}"
+  sed -i '1i ---' ${sealedFile}
 }
-
+ 
 function seal() {
   kubeseal --controller-name=sealed-secrets --format=yaml \
     | yq eval 'del(.spec.template)' - \
-    | yq eval 'del(.metadata.creationTimestamp)' -
+    | yq eval 'del(.metadata.creationTimestamp)' - 
 }
 
 function refresh_secrets() {
@@ -87,6 +88,7 @@ function refresh_secrets() {
 
 function write_kustomization() {
   cat <<EOF | sed -r 's/^ {4}//' > ${CLUSTER}/kustomization.yaml
+    ---
     apiVersion: kustomize.config.k8s.io/v1beta1
     kind: Kustomization
     resources:
