@@ -1,3 +1,6 @@
 # IDEs
 .vscode
 idea
+
+# To update flux using Github actions
+bin/
