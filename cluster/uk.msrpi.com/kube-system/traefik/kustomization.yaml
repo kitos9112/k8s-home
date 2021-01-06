@@ -9,6 +9,7 @@ resources:
   - release.yaml
   - middleware-bauth.yaml
   - dashboard.yaml
+  - service-monitor.yaml
 
 configMapGenerator:
   - name: traefik-config

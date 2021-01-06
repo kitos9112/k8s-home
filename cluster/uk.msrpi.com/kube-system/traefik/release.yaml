@@ -53,9 +53,8 @@ spec:
       - --certificatesResolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
       - --certificatesResolvers.cloudflare.acme.dnsChallenge.delayBeforeCheck=0
       - --metrics.prometheus=true
-      # - --entryPoints.metrics.address=:8082
+      - --entrypoints.metrics.address=:9090/tcp
       - --metrics.prometheus.entryPoint=metrics
-      #  - "--providers.kubernetesingress.ingressclass=traefik-internal"
     envFrom:
       - secretRef:
           name: traefik-env
