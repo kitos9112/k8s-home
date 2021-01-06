@@ -24,6 +24,3 @@ spec:
     certResolver: cloudflare
     domains:
       - main: traefik.uk.msrpi.com
-    options:
-      name: kube-system
-      namespace: kube-system
