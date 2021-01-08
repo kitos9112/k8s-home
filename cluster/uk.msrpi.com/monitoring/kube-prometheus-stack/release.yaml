@@ -31,19 +31,6 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    alertmanager:
-      fullnameOverride: alertmanager
-      alertmanagerSpec:
-        storage:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: longhorn
-              accessModes: ["ReadWriteOnce"]
-              resources:
-                requests:
-                  storage: 10Gi
-      retention: 120h
-
     prometheusOperator:
       enabled: true
       manageCrds: true
@@ -90,4 +77,7 @@ spec:
       optional: false
     - kind: Secret
       name: "prometheus-values"
+      optional: false
+    - kind: Secret
+      name: "alertmanager-values"
       optional: false
