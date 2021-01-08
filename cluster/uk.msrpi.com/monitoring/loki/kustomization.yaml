@@ -6,4 +6,3 @@ namespace: monitoring
 
 resources:
   - release.yaml
-  # - ingressroutes.yaml

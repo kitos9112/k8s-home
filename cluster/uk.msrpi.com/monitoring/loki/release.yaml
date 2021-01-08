@@ -137,5 +137,5 @@ spec:
 
   valuesFrom:
     - kind: Secret
-      name: "loki-stack-values"
+      name: "loki-values"
       optional: false
