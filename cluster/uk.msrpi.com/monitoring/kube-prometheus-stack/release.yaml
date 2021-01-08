@@ -88,3 +88,6 @@ spec:
     - kind: Secret
       name: "grafana-values"
       optional: false
+    - kind: Secret
+      name: "prometheus-values"
+      optional: false
