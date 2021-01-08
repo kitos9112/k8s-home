@@ -1,0 +1,104 @@
+---
+grafana:
+  # image:
+  #   repository: grafana/grafana
+  #   tag: 7.3.5
+  #adminPassword: "{{ .GRAFANA_ADMIN_PASSWORD }}"
+  fullnameOverride: grafana
+  enabled: true
+  deploymentStrategy:
+    type: Recreate
+  persistence:
+    enabled: true
+    storageClassName: longhorn
+    size: 5Gi
+    accessModes:
+      - ReadWriteOnce
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+    path: /
+    hosts:
+      - grafana.uk.msrpi.com
+    ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
+    extraPaths: []
+    # - path: /*
+    #   backend:
+    #     serviceName: ssl-redirect
+    #     servicePort: use-annotation
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  env:
+    GF_EXPLORE_ENABLED: true
+    # GF_DISABLE_SANITIZE_HTML: true
+    # GF_PANELS_DISABLE_SANITIZE_HTML: true
+    # VAR_BLOCKY_URL: "http://blocky.default.svc.cluster.local:4000"
+  plugins:
+    - natel-discrete-panel
+    - pr0ps-trackmap-panel
+    - grafana-piechart-panel
+    - vonage-status-panel
+    - grafana-worldmap-panel
+    - btplc-status-dot-panel
+    - cloudflare-app
+    - grafana-clock-panel
+
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: "default"
+          orgId: 1
+          folder: ""
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+  dashboards:
+    default:
+      flux-cluster:
+        url: https://raw.githubusercontent.com/fluxcd/flux2/v0.5.7/manifests/monitoring/grafana/dashboards/cluster.json
+        datasource: Prometheus
+      flux-control-plane:
+        url: https://raw.githubusercontent.com/fluxcd/flux2/v0.5.7/manifests/monitoring/grafana/dashboards/control-plane.json
+        datasource: Prometheus
+      1-node-exporter:
+        url: https://grafana.com/api/dashboards/11074/revisions/9/download
+        datasource: Prometheus
+  sidecar:
+    datasources:
+      enabled: true
+      defaultDatasourceEnabled: false
+    dashboards:
+      enabled: true
+      searchNamespace: ALL
+  additionalDataSources:
+    - name: Prometheus
+      type: prometheus
+      access: proxy
+      url: http://thanos-query-http:10902/
+      isDefault: true
+  grafana.ini:
+    auth:
+      disable_login_form: true
+      login_cookie_name: grafana.uk.msrpi.com
+    auth.anonymous:
+      enabled: true
+      org_role: Admin
+    server:
+      root_url: https://grafana.uk.msrpi.com
+    paths:
+      data: /var/lib/grafana/data
+      logs: /var/log/grafana
+      plugins: /var/lib/grafana/plugins
+      provisioning: /etc/grafana/provisioning
+    analytics:
+      check_for_updates: true
+    log:
+      mode: console
+    grafana_net:
+      url: https://grafana.net

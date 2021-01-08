@@ -1,0 +1,34 @@
+---
+prometheus:
+  fullnameOverride: prometheus
+  prometheusSpec:
+    # image:
+    #   repository: quay.io/prometheus/prometheus
+    #   tag: v2.20.0
+    replicas: 1
+    replicaExternalLabelName: "replica"
+    ruleSelector: {}
+    ruleNamespaceSelector: {}
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelector: {}
+    podMonitorNamespaceSelector: {}
+    podMonitorSelectorNilUsesHelmValues: false
+    retention: 6h
+    enableAdminAPI: true
+    walCompression: true
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: longhorn
+          resources:
+            requests:
+              storage: 10Gi
+    thanos:
+      image: raspbernetes/thanos:v0.17.2
+      version: v0.17.2
+      objectStorageConfig:
+        name: thanos
+        key: object-store.yaml

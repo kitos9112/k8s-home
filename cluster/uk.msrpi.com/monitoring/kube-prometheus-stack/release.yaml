@@ -44,83 +44,6 @@ spec:
                   storage: 10Gi
       retention: 120h
 
-    grafana:
-      fullnameOverride: grafana
-      enabled: true
-      deploymentStrategy:
-        type: Recreate
-      persistence:
-        enabled: true
-        storageClassName: longhorn
-        size: 5Gi
-        accessModes:
-          - ReadWriteOnce
-      env:
-        GF_EXPLORE_ENABLED: true
-        # GF_DISABLE_SANITIZE_HTML: true
-        # GF_PANELS_DISABLE_SANITIZE_HTML: true
-        # VAR_BLOCKY_URL: "http://blocky.default.svc.cluster.local:4000"
-      plugins:
-        - natel-discrete-panel
-        - pr0ps-trackmap-panel
-        - grafana-piechart-panel
-        - vonage-status-panel
-        - grafana-worldmap-panel
-        - btplc-status-dot-panel
-        - cloudflare-app
-        - grafana-clock-panel
-      dashboardProviders:
-        dashboardproviders.yaml:
-          apiVersion: 1
-          providers:
-            - name: "default"
-              orgId: 1
-              folder: ""
-              type: file
-              disableDeletion: false
-              editable: true
-              options:
-                path: /var/lib/grafana/dashboards/default
-      dashboards:
-        default:
-          flux-cluster:
-            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.5.7/manifests/monitoring/grafana/dashboards/cluster.json
-            datasource: Prometheus
-          flux-control-plane:
-            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.5.7/manifests/monitoring/grafana/dashboards/control-plane.json
-            datasource: Prometheus
-          1-node-exporter:
-            url: https://grafana.com/api/dashboards/11074/revisions/9/download
-            datasource: Prometheus
-
-      sidecar:
-        datasources:
-          enabled: true
-          defaultDatasourceEnabled: false
-        dashboards:
-          enabled: true
-          searchNamespace: ALL
-
-      additionalDataSources:
-        - name: Prometheus
-          type: prometheus
-          access: proxy
-          url: http://thanos-query-http:10902/
-          isDefault: true
-
-      grafana.ini:
-        paths:
-          data: /var/lib/grafana/data
-          logs: /var/log/grafana
-          plugins: /var/lib/grafana/plugins
-          provisioning: /etc/grafana/provisioning
-        analytics:
-          check_for_updates: true
-        log:
-          mode: console
-        grafana_net:
-          url: https://grafana.net
-
     prometheusOperator:
       enabled: true
       manageCrds: true
@@ -147,40 +70,6 @@ spec:
               - node
             targetLabel: instance
 
-    prometheus:
-      fullnameOverride: prometheus
-      prometheusSpec:
-        # image:
-        #   repository: quay.io/prometheus/prometheus
-        #   tag: v2.20.0
-        replicas: 1
-        replicaExternalLabelName: "replica"
-        ruleSelector: {}
-        ruleNamespaceSelector: {}
-        ruleSelectorNilUsesHelmValues: false
-        serviceMonitorSelector: {}
-        serviceMonitorNamespaceSelector: {}
-        serviceMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelector: {}
-        podMonitorNamespaceSelector: {}
-        podMonitorSelectorNilUsesHelmValues: false
-        retention: 6h
-        enableAdminAPI: true
-        walCompression: true
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: longhorn
-              resources:
-                requests:
-                  storage: 10Gi
-        thanos:
-          image: raspbernetes/thanos:v0.17.2
-          version: v0.17.2
-          objectStorageConfig:
-            name: thanos
-            key: object-store.yaml
-
     kubeControllerManager:
       enabled: true
 
@@ -197,5 +86,5 @@ spec:
       enabled: false
   valuesFrom:
     - kind: Secret
-      name: "kube-prometheus-stack-values"
+      name: "grafana-values"
       optional: false
