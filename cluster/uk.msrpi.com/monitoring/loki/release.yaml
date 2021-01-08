@@ -15,6 +15,7 @@ spec:
         name: grafana
         namespace: flux-system
       interval: 5m
+  forceUpgrade: true
   timeout: 20m
   test:
     enable: false # Enable helm test
