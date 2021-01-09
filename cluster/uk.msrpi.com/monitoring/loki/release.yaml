@@ -23,7 +23,6 @@ spec:
     remediation: # perform remediation when helm install fails
       retries: 3
   upgrade:
-    force: true
     remediation: # perform remediation when helm upgrade fails
       retries: 3
       remediateLastFailure: true # remediate the last failure, when no retries remain
