@@ -5,7 +5,7 @@ metadata:
   name: loki
 spec:
   interval: 5m
-  suspend: true
+  suspend: false
   chart:
     spec:
       # renovate: registryUrl=https://grafana.github.io/helm-charts
