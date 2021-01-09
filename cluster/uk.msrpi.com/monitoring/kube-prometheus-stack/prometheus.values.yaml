@@ -6,6 +6,18 @@ prometheus:
     #   repository: quay.io/prometheus/prometheus
     #   tag: v2.20.0
     replicas: 1
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        traefik.ingress.kubernetes.io/router.middlewares: "kube-system-traefik-forward-auth@kubernetescrd"
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        traefik.ingress.kubernetes.io/router.tls.certresolver: "cloudflare"
+        traefik.ingress.kubernetes.io/router.tls.domains.0.main: "prometheus.uk.msrpi.com"
+      path: /
+      hosts:
+        - prometheus.uk.msrpi.com
     replicaExternalLabelName: "replica"
     ruleSelector: {}
     ruleNamespaceSelector: {}
