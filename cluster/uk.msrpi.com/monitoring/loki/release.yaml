@@ -139,7 +139,7 @@ spec:
               target_label: "syslog_identifier"
       syslogService:
         enabled: true
-        type: LoadBalancer
+        type: ClusterIP
         port: 1514
 
       # Mount journal directory into promtail pods
