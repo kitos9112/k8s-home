@@ -16,22 +16,22 @@ spec:
         name: grafana
         namespace: flux-system
       interval: 5m
-  timeout: 20m
-  test:
-    enable: false # Enable helm test
-  install:
-    remediation: # perform remediation when helm install fails
-      retries: 3
-  upgrade:
-    force: true
-    remediation: # perform remediation when helm upgrade fails
-      retries: 3
-      remediateLastFailure: true # remediate the last failure, when no retries remain
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
+  # timeout: 20m
+  # test:
+  #   enable: false # Enable helm test
+  # install:
+  #   remediation: # perform remediation when helm install fails
+  #     retries: 3
+  # upgrade:
+  #   force: true
+  #   remediation: # perform remediation when helm upgrade fails
+  #     retries: 3
+  #     remediateLastFailure: true # remediate the last failure, when no retries remain
+  #   cleanupOnFail: true
+  # rollback:
+  #   timeout: 10m
+  #   recreate: true
+  #   cleanupOnFail: true
   values:
     loki:
       # image:
