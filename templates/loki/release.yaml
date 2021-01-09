@@ -138,7 +138,7 @@ spec:
             - source_labels: ["__journal_syslog_identifier"]
               target_label: "syslog_identifier"
       syslogService:
-        enabled: true
+        enabled: false
         type: ClusterIP
         port: 1514
 
