@@ -41,3 +41,4 @@ spec:
         accessMode: ReadWriteOnce
         size: 1Gi
         mountPath: /config
+        skipuninstall: true
