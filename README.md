@@ -9,8 +9,7 @@ I am a firm believer in GitOps and Kubernetes as the defacto cloud orchestrator.
 ## Bootstrap cluster using Flux
 
 ```sh
-flux bootstrap github --arch=arm64 \
-                      --branch=master \
+flux bootstrap github --branch=master \
                       --cluster-domain=uk.msrpi.com \
                       --personal \
                       --repository=k8s-home \
