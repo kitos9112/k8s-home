@@ -10,7 +10,6 @@ I am a firm believer in GitOps and Kubernetes as the defacto cloud orchestrator.
 
 ```sh
 flux bootstrap github --branch=master \
-                      --cluster-domain=uk.msrpi.com \
                       --personal \
                       --repository=k8s-home \
                       --owner=kitos9112 \
