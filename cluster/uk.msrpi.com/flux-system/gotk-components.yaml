@@ -1,3 +1,6 @@
+---
+# Flux version: v0.9.0
+# Components: source-controller,kustomize-controller,helm-controller,notification-controller
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -2642,7 +2645,7 @@ spec:
         - --log-encoding=json
         - --enable-leader-election
         - --storage-path=/data
-        - --storage-adv-addr=source-controller.$(RUNTIME_NAMESPACE).svc.cluster.local.
+        - --storage-adv-addr=source-controller.$(RUNTIME_NAMESPACE).svc.uk.msrpi.com.
         env:
         - name: RUNTIME_NAMESPACE
           valueFrom:
@@ -2748,3 +2751,4 @@ spec:
   policyTypes:
   - Ingress
   - Egress
+---
