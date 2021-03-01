@@ -17,8 +17,11 @@ flux bootstrap github --branch=master \
 ```
 
 After the aforementioned command is fired off from a nuked cluster, some stuff will fail and requires manual intervention:
- 1- Create a `monitoring` namespace: `kubectl create ns monitoring`
+ 1- Create a `monitoring`, `minio`, and `home-assistant` namespaces: `kubectl create ns monitoring; kubectl create ns minio; kubectl create ns home-assistant`
  2- Apply all flux system extra helm chart sources: `kubectl apply -f ./cluster/uk.msrpi.com/flux-system-extra/helm-chart-repositories`
+ 3- Install the `sealed secrets` chart by applying its kustomization: `kubectl apply -k ./cluster/uk.msrpi.com/kube-system/sealed-secret`
+ 4- Apply all the secrets after re-running `hack/secrests write`: `kubectl apply -k ./cluster/uk.msrpi.com/secrets`
+
 
 ## Handle secrets using Bitnami kubesealed controller
 #TODO
