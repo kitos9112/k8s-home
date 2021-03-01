@@ -16,6 +16,11 @@ spec:
         name: minio
         namespace: flux-system
       interval: 5m
+  dependsOn:
+    - name: sealed-secrets
+      namespace: kube-system
+    - name: longhorn
+      namespace: longhorn-system
   values:
     image:
       repository: minio/minio

@@ -19,6 +19,8 @@ spec:
   dependsOn:
     - name: sealed-secrets
       namespace: kube-system
+    - name: longhorn
+      namespace: longhorn-system
   values:
     persistence:
       defaultClassReplicaCount: 2
