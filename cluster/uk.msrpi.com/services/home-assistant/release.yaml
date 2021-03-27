@@ -38,18 +38,6 @@ spec:
       - secretRef:
           name: home-assistant-env
     hostNetwork: true
-    mariadb:
-      enabled: true
-      architecture: standalone
-      auth:
-        database: home-assistant
-        username: home-assistant
-        password: home-assistant-pass
-        rootPassword: home-assistantrootpass
-      primary:
-        persistence:
-          enabled: true
-          storageClass: longhorn
     dnsPolicy: ClusterFirstWithHostNet
     monitoring:
       enabled: true
