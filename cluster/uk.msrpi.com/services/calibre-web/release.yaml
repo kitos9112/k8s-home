@@ -27,8 +27,8 @@ spec:
   values:
     env:
       TZ: Europe/London
-      PUID: 1000
-      PGID: 1000
+      PUID: 1031
+      PGID: 100
     persistence:
       config:
         enabled: true
@@ -49,9 +49,9 @@ spec:
           - name: TZ
             value: "Europe/London"
           - name: PUID
-            value: "1000"
+            value: "1031"
           - name: PGID
-            value: "1000"
+            value: "100"
         volumeMounts:
           - name: books
             mountPath: "/books"
