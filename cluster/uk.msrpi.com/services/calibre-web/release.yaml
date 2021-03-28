@@ -48,11 +48,11 @@ spec:
         image: "alpine:3.12"
         env:
           - name: TZ
-            value: Europe/London
+            value: "Europe/London"
           - name: PUID
-            value: 1000
+            value: "1000"
           - name: PGID
-            value: 1000
+            value: "1000"
         volumeMounts:
           - name: books
             mountPath: "/books"
