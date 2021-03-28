@@ -13,6 +13,9 @@ spec:
         - name: home-assistant-core
           namespace: home-assistant
           port: 8123
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: kube-system
   tls:
     certResolver: cloudflare
     domains:

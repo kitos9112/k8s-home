@@ -14,6 +14,9 @@ spec:
         - name: calibre-web-core
           namespace: miscellaneous
           port: 8083
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: kube-system
   tls:
     certResolver: cloudflare
     domains:

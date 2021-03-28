@@ -13,7 +13,9 @@ flux bootstrap github --branch=master \
                       --personal \
                       --repository=k8s-home \
                       --owner=kitos9112 \
-                      --path=./cluster/uk.msrpi.com
+                      --interval=30s \
+                      --path=./cluster/uk.msrpi.com \
+                      --token-auth
 ```
 
 After the aforementioned command is fired off from a nuked cluster, some stuff will fail and requires manual intervention:
