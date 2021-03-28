@@ -1,0 +1,20 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: calibre-web-ingress
+  namespace: miscellaneous
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`calibre.uk.msrpi.com`)
+      kind: Rule
+      services:
+        - name: calibre-web
+          namespace: calibre-web
+          port: 8083
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: calibre.uk.msrpi.com
