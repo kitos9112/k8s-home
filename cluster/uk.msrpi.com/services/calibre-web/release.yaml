@@ -29,8 +29,6 @@ spec:
       TZ: Europe/London
       PUID: 1000
       PGID: 1000
-      CALIBRE_DBPATH: /books/metadata.db
-      # UMASK:
     persistence:
       config:
         enabled: true
