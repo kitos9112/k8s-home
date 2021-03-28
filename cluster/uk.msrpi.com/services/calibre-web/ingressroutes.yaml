@@ -11,8 +11,8 @@ spec:
     - match: Host(`calibre.uk.msrpi.com`)
       kind: Rule
       services:
-        - name: calibre-web
-          namespace: calibre-web
+        - name: calibre-web-core
+          namespace: miscellaneous
           port: 8083
   tls:
     certResolver: cloudflare
