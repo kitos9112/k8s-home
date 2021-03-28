@@ -29,6 +29,7 @@ spec:
       TZ: Europe/London
       PUID: 1000
       PGID: 1000
+      CALIBRE_DBPATH: /config/app.db
       # UMASK:
     persistence:
       config:
