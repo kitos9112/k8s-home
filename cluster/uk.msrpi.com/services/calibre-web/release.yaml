@@ -17,13 +17,13 @@ spec:
         name: k8s-at-home
         namespace: flux-system
       interval: 1m
-  dependsOn:
-    - name: sealed-secrets
-      namespace: kube-system
-    - name: traefik
-      namespace: kube-system
-    - name: longhorn
-      namespace: longhorn-system
+  # dependsOn:
+  # - name: sealed-secrets
+  #   namespace: kube-system
+  # - name: traefik
+  #   namespace: kube-system
+  # - name: longhorn
+  #   namespace: longhorn-system
   values:
     env:
       TZ: Europe/London
@@ -45,10 +45,14 @@ spec:
         memory: 512Mi
     initContainers:
       - name: calibre-init
-        image: "alpine:3"
+        image: "alpine:3.12"
         env:
-          PUID: 1000
-          PGID: 1000
+          - name: TZ
+            value: Europe/London
+          - name: PUID
+            value: 1000
+          - name: PGID
+            value: 1000
         volumeMounts:
           - name: books
             mountPath: "/books"
