@@ -11,7 +11,7 @@ alertmanager:
             requests:
               storage: 10Gi
   ingress:
-    enabled: true
+    enabled: false
     ingressClassName: traefik
     annotations:
       app.kubernetes.io/managed-by: "Helm"
