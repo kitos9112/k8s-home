@@ -14,6 +14,7 @@ alertmanager:
     enabled: true
     ingressClassName: traefik
     annotations:
+      app.kubernetes.io/managed-by: "Helm"
       traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       traefik.ingress.kubernetes.io/router.middlewares: "kube-system-traefik-forward-auth@kubernetescrd"
       traefik.ingress.kubernetes.io/router.tls: "true"
