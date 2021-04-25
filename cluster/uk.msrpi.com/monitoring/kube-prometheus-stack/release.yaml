@@ -67,8 +67,8 @@ spec:
     kubeProxy:
       enabled: true
 
-    kubeStateMetrics:
-      enabled: false
+    # kubeStateMetrics:
+    #   enabled: false
 
     kubeEtcd:
       enabled: false
