@@ -1,6 +1,7 @@
 {
   "enabled": true,
   "timezone": "Europe/London",
+  "semanticCommits": "enabled",
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
   "commitMessageSuffix": "[ci-skip]",
@@ -11,6 +12,12 @@
   ],
   // Do not rebase PRs
   "rebaseWhen": "conflicted",
+  "kubernetes": {
+    "fileMatch": ["cluster/.+\\.yaml$"],
+    "ignorePaths": [
+      "cluster/base/",
+    ]
+  },
   "assignees": [
     "@kitos9112"
   ],
@@ -22,10 +29,18 @@
   "regexManagers": [
     {
       "fileMatch": [
-        "./.+\\.yaml$"
+        // Match all Helm releases
+        "cluster/.+\\.yaml$"
       ],
       "matchStrings": [
-        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
+        // helm releases
+        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
+        // kube-prometheus-stack crd
+        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n",
+        // rook-ceph crd
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n *tag: (?<currentValue>.*)\n",
+        // cert-manager crd
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/",
       ],
       "datasourceTemplate": "helm"
     }
