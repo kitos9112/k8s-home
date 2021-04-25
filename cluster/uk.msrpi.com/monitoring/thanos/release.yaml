@@ -39,7 +39,8 @@ spec:
             traefik.ingress.kubernetes.io/router.tls: "true"
             traefik.ingress.kubernetes.io/router.tls.certresolver: "cloudflare"
             traefik.ingress.kubernetes.io/router.tls.domains.0.main: "thanos.uk.msrpi.com"
-          hosts: ["thanos.uk.msrpi.com"]
+          hosts:
+            - "thanos.uk.msrpi.com"
     compact:
       retentionResolutionRaw: 7d
       # How long to retain samples of resolution 1 (5 minutes) in bucket. 0d - disables this retention

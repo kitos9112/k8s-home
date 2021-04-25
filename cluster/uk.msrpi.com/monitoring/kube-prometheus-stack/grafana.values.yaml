@@ -23,7 +23,8 @@ grafana:
       traefik.ingress.kubernetes.io/router.tls: "true"
       traefik.ingress.kubernetes.io/router.tls.certresolver: "cloudflare"
       traefik.ingress.kubernetes.io/router.tls.domains.0.main: "grafana.uk.msrpi.com"
-    path: /
+    path:
+      - "/"
     hosts:
       - grafana.uk.msrpi.com
   env:
