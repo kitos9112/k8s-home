@@ -44,7 +44,7 @@ spec:
         memory: 512Mi
     initContainers:
       - name: calibre-init
-        image: "alpine:3.12"
+        image: "alpine:3.13"
         env:
           - name: TZ
             value: "Europe/London"
