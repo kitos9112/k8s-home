@@ -1,13 +1,10 @@
----
-# Flux version: v0.14.2
-# Components: source-controller,kustomize-controller,helm-controller,notification-controller
 apiVersion: v1
 kind: Namespace
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: flux-system
 ---
 apiVersion: apiextensions.k8s.io/v1
@@ -19,7 +16,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: alerts.notification.toolkit.fluxcd.io
 spec:
   group: notification.toolkit.fluxcd.io
@@ -194,7 +191,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: buckets.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -382,7 +379,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: gitrepositories.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -434,30 +431,6 @@ spec:
               ignore:
                 description: Ignore overrides the set of excluded patterns in the .sourceignore format (which is the same as .gitignore). If not provided, a default will be used, consult the documentation for your version to find out what those are.
                 type: string
-              include:
-                description: Extra git repositories to map into the repository
-                items:
-                  description: GitRepositoryInclude defines a source with a from and to path.
-                  properties:
-                    fromPath:
-                      description: The path to copy contents from, defaults to the root directory.
-                      type: string
-                    repository:
-                      description: Reference to a GitRepository to include.
-                      properties:
-                        name:
-                          description: Name of the referent
-                          type: string
-                      required:
-                      - name
-                      type: object
-                    toPath:
-                      description: The path to copy contents to, defaults to the name of the source ref.
-                      type: string
-                  required:
-                  - repository
-                  type: object
-                type: array
               interval:
                 description: The interval at which to check for repository updates.
                 type: string
@@ -595,32 +568,6 @@ spec:
                   - type
                   type: object
                 type: array
-              includedArtifacts:
-                description: IncludedArtifacts represents the included artifacts from the last successful repository sync.
-                items:
-                  description: Artifact represents the output of a source synchronisation.
-                  properties:
-                    checksum:
-                      description: Checksum is the SHA1 checksum of the artifact.
-                      type: string
-                    lastUpdateTime:
-                      description: LastUpdateTime is the timestamp corresponding to the last update of this artifact.
-                      format: date-time
-                      type: string
-                    path:
-                      description: Path is the relative file path of this artifact.
-                      type: string
-                    revision:
-                      description: Revision is a human readable identifier traceable in the origin source system. It can be a Git commit SHA, Git tag, a Helm index timestamp, a Helm chart version, etc.
-                      type: string
-                    url:
-                      description: URL is the HTTP address of this artifact.
-                      type: string
-                  required:
-                  - path
-                  - url
-                  type: object
-                type: array
               lastHandledReconcileAt:
                 description: LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change can be detected.
                 type: string
@@ -653,7 +600,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: helmcharts.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -852,7 +799,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: helmreleases.helm.toolkit.fluxcd.io
 spec:
   group: helm.toolkit.fluxcd.io
@@ -1387,7 +1334,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: helmrepositories.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -1557,7 +1504,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: kustomizations.kustomize.toolkit.fluxcd.io
 spec:
   group: kustomize.toolkit.fluxcd.io
@@ -1954,7 +1901,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: providers.notification.toolkit.fluxcd.io
 spec:
   group: notification.toolkit.fluxcd.io
@@ -2035,7 +1982,6 @@ spec:
                 - googlechat
                 - webex
                 - sentry
-                - azureeventhub
                 type: string
               username:
                 description: Bot username for this provider
@@ -2111,7 +2057,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: receivers.notification.toolkit.fluxcd.io
 spec:
   group: notification.toolkit.fluxcd.io
@@ -2291,7 +2237,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: helm-controller
   namespace: flux-system
 ---
@@ -2301,7 +2247,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: kustomize-controller
   namespace: flux-system
 ---
@@ -2311,7 +2257,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: notification-controller
   namespace: flux-system
 ---
@@ -2321,7 +2267,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: source-controller
   namespace: flux-system
 ---
@@ -2331,7 +2277,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: crd-controller-flux-system
 rules:
 - apiGroups:
@@ -2411,7 +2357,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: cluster-reconciler-flux-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -2431,7 +2377,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: crd-controller-flux-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -2463,7 +2409,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
     control-plane: controller
   name: notification-controller
   namespace: flux-system
@@ -2483,7 +2429,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
     control-plane: controller
   name: source-controller
   namespace: flux-system
@@ -2503,7 +2449,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
     control-plane: controller
   name: webhook-receiver
   namespace: flux-system
@@ -2523,7 +2469,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
     control-plane: controller
   name: helm-controller
   namespace: flux-system
@@ -2596,7 +2542,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
     control-plane: controller
   name: kustomize-controller
   namespace: flux-system
@@ -2625,7 +2571,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/kustomize-controller:v0.12.2
+        image: ghcr.io/fluxcd/kustomize-controller:v0.12.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -2671,7 +2617,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
     control-plane: controller
   name: notification-controller
   namespace: flux-system
@@ -2699,7 +2645,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/notification-controller:v0.14.1
+        image: ghcr.io/fluxcd/notification-controller:v0.13.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -2747,7 +2693,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
     control-plane: controller
   name: source-controller
   namespace: flux-system
@@ -2780,7 +2726,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/source-controller:v0.13.2
+        image: ghcr.io/fluxcd/source-controller:v0.12.2
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -2831,7 +2777,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: allow-egress
   namespace: flux-system
 spec:
@@ -2851,7 +2797,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: allow-scraping
   namespace: flux-system
 spec:
@@ -2871,7 +2817,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.14.2
+    app.kubernetes.io/version: v0.13.4
   name: allow-webhooks
   namespace: flux-system
 spec:
@@ -2883,4 +2829,3 @@ spec:
       app: notification-controller
   policyTypes:
   - Ingress
----
