@@ -141,7 +141,7 @@ function usage() {
 [[ -z "$1" ]] && usage
 
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
-CLUSTER="${script_dir}/../cluster/uk.msrpi.com/secrets"
+CLUSTER="${script_dir}/../cluster/"
 case "$1" in
   check)
     check_secrets "${@:2}"

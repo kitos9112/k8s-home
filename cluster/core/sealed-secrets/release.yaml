@@ -1,0 +1,32 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sealed-secrets
+  namespace: kube-system
+spec:
+  interval: 1m
+  releaseName: sealed-secrets
+  chart:
+    spec:
+      # renovate: registryUrl=https://bitnami-labs.github.io/sealed-secrets/
+      chart: sealed-secrets
+      version: 1.16.1
+      sourceRef:
+        kind: HelmRepository
+        name: sealed-secrets
+        namespace: flux-system
+      interval: 1m
+  values:
+    namespace: kube-system
+    serviceMonitor:
+      # Enables ServiceMonitor creation for the Prometheus Operator
+      create: true
+      # How frequently Prometheus should scrape the ServiceMonitor
+      interval: 15s
+    dashboards:
+      # If enabled, sealed-secrets will create a configmap with a dashboard in json that's going to be picked up by grafana
+      # See https://github.com/helm/charts/tree/master/stable/grafana#configuration - `sidecar.dashboards.enabled`
+      create: true
+      # The namespace where the dashboards are deployed, defaults to the installation namespace
+      namespace: monitoring
