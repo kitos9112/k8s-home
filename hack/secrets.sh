@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-source ${BASH_SOURCE[0]%/*}/common.sh
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
+CLUSTER="${SCRIPT_DIR}/../cluster/secrets"
+source "${SCRIPT_DIR}/common.sh"
 
 # need "envsubst"
 need "gomplate"
@@ -140,8 +142,7 @@ function usage() {
 
 [[ -z "$1" ]] && usage
 
-script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
-CLUSTER="${script_dir}/../cluster/"
+
 case "$1" in
   check)
     check_secrets "${@:2}"

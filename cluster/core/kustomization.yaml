@@ -4,6 +4,5 @@ resources:
 - namespaces
 - cert-manager
 - system-upgrade
-- sealed-secrets
-- longhorn
-#- vault
+- longhorn-system
+- vault
