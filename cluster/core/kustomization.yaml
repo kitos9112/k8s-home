@@ -5,4 +5,4 @@ resources:
 - cert-manager
 - system-upgrade
 - longhorn-system
-- vault
+- kube-system
