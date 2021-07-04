@@ -1,7 +1,7 @@
 fail_fast: false
 repos:
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.25.0
+    rev: v1.26.1
     hooks:
       - id: yamllint
         args:
@@ -11,6 +11,7 @@ repos:
     rev: v4.0.1
     hooks:
       - id: trailing-whitespace
+      - id: mixed-line-ending
       - id: check-added-large-files
         args: [--maxkb=2048]
       - id: check-merge-conflict
@@ -19,15 +20,16 @@ repos:
     hooks:
       - id: forbid-crlf
       - id: forbid-tabs
+  - repo: https://github.com/sirosen/fix-smartquotes
+    rev: 0.2.0
+    hooks:
+    - id: fix-smartquotes
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 2.1.5
     hooks:
       - id: shellcheck
         args: [--severity=error]
-  - repo: local
+  - repo: https://github.com/k8s-at-home/sops-pre-commit
+    rev: v2.0.3
     hooks:
-      - id: check-secrets
-        name: Ensure Secrets Exist
-        entry: hack/secrets.sh check
-        language: script
-        files: \.(crypt\.env|values\.yaml)$
+    - id: forbid-secrets

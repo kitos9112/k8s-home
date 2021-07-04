@@ -6,3 +6,5 @@
 **/secrets.yml filter=git-crypt diff=git-crypt
 **/secrets.yaml filter=git-crypt diff=git-crypt
 **.pem filter=git-crypt diff=git-crypt
+secret.enc.yaml diff=sopsdiffer
+cluster-secrets.yaml diff=sopsdiffer
