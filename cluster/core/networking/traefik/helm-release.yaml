@@ -44,7 +44,7 @@ spec:
       - '--providers.kubernetesingress.ingressclass=traefik'
       - '--metrics.prometheus=true'
       - '--metrics.prometheus.entryPoint=metrics'
-    hostNetwork: true
+    #hostNetwork: true
     ingressClass:
       enabled: true
       fallbackApiVersion: v1
@@ -84,10 +84,15 @@ spec:
         cpu: 100m
         memory: 50Mi
     service:
-      externalIPs:
-        - 10.10.10.60
-        - 10.10.10.62
-        - 10.10.10.64
+      enabled: true
+      spec:
+        externalIPs:
+          - 10.10.10.54
+          - 10.10.10.60
+          - 10.10.10.62
+          - 10.10.10.64
+        externalTrafficPolicy: Local
+      type: LoadBalancer
     tlsOptions:
       default:
         cipherSuites:
