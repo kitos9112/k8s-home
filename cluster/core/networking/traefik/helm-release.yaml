@@ -1,0 +1,106 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: networking
+spec:
+  chart:
+    spec:
+      chart: traefik
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: traefik-charts
+        namespace: flux-system
+      version: 9.20.1
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
+  interval: 5m
+  values:
+    additionalArguments:
+      - '--providers.kubernetesingress.ingressendpoint.hostname=${SECRET_DOMAIN}'
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - traefik
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+    deployment:
+      kind: Deployment
+      replicas: 3
+    experimental:
+      plugins:
+        enabled: true
+    envFrom:
+      - secretRef:
+          name: traefik-env
+    globalArguments:
+      - '--serverstransport.insecureskipverify=true'
+      - '--providers.kubernetesingress.ingressclass=traefik'
+      - '--metrics.prometheus=true'
+      - '--metrics.prometheus.entryPoint=metrics'
+    hostNetwork: true
+    ingressClass:
+      enabled: true
+      fallbackApiVersion: v1
+      isDefaultClass: true
+    ingressRoute:
+      dashboard:
+        enabled: false
+    logs:
+      access:
+        enabled: true
+        fields:
+          headers:
+            names:
+              X-Forwarded-User: keep
+      general:
+        format: json
+        level: INFO
+    pilot:
+      enabled: true
+      token: ${SECRET_TRAEFIK_PILOT_TOKEN}
+    ports:
+      metrics:
+        expose: true
+        exposedPort: 8082
+        port: 8082
+      web:
+        redirectTo: websecure
+      websecure:
+        tls:
+          enabled: true
+          options: default
+    resources:
+      limits:
+        cpu: 500m
+        memory: 100Mi
+      requests:
+        cpu: 100m
+        memory: 50Mi
+    service:
+      externalIPs:
+        - 10.10.10.60
+        - 10.10.10.62
+        - 10.10.10.64
+    tlsOptions:
+      default:
+        cipherSuites:
+          - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+          - TLS_AES_256_GCM_SHA384
+          - TLS_CHACHA20_POLY1305_SHA256
+        curvePreferences:
+          - CurveP521
+          - CurveP384
+        minVersion: VersionTLS12
+        maxVersion: VersionTLS13
+        # sniStrict: true

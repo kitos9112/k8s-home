@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
 REPO_ROOT=$(git rev-parse --show-toplevel)
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
+CLUSTER="${SCRIPT_DIR}/../cluster"
+
+export CLUSTER
 export REPO_ROOT
 
 function die() {
   echo "!! $*"
   exit 1
+}
+
+function log() {
+  m_time=$(date "+%F %T")
+  echo $m_time" "$1
 }
 
 function need() {

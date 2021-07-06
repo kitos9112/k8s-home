@@ -1,0 +1,26 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard
+  namespace: kube-system
+  labels:
+    app: traefik-dashboard
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`traefik.${SECRET_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: kube-system
+        - name: auth
+          namespace: kube-system
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: traefik.${SECRET_DOMAIN}

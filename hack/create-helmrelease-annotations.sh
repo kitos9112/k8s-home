@@ -3,8 +3,8 @@ shopt -s globstar
 
 # shellcheck disable=SC2155
 REPO_ROOT=$(git rev-parse --show-toplevel)
-CLUSTER_ROOT="${REPO_ROOT}/cluster/uk.msrpi.com"
-HELM_REPOSITORIES="${CLUSTER_ROOT}/flux-system-extra/helm-chart-repositories"
+CLUSTER_ROOT="${REPO_ROOT}/cluster"
+HELM_REPOSITORIES="${CLUSTER_ROOT}/cluster/base/flux-system/charts/helm"
 
 # Ensure yq exist
 command -v yq >/dev/null 2>&1 || {
@@ -12,7 +12,7 @@ command -v yq >/dev/null 2>&1 || {
     exit 1
 }
 
-for helm_release in $(find ${CLUSTER_ROOT} -name "*.yaml"); do
+for helm_release in $(find ${CLUSTER_ROOT} -name "*helm-release.yaml"); do
     # ignore flux-system namespace
     # ignore wrong apiVersion
     # ignore non HelmReleases

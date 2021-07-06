@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-forward-auth-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`auth.uk.msrpi.com`)
+      kind: Rule
+      services:
+        - name: traefik-forward-auth
+          port: 4181
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: kube-system
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: auth.uk.msrpi.com

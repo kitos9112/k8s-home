@@ -15,9 +15,6 @@ spec:
         kind: HelmRepository
         name: jetstack-charts
         namespace: flux-system
-  dependsOn:
-    - name: sealed-secrets
-      namespace: kube-system
   values:
     installCRDs: false
     webhook:

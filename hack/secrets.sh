@@ -13,7 +13,7 @@ need "yq"
 load_env
 
 function extract_ns() {
-  yq eval ".namespace" "${1}/kustomization.yaml" 
+  yq eval ".namespace" "${1}/kustomization.yaml"
 }
 
 # secret_template ns name
@@ -65,17 +65,17 @@ function write_sealed_secret() {
               | seal > "${sealedFile}"
   sed -i '1i ---' ${sealedFile}
 }
- 
+
 function seal() {
   kubeseal --controller-name=sealed-secrets --format=yaml \
     | yq eval 'del(.spec.template)' - \
-    | yq eval 'del(.metadata.creationTimestamp)' - 
+    | yq eval 'del(.metadata.creationTimestamp)' -
 }
 
 function refresh_secrets() {
   # *.values.yaml
   while IFS= read -r -d '' file
-  do   
+  do
     write_sealed_secret "${file}" "-values" <(process_values ${file})
     echo "processed values from ${file}"
   done <  <(find "$(pwd -P)/cluster" -type f -name '*.values.yaml' -print0)
