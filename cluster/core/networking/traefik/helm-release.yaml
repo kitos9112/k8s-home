@@ -37,7 +37,7 @@ spec:
             weight: 100
     deployment:
       kind: Deployment
-      replicas: 3
+      replicas: 2
     experimental:
       plugins:
         enabled: true
