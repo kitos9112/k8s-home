@@ -5,5 +5,5 @@ kind: Kustomization
 namespace: kube-system
 
 resources:
-  - release.yaml
-  - ingressroute.yaml
+  - helm-release.yaml
+  - ingress-route.yaml

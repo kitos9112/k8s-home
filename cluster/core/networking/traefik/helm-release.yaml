@@ -39,9 +39,6 @@ spec:
     experimental:
       plugins:
         enabled: true
-    envFrom:
-      - secretRef:
-          name: traefik-env
     globalArguments:
       - '--serverstransport.insecureskipverify=true'
       - '--providers.kubernetesingress.ingressclass=traefik'
