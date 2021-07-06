@@ -20,16 +20,8 @@ spec:
   values:
     image:
       tag: 2-arm64
-    affinity:
-      podAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: kubernetes.io/arch
-              operator: In
-              values:
-              - arm64
-          topologyKey: kubernetes.io/hostname
+    nodeSelector:
+      kubernetes.io/arch: arm64
     logging:
       level: warn
     format: pretty

@@ -21,6 +21,8 @@ spec:
   values:
     additionalArguments:
       - '--providers.kubernetesingress.ingressendpoint.hostname=${SECRET_DOMAIN}'
+    nodeSelector:
+      kubernetes.io/arch: arm64
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -33,15 +35,6 @@ spec:
                       - traefik
               topologyKey: kubernetes.io/hostname
             weight: 100
-      podAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: kubernetes.io/arch
-                  operator: In
-                  values:
-                    - arm64
-            topologyKey: kubernetes.io/hostname
     deployment:
       kind: Deployment
       replicas: 3
