@@ -35,9 +35,10 @@ spec:
                       - traefik
               topologyKey: kubernetes.io/hostname
             weight: 100
-    deployment:
-      kind: Deployment
-      replicas: 2
+    hostNetwork: true
+    # deployment:
+    #   kind: Deployment
+    #   replicas: 2
     experimental:
       plugins:
         enabled: true
