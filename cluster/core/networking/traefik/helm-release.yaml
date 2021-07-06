@@ -86,15 +86,11 @@ spec:
         cpu: 100m
         memory: 50Mi
     service:
-      enabled: true
-      spec:
-        externalIPs:
-          - 10.10.10.54
-          - 10.10.10.60
-          - 10.10.10.62
-          - 10.10.10.64
-        externalTrafficPolicy: Local
-      type: LoadBalancer
+      externalIPs:
+        - 10.10.10.54
+        - 10.10.10.60
+        - 10.10.10.62
+        - 10.10.10.64
     tlsOptions:
       default:
         cipherSuites:
