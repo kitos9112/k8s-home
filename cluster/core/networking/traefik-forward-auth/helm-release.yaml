@@ -20,6 +20,16 @@ spec:
   values:
     image:
       tag: 2-arm64
+    affinity:
+      podAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: kubernetes.io/arch
+              operator: In
+              values:
+              - arm64
+          topologyKey: kubernetes.io/hostname
     logging:
       level: warn
     format: pretty
@@ -28,16 +38,16 @@ spec:
       enabled: true
       name: traefik-forward-auth
     env:
-      - name: PROVIDERS_GOOGLE_CLIENT_ID
-        value: ${SECRET_PROVIDERS_GOOGLE_CLIENT_ID}
-      - name: PROVIDERS_GOOGLE_CLIENT_SECRET
-        value: ${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENT_SECRET}
-      - name: WHITELIST
-        value: ${SECRET_TRAEFIK_AUTH_WHITELIST}
-      - name: COOKIE_DOMAIN
-        value: ${SECRET_DOMAIN}
-      - name: AUTH_HOST
-        value: "auth.${SECRET_DOMAIN}"
+    - name: PROVIDERS_GOOGLE_CLIENT_ID
+      value: ${SECRET_PROVIDERS_GOOGLE_CLIENT_ID}
+    - name: PROVIDERS_GOOGLE_CLIENT_SECRET
+      value: ${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENT_SECRET}
+    - name: WHITELIST
+      value: ${SECRET_TRAEFIK_AUTH_WHITELIST}
+    - name: COOKIE_DOMAIN
+      value: ${SECRET_DOMAIN}
+    - name: AUTH_HOST
+      value: "auth.${SECRET_DOMAIN}"
     resources:
       requests:
         cpu: "100m"

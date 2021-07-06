@@ -33,6 +33,15 @@ spec:
                       - traefik
               topologyKey: kubernetes.io/hostname
             weight: 100
+      podAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                    - arm64
+            topologyKey: kubernetes.io/hostname
     deployment:
       kind: Deployment
       replicas: 3
@@ -44,7 +53,7 @@ spec:
       - '--providers.kubernetesingress.ingressclass=traefik'
       - '--metrics.prometheus=true'
       - '--metrics.prometheus.entryPoint=metrics'
-    #hostNetwork: true
+    # hostNetwork: true
     ingressClass:
       enabled: true
       fallbackApiVersion: v1
