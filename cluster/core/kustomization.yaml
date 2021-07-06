@@ -5,6 +5,7 @@ resources:
   - namespaces
   - cert-manager
   - system-upgrade
+  - networking
   - longhorn-system
   #- monitoring
   - kube-system

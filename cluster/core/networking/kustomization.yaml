@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - traefik
   - traefik-forward-auth
+  - wildcard-certificate
