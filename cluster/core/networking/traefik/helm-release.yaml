@@ -21,24 +21,7 @@ spec:
   values:
     additionalArguments:
       - '--providers.kubernetesingress.ingressendpoint.hostname=${SECRET_DOMAIN}'
-    # nodeSelector:
-    #   kubernetes.io/arch: arm64
-    # affinity:
-    #   podAntiAffinity:
-    #     preferredDuringSchedulingIgnoredDuringExecution:
-    #       - podAffinityTerm:
-    #           labelSelector:
-    #             matchExpressions:
-    #               - key: app.kubernetes.io/name
-    #                 operator: In
-    #                 values:
-    #                   - traefik
-    #           topologyKey: kubernetes.io/hostname
-    #         weight: 100
     hostNetwork: true
-    # deployment:
-    #   kind: Deployment
-    #   replicas: 2
     experimental:
       plugins:
         enabled: true
@@ -47,7 +30,6 @@ spec:
       - '--providers.kubernetesingress.ingressclass=traefik'
       - '--metrics.prometheus=true'
       - '--metrics.prometheus.entryPoint=metrics'
-    # hostNetwork: true
     ingressClass:
       enabled: true
       fallbackApiVersion: v1
