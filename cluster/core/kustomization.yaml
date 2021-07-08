@@ -7,5 +7,5 @@ resources:
   - system-upgrade
   - networking
   - longhorn-system
-  #- monitoring
+  - monitoring
   - kube-system
