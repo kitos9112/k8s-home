@@ -1,3 +1,4 @@
+---
 creation_rules:
   - encrypted_regex: ^(data|stringData)$
     pgp: >-

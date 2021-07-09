@@ -8,7 +8,7 @@ http:
         contentTypeNosniff: true
         forceSTSHeader: true
         frameDeny: true
-        #HSTS
+        # HSTS
         stsIncludeSubdomains: true
         stsPreload: true
         stsSeconds: 15552000
