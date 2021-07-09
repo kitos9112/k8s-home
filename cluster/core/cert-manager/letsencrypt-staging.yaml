@@ -13,6 +13,8 @@ spec:
     - dns01:
         cloudflare:
           email: "${SECRET_CLOUDFLARE_EMAIL}"
-          apiKeySecretRef:
+          # Use apiTokenSecretRef for Tokens and apiKeySecretRef got GlobalAPI Keys
+          # https://github.com/jetstack/cert-manager/issues/2384#issuecomment-575301692
+          apiTokenSecretRef:
             name: cloudflare-token-secret
             key: cloudflare-token
