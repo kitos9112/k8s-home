@@ -21,7 +21,7 @@ jobs:
         run: |
           CURRENT_VERSION="$(flux -v)"
           DESIRED_VERSION="v${CURRENT_VERSION#*flux version }"
-          flux install --export > ./cluster/uk.msrpi.com/flux-system/gotk-components.yaml
+          flux install --export > ./cluster/base/flux-system/gotk-components.yaml
           echo "::set-output name=flux_version::$DESIRED_VERSION"
 
       - name: Create pull request for Flux update
