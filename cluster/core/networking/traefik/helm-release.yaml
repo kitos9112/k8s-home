@@ -51,7 +51,6 @@ spec:
       token: ${SECRET_TRAEFIK_PILOT_TOKEN}
     ports:
       metrics:
-        expose: true
         exposedPort: 8082
         port: 8082
       web:
@@ -67,12 +66,6 @@ spec:
       requests:
         cpu: 100m
         memory: 50Mi
-    # service:
-    #   externalIPs:
-    #     - 10.10.10.54
-    #     - 10.10.10.60
-    #     - 10.10.10.62
-    #     - 10.10.10.64
     tlsOptions:
       default:
         cipherSuites:
