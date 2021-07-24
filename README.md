@@ -4,7 +4,13 @@ This repo contains my home infrastructure defined as Kubernetes manifests and ot
 I am a firm believer in GitOps and Kubernetes as the defacto cloud orchestrator.
 
 ## Services running in the cluster
-#TODO
+
+The cluster breaks down all its services into **three** well-defined categories:
+
+1. base
+2. core
+3. crds
+
 
 ## Bootstrap cluster using Flux
 
