@@ -19,6 +19,7 @@ resources:
   - longhorn-charts.yaml
   - lwolf-charts.yaml
   - minio-charts.yaml
+  - metallb-charts.yaml
   - nfs-subdir-external-provisioner-charts.yaml
   - node-feature-discovery-charts.yaml
   - prometheus-community-charts.yaml
