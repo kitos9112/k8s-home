@@ -86,6 +86,11 @@ spec:
           gnetId: 12175
           revision: 5
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/4475
+        traefik-ingress:
+          gnetId: 4475
+          revision: 5
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/2842
         ceph-cluster:
           gnetId: 2842
