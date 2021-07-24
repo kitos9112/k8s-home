@@ -70,21 +70,12 @@ spec:
         #   continue: true
         inhibit_rules:
           - source_match:
-              severity: 'critical'
+              severity: "critical"
             target_match:
-              severity: 'warning'
-            equal: ['alertname', 'namespace']
+              severity: "warning"
+            equal: ["alertname", "namespace"]
       ingress:
-        enabled: true
-        pathType: Prefix
-        ingressClassName: "traefik"
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        hosts:
-          - "alert-manager.${SECRET_DOMAIN}"
-        tls:
-          - hosts:
-              - "alert-manager.${SECRET_DOMAIN}"
+        enabled: false
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -125,16 +116,7 @@ spec:
       enabled: false
     prometheus:
       ingress:
-        enabled: true
-        pathType: Prefix
-        ingressClassName: "traefik"
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        hosts:
-          - "prometheus.${SECRET_DOMAIN}"
-        tls:
-          - hosts:
-              - "prometheus.${SECRET_DOMAIN}"
+        enabled: false
       prometheusSpec:
         ruleSelector: {}
         ruleNamespaceSelector: {}

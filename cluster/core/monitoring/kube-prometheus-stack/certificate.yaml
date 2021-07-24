@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "prometheus-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "prometheus-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "prometheus.${SECRET_DOMAIN}"
+  dnsNames:
+    - "prometheus.${SECRET_DOMAIN}"
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "alertmanager-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "alertmanager-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "alertmanager.${SECRET_DOMAIN}"
+  dnsNames:
+    - "alertmanager.${SECRET_DOMAIN}"

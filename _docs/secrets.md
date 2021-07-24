@@ -5,7 +5,6 @@ This K3s cluster relies in the integration of FluxCD with Mozilla SOPS for boots
 - gnupg
 - flux
 
-
 ## GnuPG Keys
 
 export FLUX_KEY_NAME="K8s Home msrpi.com (Flux) <marcos.soutullo91@gmail.com>"
