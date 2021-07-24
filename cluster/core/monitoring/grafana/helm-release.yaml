@@ -17,13 +17,22 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    replicas: 1
     deploymentStrategy:
       type: Recreate
     env:
       GF_EXPLORE_ENABLED: true
       GF_PANELS_DISABLE_SANITIZE_HTML: true
       GF_LOG_FILTERS: rendering:debug
-      VAR_BLOCKY_URL: "http://blocky.networking.svc.cluster.local:4000"
+      #VAR_BLOCKY_URL: "http://blocky.networking.svc.cluster.local:4000"
+      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+      GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
+      GF_DATE_FORMATS_INTERVAL_SECOND: "hh:mm:ss a"
+      GF_DATE_FORMATS_INTERVAL_MINUTE: "hh:mm a"
+      GF_DATE_FORMATS_INTERVAL_HOUR: "DD/MM hh:mm a"
+      GF_DATE_FORMATS_INTERVAL_DAY: "DD/MM"
+      GF_DATE_FORMATS_INTERVAL_MONTH: "MM-YYYY"
+      GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
     adminPassword: "${SECRET_GRAFANA_PASSWORD}"
     grafana.ini:
       server:
@@ -56,6 +65,10 @@ spec:
     datasources:
       datasources.yaml:
         apiVersion: 1
+        # list of datasources that should be deleted from the database
+        deleteDatasources:
+          - name: Loki
+            orgId: 1
         datasources:
           - name: Prometheus
             type: prometheus
@@ -161,11 +174,16 @@ spec:
       enabled: true
     ingress:
       enabled: false
+    serviceAccount:
+      create: true
+      autoMount: true
     persistence:
-      enabled: true
-      storageClassName: "longhorn"
-      size: 10Gi
-      accessModes:
-        - ReadWriteOnce
+      enabled: false
+    # persistence:
+    #   enabled: true
+    #   storageClassName: "longhorn"
+    #   size: 10Gi
+    #   accessModes:
+    #     - ReadWriteOnce
     podAnnotations:
       configmap.reloader.stakater.com/reload: "grafana"
