@@ -53,14 +53,15 @@ spec:
       #   login_cookie_name: _forward_auth
       auth.basic:
         disable_login_form: false
-      # auth.google:
-      #   enabled: true
-      #   client_id: ${SECRET_PROVIDERS_GOOGLE_CLIENT_ID}
-      #   client_secret: ${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENT_SECRET}
-      #   scopes: https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
-      #   auth_url: https://accounts.google.com/o/oauth2/auth
-      #   token_url: https://accounts.google.com/o/oauth2/token
-      #   allowed_domains: mycompany.com mycompany.org
+      auth.google:
+        enabled: true
+        client_id: ${SECRET_PROVIDERS_GOOGLE_CLIENT_ID}
+        client_secret: ${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENT_SECRET}
+        scopes: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+        auth_url: "auth.${SECRET_DOMAIN}"
+        token_url: "auth.${SECRET_DOMAIN}"
+        allow_sign_up: true
+
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
