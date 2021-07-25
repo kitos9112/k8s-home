@@ -21,6 +21,9 @@ spec:
   values:
     additionalArguments:
       - "--providers.kubernetesingress.ingressendpoint.hostname=${SECRET_DOMAIN}"
+    deployment:
+      enabled: true
+      replicas: 3
     experimental:
       plugins:
         enabled: true
