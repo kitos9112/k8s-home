@@ -37,6 +37,7 @@ spec:
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN}"
+        enable_gzip: true
       paths:
         data: /var/lib/grafana/data
         logs: /var/log/grafana
@@ -48,6 +49,8 @@ spec:
         mode: console
       grafana_net:
         url: https://grafana.net
+      auth:
+        login_cookie_name: _forward_auth
       auth.basic:
         disable_login_form: false
     dashboardProviders:
