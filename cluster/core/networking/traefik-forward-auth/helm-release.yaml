@@ -50,6 +50,6 @@ spec:
         # providers.google.enabled -- Enable the google provider
         enabled: true
         # providers.google.clientId -- Client ID
-        clientId: "${SECRET_PROVIDERS_GOOGLE_CLIENT_ID}"
+        clientId: "${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENTID}"
         # providers.google.clientSecret -- Client Secret
         clientSecret: "${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENT_SECRET}"
