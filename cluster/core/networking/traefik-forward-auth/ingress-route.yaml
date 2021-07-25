@@ -16,7 +16,5 @@ spec:
       middlewares:
         - name: traefik-forward-auth
           namespace: networking
-  # tls:
-  #   certResolver: cloudflare
-  #   domains:
-  #     - main: auth.${SECRET_DOMAIN}
+  tls:
+    secretName: "auth-${SECRET_DOMAIN/./-}-tls"
