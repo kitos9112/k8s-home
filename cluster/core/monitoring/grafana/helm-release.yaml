@@ -58,8 +58,8 @@ spec:
         client_id: ${SECRET_PROVIDERS_GOOGLE_CLIENT_ID}
         client_secret: ${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENT_SECRET}
         scopes: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
-        auth_url: "auth.${SECRET_DOMAIN}"
-        token_url: "auth.${SECRET_DOMAIN}"
+        # auth_url: "auth.${SECRET_DOMAIN}"
+        # token_url: "auth.${SECRET_DOMAIN}"
         allow_sign_up: true
 
     dashboardProviders:
