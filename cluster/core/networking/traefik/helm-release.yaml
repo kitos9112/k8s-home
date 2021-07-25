@@ -38,7 +38,9 @@ spec:
       isDefaultClass: true
     ingressRoute:
       dashboard:
-        enabled: false
+        enabled: fals
+    service:
+      externalTrafficPolicy: Local
     logs:
       access:
         enabled: true
