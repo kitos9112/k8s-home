@@ -49,8 +49,8 @@ spec:
         mode: console
       grafana_net:
         url: https://grafana.net
-      auth:
-        login_cookie_name: _forward_auth
+      # auth:
+      #   login_cookie_name: _forward_auth
       auth.generic_oauth:
         enabled: true
         role_attribute_path: "Admin"
