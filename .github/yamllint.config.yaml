@@ -11,11 +11,13 @@ rules:
     min-spaces-from-content: 1
   line-length: disable
   braces:
+    forbid: false
     min-spaces-inside: 0
-    max-spaces-inside: 1
+    max-spaces-inside: 2
   brackets:
+    forbid: false
     min-spaces-inside: 0
-    max-spaces-inside: 0
+    max-spaces-inside: 2
   indentation:
     spaces: 2
     indent-sequences: consistent
