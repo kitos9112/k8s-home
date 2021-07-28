@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "hass-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "hass-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "hass.${SECRET_DOMAIN}"
+  dnsNames:
+    - "hass.${SECRET_DOMAIN}"
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "hass-config-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "hass-config-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "hass-config.${SECRET_DOMAIN}"
+  dnsNames:
+    - "hass-config.${SECRET_DOMAIN}"
