@@ -49,7 +49,6 @@ spec:
       grafana_net:
         url: https://grafana.net
       auth:
-        login_cookie_name: _forward_auth
         oauth_auto_login: true
       auth.generic_oauth:
         enabled: true
@@ -63,14 +62,12 @@ spec:
       # auth.anonymous:
       #   enabled: true
       #   org_role: Viewer
-      # auth.google:
-      #   enabled: true
-      #   client_id: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_ID}
-      #   client_secret: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_SECRET}
-      #   scopes: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
-      #   # auth_url: "auth.${SECRET_DOMAIN}"
-      #   # token_url: "auth.${SECRET_DOMAIN}"
-      #   allow_sign_up: true
+      auth.google:
+        enabled: true
+        client_id: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_ID}
+        client_secret: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_SECRET}
+        scopes: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+        allow_sign_up: true
 
     dashboardProviders:
       dashboardproviders.yaml:
