@@ -24,7 +24,6 @@ spec:
       GF_EXPLORE_ENABLED: true
       GF_PANELS_DISABLE_SANITIZE_HTML: true
       GF_LOG_FILTERS: rendering:debug
-      #VAR_BLOCKY_URL: "http://blocky.networking.svc.cluster.local:4000"
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
       GF_DATE_FORMATS_INTERVAL_SECOND: "hh:mm:ss a"
@@ -49,21 +48,28 @@ spec:
         mode: console
       grafana_net:
         url: https://grafana.net
-      # auth:
-      #   login_cookie_name: _forward_auth
+      auth:
+        login_cookie_name: _forward_auth
+        oauth_auto_login: true
       auth.generic_oauth:
         enabled: true
         role_attribute_path: "Admin"
       auth.basic:
         disable_login_form: false
-      auth.google:
+      users:
+        allow_sign_up: false
+        viewers_can_edit: true
+      auth.anonymous:
         enabled: true
-        client_id: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_ID}
-        client_secret: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_SECRET}
-        scopes: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
-        # auth_url: "auth.${SECRET_DOMAIN}"
-        # token_url: "auth.${SECRET_DOMAIN}"
-        allow_sign_up: true
+        org_role: Viewer
+      # auth.google:
+      #   enabled: true
+      #   client_id: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_ID}
+      #   client_secret: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_SECRET}
+      #   scopes: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+      #   # auth_url: "auth.${SECRET_DOMAIN}"
+      #   # token_url: "auth.${SECRET_DOMAIN}"
+      #   allow_sign_up: true
 
     dashboardProviders:
       dashboardproviders.yaml:
@@ -111,36 +117,6 @@ spec:
           gnetId: 2842
           revision: 14
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/5336
-        ceph-osd:
-          gnetId: 5336
-          revision: 5
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/5342
-        ceph-pools:
-          gnetId: 5342
-          revision: 5
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11315
-        unifi-client-insights:
-          gnetId: 11315
-          revision: 8
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11311
-        unifi-network-sites:
-          gnetId: 11311
-          revision: 4
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11314
-        unifi-uap-insights:
-          gnetId: 11314
-          revision: 9
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11312
-        unifi-usw-insights:
-          gnetId: 11312
-          revision: 8
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13665
         speedtest:
           gnetId: 13665
@@ -151,30 +127,6 @@ spec:
           datasource: Prometheus
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
-          datasource: Prometheus
-        vernemq:
-          url: https://raw.githubusercontent.com/vernemq/vernemq/master/metrics_scripts/grafana/VerneMQ%20Node%20Metrics.json
-          datasource: Prometheus
-        nginx-dashboard:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Prometheus
-        blocky:
-          url: https://raw.githubusercontent.com/0xERR0R/blocky/master/docs/blocky-grafana.json
-          datasource: Prometheus
-        apc-smart-ups-1500:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/apc-smart-ups-1500-snmp.json
-          datasource: Prometheus
-        cyberpower-pdu41001:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/cyberpower-pdu41001-snmp.json
-          datasource: Prometheus
-        lidarr:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/lidarr.json
-          datasource: Prometheus
-        radarr:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/radarr.json
-          datasource: Prometheus
-        sonarr:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/sonarr.json
           datasource: Prometheus
     sidecar:
       dashboards:

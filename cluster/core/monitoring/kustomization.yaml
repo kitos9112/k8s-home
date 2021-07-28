@@ -10,4 +10,4 @@ resources:
   # - snmp-exporter
   # - speedtest-exporter
   # - unifi-poller
-  # - uptimerobot-heartbeat
+  - cronitor-heartbeat
