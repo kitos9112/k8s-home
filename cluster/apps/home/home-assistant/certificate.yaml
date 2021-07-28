@@ -3,6 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: "hass-${SECRET_DOMAIN/./-}"
+  namespace: home
 spec:
   secretName: "hass-${SECRET_DOMAIN/./-}-tls"
   issuerRef:
@@ -16,6 +17,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: "hass-config-${SECRET_DOMAIN/./-}"
+  namespace: home
 spec:
   secretName: "hass-config-${SECRET_DOMAIN/./-}-tls"
   issuerRef:

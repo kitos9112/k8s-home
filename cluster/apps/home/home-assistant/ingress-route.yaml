@@ -3,6 +3,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: hass-ingress
+  namespace: home
 spec:
   entryPoints:
     - websecure
@@ -24,6 +25,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: hass-config-ingress
+  namespace: home
 spec:
   entryPoints:
     - websecure
