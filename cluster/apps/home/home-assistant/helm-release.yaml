@@ -58,7 +58,7 @@ spec:
           - name: config
             mountPath: /config
     nodeSelector:
-      node-role.kubernetes.io/worker: "true"
+      kubernetes.io/arch: amd64
     resources:
       requests:
         cpu: 100m
