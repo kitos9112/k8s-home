@@ -59,9 +59,10 @@ spec:
       users:
         allow_sign_up: false
         viewers_can_edit: true
-      auth.anonymous:
-        enabled: true
-        org_role: Viewer
+        auto_assign_org_role: "Admin"
+      # auth.anonymous:
+      #   enabled: true
+      #   org_role: Viewer
       # auth.google:
       #   enabled: true
       #   client_id: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_ID}
