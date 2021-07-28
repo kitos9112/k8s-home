@@ -30,7 +30,7 @@
     {
       "fileMatch": [
         // Match all Helm releases
-        "cluster/.+\\.yaml$"
+        "cluster/.+helm-release\\.yaml$"
       ],
       "matchStrings": [
         // helm releases
