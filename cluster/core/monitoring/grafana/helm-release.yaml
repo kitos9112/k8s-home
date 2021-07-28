@@ -50,9 +50,6 @@ spec:
         url: https://grafana.net
       auth:
         oauth_auto_login: true
-      auth.generic_oauth:
-        enabled: true
-        role_attribute_path: "Admin"
       auth.basic:
         disable_login_form: false
       users:
