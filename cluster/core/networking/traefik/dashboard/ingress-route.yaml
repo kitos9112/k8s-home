@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - traefik
   routes:
-    - match: Host(`traefik.${SECRET_DOMAIN}`) && ((PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+    - match: Host(`traefik.${SECRET_DOMAIN}`) && ((PathPrefix(`/api`) || PathPrefix(`/dashboard`))
       kind: Rule
       priority: 10
       services:
