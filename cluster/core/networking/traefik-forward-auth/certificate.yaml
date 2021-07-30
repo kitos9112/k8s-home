@@ -3,6 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: "auth-${SECRET_DOMAIN/./-}"
+  namespace: networking
 spec:
   secretName: "auth-${SECRET_DOMAIN/./-}-tls"
   issuerRef:
