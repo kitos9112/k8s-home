@@ -6,17 +6,13 @@ metadata:
   namespace: networking
 spec:
   entryPoints:
-    - websecure
+    - traefik
   routes:
-    - match: Host(`traefik.${SECRET_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+    - match: Host(`${SECRET_DOMAIN}`) && Path(`/healthz`)
       kind: Rule
       priority: 10
       services:
-        - name: dashboard@internal
+        - name: ping@internal
           kind: TraefikService
-      middlewares:
-        - name: rfc1918
-        - name: traefik-forward-auth
-          namespace: networking
   tls:
     secretName: "${SECRET_DOMAIN/./-}-tls"

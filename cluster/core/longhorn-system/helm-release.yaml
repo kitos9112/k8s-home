@@ -18,6 +18,40 @@ spec:
       interval: 1m
   values:
     persistence:
-      defaultClassReplicaCount: 2
+      defaultClassReplicaCount: 3
     csi:
       kubeletRootDir: /var/lib/kubelet
+  defaultSettings:
+    backupTarget: ~
+    backupTargetCredentialSecret: ~
+    allowRecurringJobWhileVolumeDetached: ~
+    createDefaultDiskLabeledNodes: ~
+    defaultDataPath: ~
+    defaultDataLocality: ~
+    replicaSoftAntiAffinity: ~
+    storageOverProvisioningPercentage: "200%"
+    storageMinimalAvailablePercentage: "25%"
+    upgradeChecker: ~
+    defaultReplicaCount: ~
+    defaultLonghornStaticStorageClass: ~
+    backupstorePollInterval: ~
+    taintToleration: ~
+    systemManagedComponentsNodeSelector: ~
+    priorityClass: ~
+    autoSalvage: true
+    autoDeletePodWhenVolumeDetachedUnexpectedly: true
+    disableSchedulingOnCordonedNode:
+    replicaZoneSoftAntiAffinity: ~
+    nodeDownPodDeletionPolicy: "delete-both-statefulset-and-deployment-pod"
+    allowNodeDrainWithLastHealthyReplica: ~
+    mkfsExt4Parameters: ~
+    disableReplicaRebuild: ~
+    replicaReplenishmentWaitInterval: 300
+    disableRevisionCounter: ~
+    systemManagedPodsImagePullPolicy: ~
+    allowVolumeCreationWithDegradedAvailability: ~
+    autoCleanupSystemGeneratedSnapshot: ~
+    concurrentAutomaticEngineUpgradePerNodeLimit: 1
+    backingImageCleanupWaitInterval: ~
+    guaranteedEngineManagerCPU: ~
+    guaranteedReplicaManagerCPU: ~

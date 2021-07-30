@@ -41,12 +41,15 @@ spec:
       dashboard:
         enabled: fals
     service:
-      externalTrafficPolicy: Local
+      spec:
+        externalTrafficPolicy: Cluster
+        loadBalancerIP: "${SETTING_SVC_TRAEFIK_ADDRESS}"
     logs:
       access:
         enabled: true
         fields:
           headers:
+            defaultmode: keep
             names:
               X-Forwarded-User: keep
       general:
@@ -56,8 +59,10 @@ spec:
       enabled: true
       token: ${SECRET_TRAEFIK_PILOT_TOKEN}
     ports:
+      traefik:
+        port: 9000
+
       metrics:
-        exposedPort: 8082
         port: 8082
       web:
         redirectTo: websecure
@@ -72,6 +77,8 @@ spec:
       requests:
         cpu: 100m
         memory: 50Mi
+    podSecurityPolicy:
+      enabled: true
     tlsOptions:
       default:
         cipherSuites:
