@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - traefik
   routes:
-    - match: Path(`/healthz`)
+    - match: Host(`traefik.${SECRET_DOMAIN}`) && Path(`/healthz`)
       kind: Rule
       priority: 10
       services:
