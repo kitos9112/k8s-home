@@ -15,9 +15,6 @@ spec:
         name: traefik-charts
         namespace: flux-system
       version: 9.20.1
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
   interval: 5m
   values:
     additionalArguments:
