@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: dashboard
+  name: traefik-healthcheck
   namespace: networking
 spec:
   entryPoints:
