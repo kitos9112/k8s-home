@@ -36,7 +36,7 @@ spec:
       isDefaultClass: true
     ingressRoute:
       dashboard:
-        enabled: fals
+        enabled: false
     service:
       spec:
         externalTrafficPolicy: Cluster
