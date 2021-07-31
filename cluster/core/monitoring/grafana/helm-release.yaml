@@ -107,10 +107,10 @@ spec:
           gnetId: 4475
           revision: 5
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/2842
-        ceph-cluster:
-          gnetId: 2842
-          revision: 14
+        # Ref: https://grafana.com/grafana/dashboards/12019
+        loki-logs:
+          gnetId: 12019
+          revision: 2
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13665
         speedtest:
