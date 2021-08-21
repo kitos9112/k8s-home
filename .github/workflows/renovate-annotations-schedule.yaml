@@ -1,53 +1,43 @@
-name: renovate
+name: Schedule - Add Helm Release Renovate annotations to helm releases
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"
-  push:
-    branches:
-      - master
+    - cron: "0 */12 * * *"
+
 jobs:
   renovate-helmrelease:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.PAT }}
-          fetch-depth: 1
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Install yq
-        run: |
-          mkdir -p /tmp/bin
-          echo "/tmp/bin" >> $GITHUB_PATH
-          curl -sL -o "/tmp/bin/yq" "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
-          chmod +x "/tmp/bin/yq"
-
-      - uses: k8s-at-home/renovate-helm-releases@v1
+      - name: Renovate Helm Releases
+        uses: k8s-at-home/renovate-helm-releases@v1
         with:
           # Path to the folder containing your Flux2 Helm Repositories and Helm Releases
           cluster-path: "./cluster"
           # Folders to exclude such as those use includes (Example: Ansible Vault)
           # exclude-folders: './cluster/ansible','./cluster/docs'
           # Turn on debug logging
-          debug: "yes"
+          debug: "no"
           # Do not alter Helm Release files
           dry-run: "no"
           # Tolerate yaml files with errors instead of aborting on errors
           tolerate-yaml-errors: "no"
 
-      - name: Create pull request for HelmRelease annotations
+      - name: Create pull request for renovatebot helm-release annotations
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           branch: helm-release-annotations
           delete-branch: true
-          title: "[renovate] Create/Update HelmRelease Annotations [ci-skip]"
+          title: "chore(deps): Create/Update HelmRelease Renovate Annotations"
           signoff: true
           committer: "Marcos Soutullo Rodriguez <marcos.soutullo91@gmail.com>"
           author: "Marcos Soutullo Rodriguez <marcos.soutullo91@gmail.com>"
           assignees: "kitos9112"
-          commit-message: "Update HelmRelease annotations for Renovate [ci-skip]"
+          commit-message: "chore(deps): Update HelmRelease annotations for Renovate [ci-skip]"
           body: |
             Add comment annotations to HelmReleases inorder for Renovate to pick up new versions of Helm charts
-          labels: renovate/helm-release-annotations
+          labels: renovate/annotations
