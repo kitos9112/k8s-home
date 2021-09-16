@@ -43,7 +43,7 @@ spec:
         enabled: true
         image:
           repository: codercom/code-server
-          tag: 3.11.1
+          tag: 3.12.0
         # git:
         #   deployKeySecret: code-server
         workingDir: "/config"
