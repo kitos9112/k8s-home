@@ -17,6 +17,11 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    tolerations:
+      - key: "node.kubernetes.io/unreachable"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 30
     image:
       repository: ghcr.io/home-assistant/home-assistant
       tag: 2021.9.6
