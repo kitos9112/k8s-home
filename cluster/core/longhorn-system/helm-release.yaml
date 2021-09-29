@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: longhorn
 spec:
-  interval: 1m
+  interval: 5m
   releaseName: longhorn
   chart:
     spec:

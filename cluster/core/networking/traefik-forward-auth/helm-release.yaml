@@ -5,7 +5,7 @@ metadata:
   name: traefik-forward-auth
   namespace: networking
 spec:
-  interval: 1m
+  interval: 5m
   releaseName: traefik-forward-auth
   chart:
     spec:
