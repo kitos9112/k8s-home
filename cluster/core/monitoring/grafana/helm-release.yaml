@@ -5,131 +5,120 @@ metadata:
   name: grafana
   namespace: monitoring
 spec:
-  interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://grafana.github.io/helm-charts
       chart: grafana
-      version: 6.16.10
+      interval: 5m
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
-      interval: 5m
+      version: 6.16.10
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: monitoring
+  interval: 5m
   values:
-    replicas: 1
+    adminPassword: ${SECRET_GRAFANA_PASSWORD}
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - disableDeletion: false
+            editable: true
+            folder: ""
+            name: default
+            options:
+              path: /var/lib/grafana/dashboards/default
+            orgId: 1
+            type: file
+    dashboards:
+      default:
+        calico-felix:
+          datasource: Prometheus
+          gnetId: 12175
+          revision: 5
+        flux-cluster:
+          datasource: Prometheus
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
+        flux-control-plane:
+          datasource: Prometheus
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
+        loki-logs:
+          datasource: Prometheus
+          gnetId: 12019
+          revision: 2
+        speedtest:
+          datasource: Prometheus
+          gnetId: 13665
+          revision: 1
+        traefik-ingress:
+          datasource: Prometheus
+          gnetId: 4475
+          revision: 5
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - access: proxy
+            isDefault: true
+            name: Prometheus
+            type: prometheus
+            url: http://prometheus-operated:9090
+          - access: proxy
+            name: Loki
+            type: loki
+            url: http://loki:3100
+        deleteDatasources:
+          - name: Loki
+            orgId: 1
     deploymentStrategy:
       type: Recreate
     env:
-      GF_EXPLORE_ENABLED: true
-      GF_PANELS_DISABLE_SANITIZE_HTML: true
-      GF_LOG_FILTERS: rendering:debug
+      GF_DATE_FORMATS_FULL_DATE: MMM Do, YYYY hh:mm:ss a
+      GF_DATE_FORMATS_INTERVAL_DAY: DD/MM
+      GF_DATE_FORMATS_INTERVAL_HOUR: DD/MM hh:mm a
+      GF_DATE_FORMATS_INTERVAL_MINUTE: hh:mm a
+      GF_DATE_FORMATS_INTERVAL_MONTH: MM-YYYY
+      GF_DATE_FORMATS_INTERVAL_SECOND: hh:mm:ss a
+      GF_DATE_FORMATS_INTERVAL_YEAR: YYYY
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
-      GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
-      GF_DATE_FORMATS_INTERVAL_SECOND: "hh:mm:ss a"
-      GF_DATE_FORMATS_INTERVAL_MINUTE: "hh:mm a"
-      GF_DATE_FORMATS_INTERVAL_HOUR: "DD/MM hh:mm a"
-      GF_DATE_FORMATS_INTERVAL_DAY: "DD/MM"
-      GF_DATE_FORMATS_INTERVAL_MONTH: "MM-YYYY"
-      GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
-    adminPassword: "${SECRET_GRAFANA_PASSWORD}"
+      GF_EXPLORE_ENABLED: true
+      GF_LOG_FILTERS: rendering:debug
+      GF_PANELS_DISABLE_SANITIZE_HTML: true
     grafana.ini:
-      server:
-        root_url: "https://grafana.${SECRET_DOMAIN}"
-        enable_gzip: true
+      analytics:
+        check_for_updates: false
+      auth:
+        oauth_auto_login: true
+      auth.basic:
+        disable_login_form: false
+      auth.google:
+        allow_sign_up: true
+        client_id: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_ID}
+        client_secret: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_SECRET}
+        enabled: true
+        scopes: https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
+      grafana_net:
+        url: https://grafana.net
+      log:
+        mode: console
       paths:
         data: /var/lib/grafana/data
         logs: /var/log/grafana
         plugins: /var/lib/grafana/plugins
         provisioning: /etc/grafana/provisioning
-      analytics:
-        check_for_updates: false
-      log:
-        mode: console
-      grafana_net:
-        url: https://grafana.net
-      auth:
-        oauth_auto_login: true
-      auth.basic:
-        disable_login_form: false
+      server:
+        enable_gzip: true
+        root_url: https://grafana.${SECRET_DOMAIN}
       users:
         allow_sign_up: false
+        auto_assign_org_role: Admin
         viewers_can_edit: true
-        auto_assign_org_role: "Admin"
-      # auth.anonymous:
-      #   enabled: true
-      #   org_role: Viewer
-      auth.google:
-        enabled: true
-        client_id: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_ID}
-        client_secret: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_SECRET}
-        scopes: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
-        allow_sign_up: true
-
-    dashboardProviders:
-      dashboardproviders.yaml:
-        apiVersion: 1
-        providers:
-          - name: "default"
-            orgId: 1
-            folder: ""
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/default
-    datasources:
-      datasources.yaml:
-        apiVersion: 1
-        # list of datasources that should be deleted from the database
-        deleteDatasources:
-          - name: Loki
-            orgId: 1
-        datasources:
-          - name: Prometheus
-            type: prometheus
-            url: http://prometheus-operated:9090
-            access: proxy
-            isDefault: true
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://loki:3100
-    dashboards:
-      default:
-        # Ref: https://grafana.com/grafana/dashboards/12175
-        calico-felix:
-          gnetId: 12175
-          revision: 5
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/4475
-        traefik-ingress:
-          gnetId: 4475
-          revision: 5
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/12019
-        loki-logs:
-          gnetId: 12019
-          revision: 2
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/13665
-        speedtest:
-          gnetId: 13665
-          revision: 1
-          datasource: Prometheus
-        flux-cluster:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
-          datasource: Prometheus
-        flux-control-plane:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
-          datasource: Prometheus
-    sidecar:
-      dashboards:
-        enabled: true
-        searchNamespace: ALL
-      datasources:
-        enabled: true
-        searchNamespace: ALL
+    ingress:
+      enabled: false
+    persistence:
+      enabled: false
     plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
@@ -137,20 +126,18 @@ spec:
       - vonage-status-panel
       - grafana-worldmap-panel
       - grafana-clock-panel
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: grafana
+    replicas: 1
+    serviceAccount:
+      autoMount: true
+      create: true
     serviceMonitor:
       enabled: true
-    ingress:
-      enabled: false
-    serviceAccount:
-      create: true
-      autoMount: true
-    persistence:
-      enabled: false
-    # persistence:
-    #   enabled: true
-    #   storageClassName: "longhorn"
-    #   size: 10Gi
-    #   accessModes:
-    #     - ReadWriteOnce
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "grafana"
+    sidecar:
+      dashboards:
+        enabled: true
+        searchNamespace: ALL
+      datasources:
+        enabled: true
+        searchNamespace: ALL

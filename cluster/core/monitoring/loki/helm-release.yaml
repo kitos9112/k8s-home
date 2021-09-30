@@ -5,29 +5,74 @@ metadata:
   name: loki
   namespace: monitoring
 spec:
-  interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://grafana.github.io/helm-charts
-      chart: loki-stack
-      version: 2.4.1
+      chart: loki
+      interval: 5m
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
-      interval: 5m
+      version: 2.6.0
+  interval: 5m
   values:
-    loki:
-      config:
-        table_manager:
-          retention_deletes_enabled: true
-          retention_period: 72h
-      persistence:
-        enabled: true
-        storageClassName: "longhorn"
-        size: 50Gi
-      serviceMonitor:
-        enabled: true
-    promtail:
-      serviceMonitor:
-        enabled: true
+    alerting_groups:
+      - name: home-assistant
+        rules:
+          - alert: HomeAssistantUnableToReachPostgresql
+            annotations:
+              summary: Home Assistant is unable to connect to postgresql
+            expr: |
+              sum by (app) (count_over_time({app=~"home-assistant"} |~ "(?i)error in database connectivity during commit"[2m])) > 0
+            for: 10s
+            labels:
+              category: logs
+              severity: critical
+    config:
+      ruler:
+        alertmanager_url: http://prometheus-alertmanager:9093
+        enable_api: true
+        ring:
+          kvstore:
+            store: inmemory
+        rule_path: /tmp/scratch
+        storage:
+          local:
+            directory: /rules
+          type: local
+      storage_config:
+        # aws:
+        #   access_key_id: ${SECRET_MINIO_ACCESS_KEY}
+        #   bucketnames: loki
+        #   endpoint: minio.tools:9000
+        #   insecure: true
+        #   s3forcepathstyle: true
+        #   secret_access_key: ${SECRET_MINIO_SECRET_KEY}
+        boltdb_shipper:
+          active_index_directory: /data/loki/index
+          cache_location: /data/loki/index_cache
+          resync_interval: 5s
+          shared_store: s3
+      # table_manager:
+      #   retention_deletes_enabled: true
+      #   retention_period: 72h
+    ingress:
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      enabled: true
+      hosts:
+        - host: loki.${SECRET_DOMAIN}
+          paths:
+            - /
+      ingressClassName: traefik
+      tls:
+        - hosts:
+            - loki.${SECRET_DOMAIN}
+    image:
+      repository: ghcr.io/k8s-at-home/loki
+    # persistence:
+    #   enabled: true
+    #   size: 50Gi
+    #   storageClassName: longhorn
+    serviceMonitor:
+      enabled: true
