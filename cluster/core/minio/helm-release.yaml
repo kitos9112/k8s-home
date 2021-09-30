@@ -59,7 +59,7 @@ spec:
         enabled: true
         type: pvc
         size: 100Gi
-        storageClass: longorn
+        storageClass: longhorn
         mountPath: /data
         retain: true
     podAnnotations:
