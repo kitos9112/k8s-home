@@ -11,4 +11,4 @@ spec:
   commonName: "minio.${SECRET_DOMAIN}"
   dnsNames:
     - "minio.${SECRET_DOMAIN}"
-    - "s3.{SECRET_DOMAIN}"
+    - "s3.${SECRET_DOMAIN}"
