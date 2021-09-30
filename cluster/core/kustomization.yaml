@@ -8,4 +8,4 @@ resources:
   - networking
   - longhorn-system
   - monitoring
-  - kube-system
+  # - kube-system
