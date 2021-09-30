@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "loki-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "loki-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "loki.${SECRET_DOMAIN}"
+  dnsNames:
+    - "loki.${SECRET_DOMAIN}"

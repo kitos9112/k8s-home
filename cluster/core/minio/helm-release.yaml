@@ -2,18 +2,81 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: botkube
-  namespace: monitoring
+  name: minio
+  namespace: minio
 spec:
-  interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://operator.min.io/
-      chart: botkube
-      version: 4.1.7
-      sourceRef:
-        kind: HelmRepository
-        name: minio-charts
-        namespace: flux-system
+      chart: /charts/kah-common/
       interval: 5m
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  interval: 5m
   values:
+    args:
+      - server
+      - /data
+      - "--console-address"
+      - ":9001"
+    env:
+      MINIO_PROMETHEUS_AUTH_TYPE: public
+      MINIO_UPDATE: "off"
+      TZ: Europe/London
+    envFrom:
+      - secretRef:
+          name: minio
+    image:
+      repository: quay.io/minio/minio
+      tag: RELEASE.2021-09-18T18-09-59Z
+    ingress:
+      main:
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        enabled: true
+        hosts:
+          - host: minio.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: 9001
+          - host: s3.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: 9000
+        ingressClassName: traefik
+        tls:
+          - hosts:
+              - minio.${SECRET_DOMAIN}
+              - s3.${SECRET_DOMAIN}
+    nameOverride: minio
+    persistence:
+      config:
+        enabled: true
+        type: pvc
+        size: 100Gi
+        storageClass: longorn
+        mountPath: /data
+        retain: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: minio
+    resources:
+      limits:
+        memory: 750Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    service:
+      main:
+        enabled: true
+        ports:
+          api:
+            enabled: true
+            port: 9000
+          http:
+            enabled: true
+            port: 9001
