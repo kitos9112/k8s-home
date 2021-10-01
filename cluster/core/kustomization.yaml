@@ -9,3 +9,4 @@ resources:
   - longhorn-system
   - monitoring
   - minio
+  - velero
