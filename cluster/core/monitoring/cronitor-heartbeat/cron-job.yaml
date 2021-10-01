@@ -5,22 +5,20 @@ metadata:
   namespace: monitoring
   name: cronitor-heartbeat
 spec:
-  schedule: "*/1 * * * *"
-  concurrencyPolicy: Forbid
-  successfulJobsHistoryLimit: 0
-  failedJobsHistoryLimit: 0
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
   jobTemplate:
     spec:
+      backoffLimit: 3
+      ttlSecondsAfterFinished: 300
       template:
-        metadata:
-          annotations:
-            botkube.io/disable: "true"
         spec:
           restartPolicy: Never
           containers:
             - name: cronitor-heartbeat
-              image: ghcr.io/k8s-at-home/kubectl:v1.21.3
-              imagePullPolicy: IfNotPresent
+              image: ghcr.io/k8s-at-home/kubectl:v1.22.2
               envFrom:
                 - secretRef:
                     name: cronitor-heartbeat-url
@@ -35,7 +33,7 @@ spec:
           volumes:
             - name: cronitor-heartbeat
               projected:
-                defaultMode: 0775
+                defaultMode: 0777
                 sources:
                   - configMap:
                       name: cronitor-heartbeat
