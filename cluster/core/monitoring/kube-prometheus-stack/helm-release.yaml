@@ -7,7 +7,6 @@ metadata:
 spec:
   chart:
     spec:
-      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
       interval: 5m
       sourceRef:
@@ -113,11 +112,18 @@ spec:
       ingress:
         enabled: false
       prometheusSpec:
+        additionalScrapeConfigs:
+          - honor_timestamps: true
+            job_name: minio-job
+            metrics_path: /minio/v2/metrics/cluster
+            static_configs:
+              - targets:
+                  - minio.tools:9000
         enableAdminAPI: true
         podMonitorNamespaceSelector: {}
         podMonitorSelector: {}
         podMonitorSelectorNilUsesHelmValues: false
-        retention: 7d
+        retention: 3h
         ruleNamespaceSelector: {}
         ruleSelector: {}
         ruleSelectorNilUsesHelmValues: false
@@ -131,7 +137,17 @@ spec:
                 requests:
                   storage: 75Gi
               storageClassName: longhorn
+        thanos:
+          image: quay.io/thanos/thanos:v0.23.0
+          objectStorageConfig:
+            key: objstore.yml
+            name: thanos-objstore
+          version: v0.22.0
         walCompression: true
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     prometheusOperator:
