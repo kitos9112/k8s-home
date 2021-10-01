@@ -6,3 +6,4 @@ resources:
   - external-dns
   - kube-prometheus-stack
   - traefik
+  - velero
