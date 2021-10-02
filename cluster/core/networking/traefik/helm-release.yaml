@@ -9,7 +9,7 @@ spec:
     spec:
       # renovate: registryUrl=https://helm.traefik.io/traefik
       chart: traefik
-      version: 9.20.1
+      version: 10.3.6
       interval: 5m
       sourceRef:
         kind: HelmRepository
