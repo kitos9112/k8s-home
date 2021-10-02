@@ -9,12 +9,12 @@ spec:
     spec:
       # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
+      version: 19.0.1
       interval: 5m
       sourceRef:
         kind: HelmRepository
         name: prometheus-community-charts
         namespace: flux-system
-      version: 19.0.1
   dependsOn:
     - name: longhorn
       namespace: longhorn-system

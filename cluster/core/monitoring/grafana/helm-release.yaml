@@ -9,12 +9,12 @@ spec:
     spec:
       # renovate: registryUrl=https://grafana.github.io/helm-charts
       chart: grafana
+      version: 6.16.10
       interval: 5m
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
-      version: 6.16.10
   dependsOn:
     - name: kube-prometheus-stack
       namespace: monitoring

@@ -9,12 +9,12 @@ spec:
     spec:
       # renovate: registryUrl=https://grafana.github.io/helm-charts
       chart: loki
+      version: 2.6.0
       interval: 5m
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
-      version: 2.6.0
   interval: 5m
   values:
     alerting_groups:

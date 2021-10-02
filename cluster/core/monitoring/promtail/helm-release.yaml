@@ -9,12 +9,13 @@ spec:
     spec:
       # renovate: registryUrl=https://grafana.github.io/helm-charts
       chart: promtail
+      version: 3.8.1
       interval: 5m
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
-      version: 3.8.1
+
   interval: 5m
   values:
     config:

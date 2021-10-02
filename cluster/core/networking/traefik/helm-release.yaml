@@ -9,12 +9,13 @@ spec:
     spec:
       # renovate: registryUrl=https://helm.traefik.io/traefik
       chart: traefik
+      version: 9.20.1
       interval: 5m
       sourceRef:
         kind: HelmRepository
         name: traefik-charts
         namespace: flux-system
-      version: 9.20.1
+
   interval: 5m
   values:
     additionalArguments:
