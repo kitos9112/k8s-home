@@ -37,8 +37,9 @@
       ],
       "matchStrings": [
         // helm releases
+        // "version" line may live a few lines after the `chart` once the YAML file gets alphabetically sorted
         // https://stackoverflow.com/a/45981809/6444614
-        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)([\s\S]*)version: (?<currentValue>.*)\n"
+        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)([\\s\\S]*)version: (?<currentValue>.*)\n"
       ],
       "datasourceTemplate": "helm"
     },
@@ -127,7 +128,8 @@
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
       "semanticCommitType": "fix",
-      "labels": ["renovate/helm", "dep/patch"]
+      "labels": ["renovate/helm", "dep/patch"],
+      "automerge": true
     },
     // custom version schemes
     {
