@@ -39,7 +39,7 @@
         // helm releases
         // "version" line may live a few lines after the `chart` once the YAML file gets alphabetically sorted
         // https://stackoverflow.com/a/45981809/6444614
-        "# renovate: registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)((.|\n)*)version: (?<currentValue>.*)\n"
+        "# renovate: registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
       ],
       "datasourceTemplate": "helm"
     },
