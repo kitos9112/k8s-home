@@ -37,7 +37,8 @@
       ],
       "matchStrings": [
         // helm releases
-        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
+        // https://stackoverflow.com/a/45981809/6444614
+        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)([\s\S]*)version: (?<currentValue>.*)\n"
       ],
       "datasourceTemplate": "helm"
     },
