@@ -7,6 +7,7 @@ metadata:
 spec:
   chart:
     spec:
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
       chart: thanos
       interval: 5m
       sourceRef:
