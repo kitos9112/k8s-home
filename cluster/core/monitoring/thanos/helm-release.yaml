@@ -19,10 +19,28 @@ spec:
   values:
     bucketweb:
       enabled: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 256Mi
     compactor:
       enabled: true
       persistence:
         enabled: false
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 256Mi
     existingObjstoreSecret: thanos-objstore
     image:
       registry: public.ecr.aws
@@ -36,21 +54,32 @@ spec:
         sidecarsNamespace: monitoring
         sidecarsService: prometheus-thanos-discovery
       enabled: true
-      ingress:
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        enabled: true
-        hostname: thanos.${SECRET_DOMAIN}
-        ingressClassName: traefik
-        tls: true
       replicaLabels:
         - replica
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 256Mi
     queryFrontend:
       enabled: false
     ruler:
       enabled: false
     storegateway:
       enabled: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 256Mi
       persistence:
         enabled: true
         size: 5Gi

@@ -1,0 +1,22 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: thanos-ingress
+  namespace: home
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`thanos.${SECRET_DOMAIN}`)
+      kind: Rule
+      services:
+        - name: thanos-query
+          namespace: monitoring
+          port: 9090
+          scheme: http
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: networking
+  tls:
+    secretName: "thanos-${SECRET_DOMAIN/./-}-tls"

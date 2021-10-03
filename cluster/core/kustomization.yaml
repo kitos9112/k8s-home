@@ -8,6 +8,5 @@ resources:
   - networking
   - longhorn-system
   - monitoring
-  - thanos
   - minio
   - velero

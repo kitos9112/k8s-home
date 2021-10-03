@@ -110,7 +110,8 @@
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["patch"],
       "semanticCommitType": "fix",
-      "labels": ["renovate/image", "dep/patch"]
+      "labels": ["renovate/image", "dep/patch"],
+      "automerge": true
     },
     {
       "matchDatasources": ["helm"],
