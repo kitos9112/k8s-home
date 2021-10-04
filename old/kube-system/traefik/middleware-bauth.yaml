@@ -1,9 +1,0 @@
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: auth
-  namespace: kube-system
-spec:
-  basicAuth:
-    secret: traefik-dashboard-bauth
