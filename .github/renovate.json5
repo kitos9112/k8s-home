@@ -111,7 +111,8 @@
       "matchUpdateTypes": ["patch"],
       "semanticCommitType": "fix",
       "labels": ["renovate/image", "dep/patch"],
-      "automerge": true
+      "automerge": true,
+      "ignoreTests": true
     },
     {
       "matchDatasources": ["helm"],
@@ -130,7 +131,8 @@
       "matchUpdateTypes": ["patch"],
       "semanticCommitType": "fix",
       "labels": ["renovate/helm", "dep/patch"],
-      "automerge": true
+      "automerge": true,
+      "ignoreTests": true
     },
     // custom version schemes
     {
