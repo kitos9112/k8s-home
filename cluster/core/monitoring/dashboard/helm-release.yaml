@@ -15,21 +15,8 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   values:
-    # image:
-    #   repository: linuxserver/heimdall
-    #   tag: version-2.2.2
-    timezone: "Europe/London"
-    ingress:
-      enabled: true
-      hosts:
-        - host: dashboard.${SECRET_DOMAIN}
-          paths:
-            - path: /
-              pathType: Prefix
-      annotations:
-        kubernetes.io/ingress.class: "traefik"
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        traefik.ingress.kubernetes.io/router.tls.domains.0.main: "dashboard.${SECRET_DOMAIN}"
+    env:
+      TZ: Europe/London
     persistence:
       config:
         enabled: true
