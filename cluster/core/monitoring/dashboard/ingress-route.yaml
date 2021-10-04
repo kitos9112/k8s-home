@@ -11,7 +11,7 @@ spec:
     - match: Host(`dashboard.${SECRET_DOMAIN}`)
       kind: Rule
       services:
-        - name: dashboard
+        - name: heimdall
           namespace: monitoring
           port: 80
           scheme: http
