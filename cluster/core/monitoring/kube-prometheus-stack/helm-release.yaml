@@ -139,7 +139,7 @@ spec:
                   storage: 75Gi
               storageClassName: longhorn
         thanos:
-          image: quay.io/thanos/thanos:v0.23.0
+          image: quay.io/thanos/thanos:v0.23.1
           objectStorageConfig:
             key: objstore.yml
             name: thanos-objstore
