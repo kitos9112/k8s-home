@@ -20,6 +20,7 @@ spec:
       namespace: longhorn-system
   interval: 5m
   values:
+    fullnameOverride: prometheus
     alertmanager:
       alertmanagerSpec:
         storage:
@@ -85,13 +86,19 @@ spec:
     kubeApiServer:
       enabled: true
     kubeControllerManager:
-      enabled: false
+      enabled: true
+      endpoints:
+        - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
     kubeEtcd:
       enabled: false
     kubeProxy:
-      enabled: false
+      enabled: true
+      endpoints:
+        - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
     kubeScheduler:
-      enabled: false
+      enabled: true
+      endpoints:
+        - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
     kubelet:
       enabled: true
       serviceMonitor:
@@ -131,12 +138,13 @@ spec:
         serviceMonitorNamespaceSelector: {}
         serviceMonitorSelector: {}
         serviceMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
         storageSpec:
           volumeClaimTemplate:
             spec:
               resources:
                 requests:
-                  storage: 75Gi
+                  storage: 15Gi
               storageClassName: longhorn
         thanos:
           image: quay.io/thanos/thanos:v0.23.1
@@ -153,3 +161,6 @@ spec:
       fullnameOverride: node-exporter
     prometheusOperator:
       configReloaderCpu: 0
+      admissionWebhooks:
+        certManager:
+          enabled: true
