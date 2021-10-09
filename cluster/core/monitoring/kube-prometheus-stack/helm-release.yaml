@@ -83,6 +83,8 @@ spec:
       enabled: false
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
+      metricLabelsAllowlist:
+        - pods=[app.kubernetes.io/name]
     kubeApiServer:
       enabled: true
     kubeControllerManager:
