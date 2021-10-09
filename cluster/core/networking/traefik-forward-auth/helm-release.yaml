@@ -19,7 +19,9 @@ spec:
       interval: 1m
   values:
     image:
-      tag: 2-arm64
+      repository: kitos9112/traefik-forward-auth
+      pullPolicy: IfNotPresent
+      tag: v2.3.3
     nodeSelector:
       kubernetes.io/arch: arm64
     logging:
