@@ -3,6 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: traefik-forward-auth
+  namespace: networking
 spec:
   interval: 5m
   releaseName: traefik-forward-auth
@@ -22,7 +23,7 @@ spec:
     nodeSelector:
       kubernetes.io/arch: arm64
     logging:
-      level: info
+      level: trace
       format: pretty
     logoutRedirect: ""
     middleware:
