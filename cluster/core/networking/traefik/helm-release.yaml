@@ -21,7 +21,7 @@ spec:
       - "--providers.kubernetesingress.ingressendpoint.hostname=${SECRET_DOMAIN}"
     deployment:
       enabled: true
-      replicas: 2
+      replicas: 3
     experimental:
       plugins:
         enabled: true
@@ -54,6 +54,7 @@ spec:
     pilot:
       enabled: true
       token: ${SECRET_TRAEFIK_PILOT_TOKEN}
+      dashboard: true
     ports:
       traefik:
         port: 9000
@@ -74,6 +75,10 @@ spec:
         memory: 50Mi
     podSecurityPolicy:
       enabled: false
+    podDisruptionBudget:
+      enabled: true
+      maxUnavailable: 1
+      minAvailable: 0
     providers:
       kubernetesCRD:
         enabled: true
