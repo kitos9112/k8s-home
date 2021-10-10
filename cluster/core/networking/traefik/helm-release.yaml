@@ -65,7 +65,7 @@ spec:
       websecure:
         tls:
           enabled: true
-          #options: default
+          options: default
     resources:
       limits:
         cpu: 500m
@@ -95,4 +95,4 @@ spec:
           - CurveP384
         minVersion: VersionTLS12
         maxVersion: VersionTLS13
-        sniStrict: true
+        sniStrict: false
