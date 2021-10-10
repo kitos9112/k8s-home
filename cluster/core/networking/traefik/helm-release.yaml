@@ -49,8 +49,8 @@ spec:
             names:
               X-Forwarded-User: keep
       general:
-        format: json
-        level: INFO
+        #format: json
+        level: DEBUG
     pilot:
       enabled: true
       token: ${SECRET_TRAEFIK_PILOT_TOKEN}
@@ -93,6 +93,6 @@ spec:
         curvePreferences:
           - CurveP521
           - CurveP384
-        # minVersion: VersionTLS12
-        # maxVersion: VersionTLS13
+        minVersion: VersionTLS12
+        maxVersion: VersionTLS13
         sniStrict: true
