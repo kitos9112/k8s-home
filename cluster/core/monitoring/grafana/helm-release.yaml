@@ -46,7 +46,7 @@ spec:
           datasource: Prometheus
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
         loki-logs:
-          datasource: Prometheus
+          datasource: Loki
           gnetId: 12019
           revision: 2
         speedtest:
@@ -119,7 +119,14 @@ spec:
     ingress:
       enabled: false
     persistence:
-      enabled: false
+      enabled: true
+      type: pvc
+      storageClassName: hostpath
+      accessModes:
+        - ReadWriteOnce
+      size: 4Gi
+      finalizers:
+        - kubernetes.io/pvc-protection
     plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
