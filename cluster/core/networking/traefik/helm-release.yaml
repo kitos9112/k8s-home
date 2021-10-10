@@ -65,7 +65,7 @@ spec:
       websecure:
         tls:
           enabled: true
-          options: default
+          #options: default
     resources:
       limits:
         cpu: 500m
