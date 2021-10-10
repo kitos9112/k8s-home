@@ -93,6 +93,6 @@ spec:
         curvePreferences:
           - CurveP521
           - CurveP384
-        minVersion: VersionTLS12
-        maxVersion: VersionTLS13
+        # minVersion: VersionTLS12
+        # maxVersion: VersionTLS13
         sniStrict: true
