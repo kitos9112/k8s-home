@@ -129,6 +129,27 @@ spec:
             static_configs:
               - targets:
                   - minio.tools:9000
+          - job_name: "felix_metrics"
+            scrape_interval: 5s
+            scheme: http
+            kubernetes_sd_configs:
+              - role: endpoints
+            relabel_configs:
+              - source_labels: [__meta_kubernetes_service_name]
+                regex: felix-metrics-svc
+                replacement: $1
+                action: keep
+          - job_name: "kube_controllers_metrics"
+            scrape_interval: 5s
+            scheme: http
+            kubernetes_sd_configs:
+              - role: endpoints
+            relabel_configs:
+              - source_labels: [__meta_kubernetes_service_name]
+                regex: kube-controllers-metrics-svc
+                replacement: $1
+                action: keep
+
         enableAdminAPI: true
         podMonitorNamespaceSelector: {}
         podMonitorSelector: {}
