@@ -21,7 +21,8 @@ spec:
       - key: "node.kubernetes.io/unreachable"
         operator: "Exists"
         effect: "NoExecute"
-        tolerationSeconds: 30
+        # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
+        tolerationSeconds: 15
     image:
       repository: ghcr.io/home-assistant/home-assistant
       tag: 2021.10.3

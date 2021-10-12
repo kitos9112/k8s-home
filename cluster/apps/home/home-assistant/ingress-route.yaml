@@ -15,30 +15,8 @@ spec:
           namespace: home
           port: 8123
           scheme: http
-      middlewares:
-        - name: traefik-forward-auth
-          namespace: networking
   tls:
     secretName: "hass-${SECRET_DOMAIN/./-}-tls"
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: hass-mobile-ingress
-  namespace: home
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: Host(`hass-mobile.${SECRET_DOMAIN}`)
-      kind: Rule
-      services:
-        - name: home-assistant
-          namespace: home
-          port: 8123
-          scheme: http
-  tls:
-    secretName: "hass-mobile-${SECRET_DOMAIN/./-}-tls"
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute

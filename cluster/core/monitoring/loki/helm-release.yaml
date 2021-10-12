@@ -68,5 +68,18 @@ spec:
       tls:
         - hosts:
             - loki.${SECRET_DOMAIN}
+    resources:
+      limits:
+        cpu: 350m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
     serviceMonitor:
       enabled: true
+    tolerations:
+      - key: "node.kubernetes.io/unreachable"
+        operator: "Exists"
+        effect: "NoExecute"
+        # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
+        tolerationSeconds: 15

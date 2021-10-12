@@ -142,6 +142,12 @@ spec:
       create: true
     serviceMonitor:
       enabled: true
+    tolerations:
+      - key: "node.kubernetes.io/unreachable"
+        operator: "Exists"
+        effect: "NoExecute"
+        # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
+        tolerationSeconds: 15
     sidecar:
       dashboards:
         enabled: true
