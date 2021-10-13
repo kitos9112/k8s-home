@@ -56,18 +56,6 @@ spec:
           shared_store: s3
     image:
       repository: ghcr.io/k8s-at-home/loki
-    ingress:
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      enabled: true
-      hosts:
-        - host: loki.${SECRET_DOMAIN}
-          paths:
-            - /
-      ingressClassName: traefik
-      tls:
-        - hosts:
-            - loki.${SECRET_DOMAIN}
     resources:
       limits:
         cpu: 350m
