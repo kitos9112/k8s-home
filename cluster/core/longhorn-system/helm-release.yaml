@@ -22,40 +22,55 @@ spec:
     csi:
       kubeletRootDir: /var/lib/kubelet
     defaultSettings:
-      backupTarget: ~
-      backupTargetCredentialSecret: ~
-      allowRecurringJobWhileVolumeDetached: ~
-      createDefaultDiskLabeledNodes: ~
-      defaultDataPath: ~
-      defaultDataLocality: ~
-      replicaSoftAntiAffinity: ~
+      # backupTarget: ~
+      # backupTargetCredentialSecret: ~
+      # allowRecurringJobWhileVolumeDetached: ~
+      createDefaultDiskLabeledNodes: true
+      # defaultDataPath: ~
+      # defaultDataLocality: ~
+      replicaSoftAntiAffinity: false
       storageOverProvisioningPercentage: "200%"
       storageMinimalAvailablePercentage: "25%"
-      upgradeChecker: ~
-      defaultReplicaCount: ~
-      defaultLonghornStaticStorageClass: ~
-      backupstorePollInterval: ~
-      taintToleration: ~
-      systemManagedComponentsNodeSelector: ~
-      priorityClass: ~
+      upgradeChecker: false
+      defaultReplicaCount: 2
+      # defaultLonghornStaticStorageClass: ~
+      backupstorePollInterval: 500
+      # taintToleration: ~
+      # systemManagedComponentsNodeSelector: ~
+      priorityClass: high-priority
       autoSalvage: true
       autoDeletePodWhenVolumeDetachedUnexpectedly: true
-      disableSchedulingOnCordonedNode:
-      replicaZoneSoftAntiAffinity: ~
+      disableSchedulingOnCordonedNode: false
+      replicaZoneSoftAntiAffinity: false
       nodeDownPodDeletionPolicy: "delete-both-statefulset-and-deployment-pod"
-      allowNodeDrainWithLastHealthyReplica: ~
-      mkfsExt4Parameters: ~
-      disableReplicaRebuild: ~
+      volumeAttachmentRecoveryPolicy: "wait"
+      # allowNodeDrainWithLastHealthyReplica: ~
+      mkfsExt4Parameters: -O ^64bit,^metadata_csum
+      # disableReplicaRebuild: ~
       replicaReplenishmentWaitInterval: 300
-      disableRevisionCounter: ~
-      systemManagedPodsImagePullPolicy: ~
-      allowVolumeCreationWithDegradedAvailability: ~
-      autoCleanupSystemGeneratedSnapshot: ~
+      # disableRevisionCounter: ~
+      # systemManagedPodsImagePullPolicy: ~
+      allowVolumeCreationWithDegradedAvailability: true
+      # autoCleanupSystemGeneratedSnapshot: ~
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
-      backingImageCleanupWaitInterval: ~
-      guaranteedEngineManagerCPU: ~
-      guaranteedReplicaManagerCPU: ~
+      # backingImageCleanupWaitInterval: ~
+      guaranteedEngineManagerCPU: 8
+      guaranteedReplicaManagerCPU: 8
+
+    # BEST PRACTICES - https://longhorn.io/docs/1.2.2/best-practices/
+
+    # Minimum Recommended Hardware (https://longhorn.io/docs/1.2.2/best-practices/#minimum-recommended-hardware) ✅
+    # Software (https://longhorn.io/docs/1.2.2/best-practices/#software) ✅
+    # Node and Disk Setup (https://longhorn.io/docs/1.2.2/best-practices/#node-and-disk-setup) ✅
+    # Deploying Workloads (https://longhorn.io/docs/1.2.2/best-practices/#deploying-workloads) ✅
+    # Volume Maintenance (https://longhorn.io/docs/1.2.2/best-practices/#volume-maintenance) ✅
+    # Guaranteed Instance Manager CPU ✅
+    # StorageClass (https://longhorn.io/docs/1.2.2/best-practices/#storageclass) ✅
+    # Scheduling Settings (https://longhorn.io/docs/1.2.2/best-practices/#scheduling-settings) ❌
+    longhornManager:
+      priorityClass: "system-node-critical"
     longhornDriver:
+      priorityClass: "system-node-critical"
       tolerations:
         - key: "node.kubernetes.io/unreachable"
           operator: "Exists"
@@ -69,3 +84,10 @@ spec:
           effect: "NoExecute"
           # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
           tolerationSeconds: 15
+    resources:
+      requests:
+        cpu: "50m"
+        memory: "50Mi"
+      limits:
+        cpu: "250m"
+        memory: "500Mi"
