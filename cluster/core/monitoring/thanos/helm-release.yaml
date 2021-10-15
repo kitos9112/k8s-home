@@ -34,6 +34,9 @@ spec:
         enabled: false
       nodeSelector:
         kubernetes.io/arch: amd64
+      retentionResolutionRaw: 1d
+      retentionResolution5m: 30d
+      retentionResolution1h: 2y
       resources:
         requests:
           cpu: 100m

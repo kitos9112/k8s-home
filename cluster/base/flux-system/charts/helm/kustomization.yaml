@@ -16,6 +16,7 @@ resources:
   - k8s-at-home-charts.yaml
   - kasten-charts.yaml
   - kubernetes-sigs-descheduler-charts.yaml
+  - kubernetes-dashboard-chart.yaml
   - longhorn-charts.yaml
   - lwolf-charts.yaml
   - minio-charts.yaml
