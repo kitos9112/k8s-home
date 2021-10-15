@@ -18,7 +18,19 @@ spec:
       interval: 1m
   values:
     persistence:
-      defaultClassReplicaCount: 3
+      defaultClass: true
+      defaultFsType: ext4
+      defaultClassReplicaCount: 2
+      # reclaimPolicy: Delete
+      # recurringJobSelector:
+      #   enable: false
+      #   jobList: []
+      # backingImage:
+      #   enable: false
+      #   name: ~
+      #   dataSourceType: ~
+      #   dataSourceParameters: ~
+      #   expectedChecksum: ~
     csi:
       kubeletRootDir: /var/lib/kubelet
     defaultSettings:
