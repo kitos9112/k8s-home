@@ -11,8 +11,8 @@ spec:
       kind: Rule
       services:
         - name: change-detection
-          namespace: monitoring
-          port: 80
+          namespace: tools
+          port: 5000
           scheme: http
       middlewares:
         - name: traefik-forward-auth
