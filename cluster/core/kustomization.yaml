@@ -9,5 +9,5 @@ resources:
   - networking
   - longhorn-system
   - monitoring
-  - minio
+  - tools
   - velero

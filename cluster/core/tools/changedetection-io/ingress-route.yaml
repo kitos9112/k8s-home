@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: change-detection-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`change-detection.${SECRET_DOMAIN}`)
+      kind: Rule
+      services:
+        - name: change-detection
+          namespace: monitoring
+          port: 80
+          scheme: http
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: networking
+  tls:
+    secretName: "change-detection-${SECRET_DOMAIN/./-}-tls"

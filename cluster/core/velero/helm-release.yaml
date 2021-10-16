@@ -30,7 +30,7 @@ spec:
         config:
           region: eu-west-1
           s3ForcePathStyle: true
-          s3Url: http://minio.minio:9000
+          s3Url: http://minio.tools:9000
           publicUrl: https://minio.${SECRET_DOMAIN}
       resticTimeout: 4h
     initContainers:

@@ -2,7 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - minio.yaml
+  - tools.yaml
   - cert-manager.yaml
   - falco-system.yaml
   - flux-system.yaml
@@ -13,5 +13,4 @@ resources:
   - media.yaml
   - monitoring.yaml
   - networking.yaml
-  - rook-ceph.yaml
   - velero.yaml
