@@ -20,7 +20,8 @@ spec:
       namespace: longhorn-system
   interval: 5m
   values:
-    fullnameOverride: prometheus
+    nameOverride: ""
+    fullnameOverride: "kube"
     alertmanager:
       alertmanagerSpec:
         storage:
@@ -188,3 +189,7 @@ spec:
       admissionWebhooks:
         certManager:
           enabled: true
+      thanosImage:
+        repository: quay.io/thanos/thanos
+        tag: v0.23.1
+        #sha: "sha256:2f7d1ddc7877b076efbc3fa626b5003f7f197efbd777cff0eec2b20c2cd68d20"
