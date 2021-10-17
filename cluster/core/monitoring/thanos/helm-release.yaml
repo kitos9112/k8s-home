@@ -16,6 +16,9 @@ spec:
         name: bitnami-charts
         namespace: flux-system
   interval: 5m
+  dependsOn:
+    - name: minio
+      namespace: tools
   values:
     bucketweb:
       enabled: true
