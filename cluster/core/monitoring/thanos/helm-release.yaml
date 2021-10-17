@@ -58,7 +58,7 @@ spec:
     query:
       dnsDiscovery:
         sidecarsNamespace: monitoring
-        sidecarsService: prometheus-thanos-discovery
+        sidecarsService: kube-thanos-discovery
       enabled: true
       replicaLabels:
         - replica
