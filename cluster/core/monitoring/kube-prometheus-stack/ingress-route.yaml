@@ -11,7 +11,7 @@ spec:
     - match: Host(`prometheus.${SECRET_DOMAIN}`)
       kind: Rule
       services:
-        - name: prometheus-prometheus
+        - name: kube-prometheus
           namespace: monitoring
           port: 9090
           scheme: http
@@ -33,7 +33,7 @@ spec:
     - match: Host(`alertmanager.${SECRET_DOMAIN}`)
       kind: Rule
       services:
-        - name: prometheus-alertmanager
+        - name: kube-alertmanager
           namespace: monitoring
           port: 9093
           scheme: http
