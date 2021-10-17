@@ -59,7 +59,7 @@ spec:
       config:
         enabled: true
         type: pvc
-        size: 50Gi
+        size: 100Gi
         storageClass: longhorn
         mountPath: /data
         retain: true
