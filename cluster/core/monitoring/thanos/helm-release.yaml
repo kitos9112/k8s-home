@@ -19,6 +19,8 @@ spec:
   dependsOn:
     - name: minio
       namespace: tools
+    - name: kube-prometheus-stack
+      namespace: monitoring
   values:
     bucketweb:
       enabled: true
