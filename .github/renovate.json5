@@ -35,6 +35,7 @@
       "fileMatch": [
         "cluster/.+\\.yaml$"
       ],
+      "matchStringsStrategy": "any",
       "matchStrings": [
         // helm releases
         // "version" line may live a few lines after the `chart` once the YAML file gets alphabetically sorted
