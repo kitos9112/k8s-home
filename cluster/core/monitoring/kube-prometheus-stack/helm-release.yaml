@@ -191,3 +191,4 @@ spec:
       configReloaderCpu: 0
       admissionWebhooks:
         certManager:
+          enabled: true
