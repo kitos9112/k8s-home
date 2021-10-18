@@ -172,8 +172,6 @@ spec:
                   storage: 15Gi
               storageClassName: longhorn
         thanos:
-          image: quay.io/thanos/thanos
-          version: v0.23.1
           objectStorageConfig:
             key: objstore.yml
             name: thanos-objstore
@@ -192,3 +190,6 @@ spec:
       admissionWebhooks:
         certManager:
           enabled: true
+      thanosImage:
+        repository: quay.io/thanos/thanos
+        tag: v0.23.1
