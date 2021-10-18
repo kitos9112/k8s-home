@@ -191,8 +191,3 @@ spec:
       configReloaderCpu: 0
       admissionWebhooks:
         certManager:
-          enabled: true
-      thanosImage:
-        repository: quay.io/thanos/thanos
-        version: v0.23.1
-        tag: v0.23.1
