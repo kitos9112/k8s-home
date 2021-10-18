@@ -193,5 +193,4 @@ spec:
         certManager:
           enabled: true
       thanosImage:
-        repository: quay.io/thanos/thanos
-        version: v0.23.1
+        repository: quay.io/thanos/thanos:v0.23.1
