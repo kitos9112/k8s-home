@@ -1,0 +1,33 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: heimdall
+  namespace: kube-system
+spec:
+  interval: 1h
+  chart:
+    spec:
+      # renovate: registryUrl=https://kubernetes.github.io/dashboard/
+      chart: kubernetes-dashboard
+      version: 8.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: kubernetes-dashboard-chart
+        namespace: flux-system
+  values:
+    settings:
+      ## Cluster name that appears in the browser window title if it is set
+      clusterName: ${SECRET_DOMAIN}
+      ## Max number of items that can be displayed on each list page
+      itemsPerPage: 100
+      ## Number of seconds between every auto-refresh of logs
+      logsAutoRefreshTimeInterval: 5
+      ## Number of seconds between every auto-refresh of every resource. Set 0 to disable
+      resourceAutoRefreshTimeInterval: 5
+      ## Hide all access denied warnings in the notification panel
+      disableAccessDeniedNotifications: false
+    pinnedCRDs: []
+    metricsScraper:
+      ## Wether to enable dashboard-metrics-scraper
+      enabled: true

@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "k8s-${SECRET_DOMAIN/./-}"
+  namespace: monitoring
+spec:
+  secretName: "k8s-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "k8s.${SECRET_DOMAIN}"
+  dnsNames:
+    - "k8s.${SECRET_DOMAIN}"
