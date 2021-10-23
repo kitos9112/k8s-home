@@ -5,7 +5,7 @@ metadata:
   name: kubernetes-dashboard
   namespace: kube-system
 spec:
-  interval: 1h
+  interval: 5m
   chart:
     spec:
       # renovate: registryUrl=https://kubernetes.github.io/dashboard/
@@ -15,6 +15,7 @@ spec:
         kind: HelmRepository
         name: kubernetes-dashboard-chart
         namespace: flux-system
+      interval: 1m
   values:
     settings:
       ## Cluster name that appears in the browser window title if it is set
