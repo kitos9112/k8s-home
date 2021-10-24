@@ -16,12 +16,12 @@ resources:
   - k8s-at-home-charts.yaml
   - kasten-charts.yaml
   - kubernetes-sigs-descheduler-charts.yaml
-  - kubernetes-dashboard-chart.yaml
+  - kubernetes-dashboard-charts.yaml
   - longhorn-charts.yaml
   - lwolf-charts.yaml
   - minio-charts.yaml
   - metallb-charts.yaml
-  - metrics-server-chart.yaml
+  - metrics-server-charts.yaml
   - nfs-subdir-external-provisioner-charts.yaml
   - node-feature-discovery-charts.yaml
   - prometheus-community-charts.yaml

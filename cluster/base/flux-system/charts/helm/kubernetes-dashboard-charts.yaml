@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: kubernetes-dashboard-chart
+  name: kubernetes-dashboard-charts
   namespace: flux-system
 spec:
   interval: 60m
