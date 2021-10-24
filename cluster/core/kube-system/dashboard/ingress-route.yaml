@@ -3,7 +3,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: k8s-ingress
-  namespace: monitoring
 spec:
   entryPoints:
     - websecure
@@ -11,8 +10,7 @@ spec:
     - match: Host(`k8s.${SECRET_DOMAIN}`)
       kind: Rule
       services:
-        - name: heimdall
-          namespace: monitoring
+        - name: dashboard
           port: 80
           scheme: http
       middlewares:
