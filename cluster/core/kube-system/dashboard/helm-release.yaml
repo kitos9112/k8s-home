@@ -8,7 +8,7 @@ spec:
   releaseName: kubernetes-dashboard
   chart:
     spec:
-      # renovate: registryUrl=https://kubernetes.github.io/dashboard
+      # renovate: registryUrl=https://kubernetes.github.io/dashboard/
       chart: kubernetes-dashboard
       version: 5.0.3
       sourceRef:
