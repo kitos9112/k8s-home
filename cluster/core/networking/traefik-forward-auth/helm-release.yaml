@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: kitos9112/traefik-forward-auth
-      tag: v2.3.3
+      tag: v2.4.0
       pullPolicy: IfNotPresent
     nodeSelector:
       kubernetes.io/arch: arm64
