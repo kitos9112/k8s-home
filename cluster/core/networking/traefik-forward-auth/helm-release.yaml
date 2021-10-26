@@ -19,8 +19,8 @@ spec:
       interval: 1m
   values:
     image:
-      repository: kitos9112/traefik-forward-auth
-      tag: v2.4.1
+      repository: ghcr.io/kitos9112/traefik-forward-auth
+      tag: v2.5.0
       pullPolicy: IfNotPresent
     nodeSelector:
       kubernetes.io/arch: arm64
