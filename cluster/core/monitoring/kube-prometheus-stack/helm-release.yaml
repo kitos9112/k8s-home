@@ -95,8 +95,6 @@ spec:
         - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
       service:
         enabled: true
-        port: 10252
-        targetPort: 10252
     kubeEtcd:
       enabled: false
     kubeProxy:
@@ -105,16 +103,12 @@ spec:
         - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
       service:
         enabled: true
-        port: 10252
-        targetPort: 10252
     kubeScheduler:
       enabled: true
       endpoints:
         - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
       service:
         enabled: true
-        port: 10252
-        targetPort: 10252
     kubelet:
       enabled: true
       serviceMonitor:
