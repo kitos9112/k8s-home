@@ -1,4 +1,4 @@
-name: update-flux
+name: Schedule - Update Flux to its latest version
 
 on:
   workflow_dispatch:
