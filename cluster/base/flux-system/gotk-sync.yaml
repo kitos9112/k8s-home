@@ -12,7 +12,7 @@ spec:
     name: flux-system
   url: https://github.com/kitos9112/k8s-home.git
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: flux-system
@@ -24,9 +24,3 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  validation: client
-  decryption:
-    provider: sops
-    secretRef:
-      # Manually created via `kubectl` before botostraping the cluster
-      name: sops-gpg
