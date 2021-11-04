@@ -33,7 +33,7 @@ spec:
         config:
           region: eu-west-1
           s3ForcePathStyle: true
-          s3Url: https://minio.${SECRET_DOMAIN}
+          s3Url: https://s3.${SECRET_DOMAIN}
       resticTimeout: 4h
     initContainers:
       - name: velero-plugin-for-aws
