@@ -198,7 +198,7 @@ spec:
     prometheusOperator:
       image:
         repository: quay.io/prometheus-operator/prometheus-operator
-        tag: v0.51.2
+        tag: v0.52.0
       configReloaderCpu: 0
       admissionWebhooks:
         certManager:
