@@ -1,6 +1,6 @@
 # K3[8]S @ HOME
 
-This repo contains my home infrastructure defined as Kubernetes manifests and other set of helper scripts. It will also shortly contain a whole personal arsenal of Ansible playbooks and roles to automate my home setup.
+This repo contains my home infrastructure defined as Kubernetes manifests and other set of helper scripts deployed via FluxCD. It will also shortly contain a whole personal arsenal of Ansible playbooks and roles to automate my home setup.
 
 I am a firm believer in GitOps and Kubernetes as the defacto cloud orchestrator for running everything as containers.
 
