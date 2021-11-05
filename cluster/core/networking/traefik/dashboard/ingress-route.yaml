@@ -15,7 +15,7 @@ spec:
           kind: TraefikService
       middlewares:
         - name: rfc1918
-          namesame: networking
+          namespace: networking
         - name: traefik-forward-auth
           namespace: networking
   tls:
