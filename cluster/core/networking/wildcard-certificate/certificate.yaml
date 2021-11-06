@@ -7,9 +7,9 @@ metadata:
 spec:
   secretName: "${SECRET_DOMAIN/./-}-tls"
   issuerRef:
-    name: letsencrypt-production
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
     kind: ClusterIssuer
   commonName: "${SECRET_DOMAIN}"
   dnsNames:
-  - "${SECRET_DOMAIN}"
-  - "*.${SECRET_DOMAIN}"
+    - "${SECRET_DOMAIN}"
+    - "*.${SECRET_DOMAIN}"

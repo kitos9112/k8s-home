@@ -7,7 +7,7 @@ metadata:
 spec:
   secretName: "auth-${SECRET_DOMAIN/./-}-tls"
   issuerRef:
-    name: letsencrypt-production
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
     kind: ClusterIssuer
   commonName: "auth.${SECRET_DOMAIN}"
   dnsNames:

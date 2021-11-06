@@ -7,7 +7,7 @@ metadata:
 spec:
   secretName: "hass-${SECRET_DOMAIN/./-}-tls"
   issuerRef:
-    name: letsencrypt-production
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
     kind: ClusterIssuer
   commonName: "hass.${SECRET_DOMAIN}"
   dnsNames:
@@ -21,7 +21,7 @@ metadata:
 spec:
   secretName: "hass-config-${SECRET_DOMAIN/./-}-tls"
   issuerRef:
-    name: letsencrypt-production
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
     kind: ClusterIssuer
   commonName: "hass-config.${SECRET_DOMAIN}"
   dnsNames:

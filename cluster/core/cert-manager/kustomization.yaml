@@ -3,6 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - helm-release.yaml
-  - letsencrypt-production.yaml
-  - letsencrypt-staging.yaml
+  - ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}.yaml
+  - ${SETTING_CERT_MANAGER_CLUSTER_ISSUER_TEST}.yaml
   - secret.enc.yaml

@@ -89,6 +89,16 @@ spec:
           effect: "NoExecute"
           # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
           tolerationSeconds: 15
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      host: longhorn.${SECRET_DOMAIN}
+      tls: true
+      tlsSecret: "longhorn-${SECRET_DOMAIN/./-}-tls"
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd
+        cert-manager.io/cluster-issuer: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
     longhornUI:
       tolerations:
         - key: "node.kubernetes.io/unreachable"

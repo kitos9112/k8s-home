@@ -6,8 +6,8 @@ metadata:
 spec:
   secretName: "longhorn-${SECRET_DOMAIN/./-}-tls"
   issuerRef:
-    name: letsencrypt-production
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
     kind: ClusterIssuer
   commonName: "longhorn.${SECRET_DOMAIN}"
   dnsNames:
-  - "longhorn.${SECRET_DOMAIN}"
+    - "longhorn.${SECRET_DOMAIN}"
