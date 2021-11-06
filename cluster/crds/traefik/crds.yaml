@@ -11,7 +11,7 @@ spec:
     # renovate: registryUrl=https://helm.traefik.io/traefik chart=traefik
     tag: v10.6.1
   ignore: |
-    # exclude all
+    # exclude all but the CDRs
     /*
     # path to crds
     !/traefik/crds/
