@@ -6,7 +6,6 @@ metadata:
   namespace: networking
 spec:
   interval: 5m
-  releaseName: traefik-forward-auth
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
@@ -17,6 +16,8 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 1m
+  dependsOn:
+    - name: traefik
   values:
     image:
       repository: ghcr.io/kitos9112/traefik-forward-auth
