@@ -29,8 +29,8 @@ spec:
         cpu: "10m"
         memory: "32Mi"
       limits:
-        cpu: "100m"
-        memory: "100Mi"
+        cpu: "250m"
+        memory: "250Mi"
     podDnsPolicy: "None"
     podDnsConfig:
       nameservers:
