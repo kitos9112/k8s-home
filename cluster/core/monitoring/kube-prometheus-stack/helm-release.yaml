@@ -24,6 +24,9 @@ spec:
     fullnameOverride: "kube"
     alertmanager:
       alertmanagerSpec:
+        image:
+          repository: quay.io/prometheus/alertmanager
+          tag: v0.23.0
         storage:
           volumeClaimTemplate:
             spec:
@@ -137,6 +140,9 @@ spec:
       ingress:
         enabled: false
       prometheusSpec:
+        image:
+          repository: quay.io/prometheus/prometheus
+          tag: v2.31.1
         additionalScrapeConfigs:
           - honor_timestamps: true
             job_name: minio-job
