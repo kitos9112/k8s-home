@@ -204,7 +204,7 @@ spec:
     prometheusOperator:
       image:
         repository: quay.io/prometheus-operator/prometheus-operator
-        tag: v0.52.0
+        tag: v0.52.1
       prometheusConfigReloaderImage:
         repository: quay.io/prometheus-operator/prometheus-config-reloader
         tag: v0.52.1
