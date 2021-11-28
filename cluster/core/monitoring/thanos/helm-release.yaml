@@ -89,6 +89,6 @@ spec:
           cpu: 250m
           memory: 500Mi
       persistence:
-        enabled: false
+        enabled: true
         storageClass: longhorn
         size: 8Gi
