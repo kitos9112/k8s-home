@@ -5,8 +5,5 @@ metadata:
     name: cluster-settings
     namespace: flux-system
 data:
-    SETTING_SVC_TRAEFIK_ADDRESS: 10.10.10.210
-    SETTING_SVC_SYSLOG_ADDRESS: 10.10.10.211
-    SETTING_K3S_CONTROL_PLANE_ADDRESS: 10.10.10.64
     SETTING_CERT_MANAGER_CLUSTER_ISSUER: letsencrypt-production
     SETTING_CERT_MANAGER_CLUSTER_ISSUER_TEST: letsencrypt-staging
