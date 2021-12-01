@@ -99,7 +99,7 @@ spec:
       # labels: enhancement
       enabled: false
       endpoints:
-        - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
       service:
         enabled: true
       serviceMonitor:
@@ -110,13 +110,13 @@ spec:
     kubeProxy:
       enabled: true
       endpoints:
-        - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
       service:
         enabled: true
     kubeScheduler:
       enabled: true
       endpoints:
-        - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
       service:
         enabled: true
     kubelet:

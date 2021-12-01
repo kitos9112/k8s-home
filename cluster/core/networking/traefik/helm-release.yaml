@@ -46,7 +46,7 @@ spec:
     service:
       spec:
         externalTrafficPolicy: Cluster
-        loadBalancerIP: "${SETTING_SVC_TRAEFIK_ADDRESS}"
+        loadBalancerIP: "${SECRET_SVC_TRAEFIK_ADDRESS}"
     logs:
       access:
         enabled: true
