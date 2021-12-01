@@ -6,8 +6,11 @@ ci:
   autofix_prs: true
   autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
   autoupdate_schedule: weekly
-  skip: []
+  skip:
+    # shellcheck tool cannot be installed on CI
+    - shellcheck
   submodules: false
+
 repos:
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.26.3
