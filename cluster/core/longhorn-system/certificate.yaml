@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "longhorn-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "longhorn-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
+    kind: ClusterIssuer
+  commonName: "longhorn.${SECRET_DOMAIN}"
+  dnsNames:
+    - "longhorn.${SECRET_DOMAIN}"

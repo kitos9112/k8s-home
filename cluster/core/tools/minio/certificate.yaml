@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "minio-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "minio-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
+    kind: ClusterIssuer
+  commonName: "minio.${SECRET_DOMAIN}"
+  dnsNames:
+    - "minio.${SECRET_DOMAIN}"
+    - "s3.${SECRET_DOMAIN}"

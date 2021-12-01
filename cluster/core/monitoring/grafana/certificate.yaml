@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "grafana-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "grafana-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
+    kind: ClusterIssuer
+  commonName: "grafana.${SECRET_DOMAIN}"
+  dnsNames:
+    - "grafana.${SECRET_DOMAIN}"

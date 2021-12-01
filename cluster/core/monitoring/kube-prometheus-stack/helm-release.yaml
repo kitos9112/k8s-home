@@ -1,0 +1,217 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      version: 21.0.0
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-charts
+        namespace: flux-system
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
+  interval: 5m
+  values:
+    nameOverride: ""
+    fullnameOverride: "kube"
+    alertmanager:
+      alertmanagerSpec:
+        image:
+          repository: quay.io/prometheus/alertmanager
+          tag: v0.23.0
+        storage:
+          volumeClaimTemplate:
+            spec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 1Gi
+              storageClassName: longhorn
+      config:
+        global:
+          resolve_timeout: 5m
+          slack_api_url: ${SECRET_ALERT_MANAGER_DISCORD_WEBHOOK}
+        inhibit_rules:
+          - equal:
+              - alertname
+              - namespace
+            source_match:
+              severity: critical
+            target_match:
+              severity: warning
+        receivers:
+          - name: "null"
+          - name: discord
+            slack_configs:
+              - channel: "#k8s-uk-home-notifications"
+                icon_url: https://avatars3.githubusercontent.com/u/3380462?s=200&v=4
+                send_resolved: true
+                text: |-
+                  {{ range .Alerts -}}
+                    **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+
+                  **Description:** {{ if ne .Annotations.description ""}}{{ .Annotations.description }}{{else}}N/A{{ end }}
+                  **Details:**
+                    {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+                    {{ end }}
+                  {{ end }}
+                title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}'
+                username: Prometheus
+        route:
+          group_by:
+            - alertname
+            - job
+          group_interval: 5m
+          group_wait: 30s
+          receiver: discord
+          repeat_interval: 6h
+          routes:
+            - match:
+                alertname: Watchdog
+              receiver: "null"
+            - continue: true
+              match_re:
+                severity: critical
+              receiver: discord
+      ingress:
+        enabled: false
+    grafana:
+      enabled: false
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+      metricLabelsAllowlist:
+        - pods=[app.kubernetes.io/name]
+    kubeApiServer:
+      enabled: true
+    kubeControllerManager:
+      # TODO - `kube-prometheus=stack` helm chart does not fully support K3s
+      # When running K3s on a single master node, there seems to be a bug in the helm chart that causes the controller manager to not scrape/display metrics correctly with the default configuration. This means alerts are firing off constantly. To work around this, we have to disable the controller manager from scraping metrics.
+      # assignees: kitos9112
+      # labels: enhancement
+      enabled: false
+      endpoints:
+        - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
+      service:
+        enabled: true
+      serviceMonitor:
+        https: true
+        insecureSkipVerify: true
+    kubeEtcd:
+      enabled: false
+    kubeProxy:
+      enabled: true
+      endpoints:
+        - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
+      service:
+        enabled: true
+    kubeScheduler:
+      enabled: true
+      endpoints:
+        - ${SETTING_K3S_CONTROL_PLANE_ADDRESS}
+      service:
+        enabled: true
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
+    nodeExporter:
+      serviceMonitor:
+        relabelings:
+          - action: replace
+            regex: (.*)
+            replacement: $1
+            sourceLabels:
+              - __meta_kubernetes_pod_node_name
+            targetLabel: kubernetes_node
+    prometheus:
+      ingress:
+        enabled: false
+      prometheusSpec:
+        image:
+          repository: quay.io/prometheus/prometheus
+          tag: v2.31.1
+        additionalScrapeConfigs:
+          - honor_timestamps: true
+            job_name: minio-job
+            metrics_path: /minio/v2/metrics/cluster
+            static_configs:
+              - targets:
+                  - minio.tools:9000
+          - job_name: "felix_metrics"
+            scrape_interval: 5s
+            scheme: http
+            kubernetes_sd_configs:
+              - role: endpoints
+            relabel_configs:
+              - source_labels: [__meta_kubernetes_service_name]
+                regex: felix-metrics-svc
+                replacement: $1
+                action: keep
+          - job_name: "kube_controllers_metrics"
+            scrape_interval: 5s
+            scheme: http
+            kubernetes_sd_configs:
+              - role: endpoints
+            relabel_configs:
+              - source_labels: [__meta_kubernetes_service_name]
+                regex: kube-controllers-metrics-svc
+                replacement: $1
+                action: keep
+
+        enableAdminAPI: true
+        podMonitorNamespaceSelector: {}
+        podMonitorSelector: {}
+        podMonitorSelectorNilUsesHelmValues: false
+        retention: 3h
+        ruleNamespaceSelector: {}
+        ruleSelector: {}
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorNamespaceSelector: {}
+        serviceMonitorSelector: {}
+        serviceMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              resources:
+                requests:
+                  storage: 15Gi
+              storageClassName: longhorn
+        thanos:
+          objectStorageConfig:
+            key: objstore.yml
+            name: thanos-objstore
+        walCompression: true
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter
+    prometheusOperator:
+      image:
+        repository: quay.io/prometheus-operator/prometheus-operator
+        tag: v0.52.1
+      prometheusConfigReloaderImage:
+        repository: quay.io/prometheus-operator/prometheus-config-reloader
+        tag: v0.52.1
+      configReloaderCpu: 0
+      admissionWebhooks:
+        certManager:
+          enabled: true
+      thanosImage:
+        repository: quay.io/thanos/thanos
+        tag: v0.23.1

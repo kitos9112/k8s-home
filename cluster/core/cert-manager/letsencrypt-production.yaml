@@ -1,0 +1,20 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: "${SECRET_CLOUDFLARE_EMAIL}"
+    privateKeySecretRef:
+      name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
+    solvers:
+      - dns01:
+          cloudflare:
+            email: "${SECRET_CLOUDFLARE_EMAIL}"
+            # Use apiTokenSecretRef for Tokens and apiKeySecretRef got GlobalAPI Keys
+            # https://github.com/jetstack/cert-manager/issues/2384#issuecomment-575301692
+            apiTokenSecretRef:
+              name: cloudflare-token-secret
+              key: cloudflare-token

@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # - calico-system
+  # - falco-system
+  # - flux-system
+  # - gaming
+  - home
+  - tools
+  # - kasten-io
+  # - kube-system
+  # - media
+  # - monitoring
+  # - networking
+  # - system-upgrade

@@ -1,0 +1,94 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: thanos
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
+      chart: thanos
+      version: 8.1.2
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+  interval: 5m
+  dependsOn:
+    - name: minio
+      namespace: tools
+    - name: kube-prometheus-stack
+      namespace: monitoring
+  values:
+    bucketweb:
+      enabled: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 256Mi
+    compactor:
+      enabled: true
+      persistence:
+        enabled: false
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      retentionResolutionRaw: 1d
+      retentionResolution5m: 30d
+      retentionResolution1h: 2y
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 256Mi
+    existingObjstoreSecret: thanos-objstore
+    image:
+      registry: public.ecr.aws
+      repository: bitnami/thanos
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    query:
+      dnsDiscovery:
+        sidecarsNamespace: monitoring
+        sidecarsService: kube-thanos-discovery
+      enabled: true
+      replicaLabels:
+        - replica
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 256Mi
+    queryFrontend:
+      enabled: false
+    ruler:
+      enabled: false
+    storegateway:
+      enabled: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      resources:
+        requests:
+          cpu: 100m
+          memory: 250Mi
+        limits:
+          cpu: 250m
+          memory: 500Mi
+      persistence:
+        enabled: true
+        storageClass: longhorn
+        size: 8Gi

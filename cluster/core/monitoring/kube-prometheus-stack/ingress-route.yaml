@@ -1,0 +1,44 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus-ingress
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`prometheus.${SECRET_DOMAIN}`)
+      kind: Rule
+      services:
+        - name: kube-prometheus
+          namespace: monitoring
+          port: 9090
+          scheme: http
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: networking
+  tls:
+    secretName: "prometheus-${SECRET_DOMAIN/./-}-tls"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: alertmanager-ingress
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`alertmanager.${SECRET_DOMAIN}`)
+      kind: Rule
+      services:
+        - name: kube-alertmanager
+          namespace: monitoring
+          port: 9093
+          scheme: http
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: networking
+  tls:
+    secretName: "alertmanager-${SECRET_DOMAIN/./-}-tls"

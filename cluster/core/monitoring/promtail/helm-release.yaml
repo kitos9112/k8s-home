@@ -1,0 +1,63 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: promtail
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      # renovate: registryUrl=https://grafana.github.io/helm-charts
+      chart: promtail
+      version: 3.9.1
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-charts
+        namespace: flux-system
+
+  interval: 5m
+  values:
+    config:
+      lokiAddress: http://loki:3100/loki/api/v1/push
+      snippets:
+        extraScrapeConfigs: |
+          - job_name: syslog
+            syslog:
+              listen_address: 0.0.0.0:1514
+              label_structured_data: true
+              labels:
+                job: "syslog"
+            relabel_configs:
+            - source_labels: ['__syslog_message_hostname']
+              target_label: 'hostname'
+          - job_name: journal
+            journal:
+              path: /var/log/journal
+              max_age: 12h
+              labels:
+                job: systemd-journal
+            relabel_configs:
+              - source_labels: ['__journal__systemd_unit']
+                target_label: 'unit'
+              - source_labels: ['__journal__hostname']
+                target_label: 'hostname'
+    extraPorts:
+      syslog:
+        containerPort: 1514
+        name: syslog
+        service:
+          type: LoadBalancer
+    extraVolumeMounts:
+      - mountPath: /var/log/journal
+        name: journal
+        readOnly: true
+    extraVolumes:
+      - hostPath:
+          path: /var/log/journal
+        name: journal
+    image:
+      registry: ghcr.io
+      repository: k8s-at-home/promtail
+    serviceMonitor:
+      enabled: true
