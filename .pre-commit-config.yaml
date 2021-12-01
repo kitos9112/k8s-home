@@ -5,7 +5,7 @@ ci:
     [pre-commit.ci] Auto fixes from pre-commit.com hooks
   autofix_prs: true
   autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
-  autoupdate_schedule: daily
+  autoupdate_schedule: weekly
   skip: []
   submodules: false
 repos:
