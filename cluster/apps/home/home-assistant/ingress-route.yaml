@@ -1,0 +1,41 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hass-ingress
+  namespace: home
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`hass.${SECRET_DOMAIN}`)
+      kind: Rule
+      services:
+        - name: home-assistant
+          namespace: home
+          port: 8123
+          scheme: http
+  tls:
+    secretName: "hass-${SECRET_DOMAIN/./-}-tls"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hass-config-ingress
+  namespace: home
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`hass-config.${SECRET_DOMAIN}`)
+      kind: Rule
+      services:
+        - name: home-assistant-codeserver
+          namespace: home
+          port: 12321
+          scheme: http
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: networking
+  tls:
+    secretName: "hass-config-${SECRET_DOMAIN/./-}-tls"

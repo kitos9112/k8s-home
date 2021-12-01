@@ -1,0 +1,9 @@
+# IDEs
+.vscode
+idea
+.envrc
+
+# To update flux using Github actions
+bin/
+
+# nodeJS components

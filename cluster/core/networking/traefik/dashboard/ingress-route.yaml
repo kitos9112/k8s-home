@@ -1,0 +1,22 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard-v2
+  namespace: networking
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`traefik.${SECRET_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService
+      middlewares:
+        - name: rfc1918
+          namespace: networking
+        - name: traefik-forward-auth
+          namespace: networking
+  tls:
+    secretName: "${SECRET_DOMAIN/./-}-tls"

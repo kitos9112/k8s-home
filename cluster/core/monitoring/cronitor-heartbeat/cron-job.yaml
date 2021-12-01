@@ -1,0 +1,42 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: monitoring
+  name: cronitor-heartbeat
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: cronitor-heartbeat
+              image: ghcr.io/k8s-at-home/kubectl:v1.22.4
+              envFrom:
+                - secretRef:
+                    name: cronitor-heartbeat-url
+              command:
+                - "/bin/sh"
+                - "/app/cronitor-heartbeat.sh"
+              volumeMounts:
+                - name: cronitor-heartbeat
+                  mountPath: /app/cronitor-heartbeat.sh
+                  subPath: cronitor-heartbeat.sh
+                  readOnly: true
+          volumes:
+            - name: cronitor-heartbeat
+              projected:
+                defaultMode: 0777
+                sources:
+                  - configMap:
+                      name: cronitor-heartbeat
+                      items:
+                        - key: cronitor-heartbeat.sh
+                          path: cronitor-heartbeat.sh
