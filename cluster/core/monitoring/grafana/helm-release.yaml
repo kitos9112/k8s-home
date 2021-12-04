@@ -137,6 +137,8 @@ spec:
     podAnnotations:
       configmap.reloader.stakater.com/reload: grafana
     replicas: 1
+    networkPolicy:
+      enabled: true
     serviceAccount:
       autoMount: true
       create: true
