@@ -9,7 +9,7 @@ spec:
     spec:
       # renovate: registryUrl=https://grafana.github.io/helm-charts
       chart: grafana
-      version: 6.19.0
+      version: 6.19.1
       interval: 5m
       sourceRef:
         kind: HelmRepository
