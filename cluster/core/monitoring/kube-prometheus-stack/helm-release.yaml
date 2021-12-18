@@ -88,6 +88,9 @@ spec:
       enabled: false
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
+      prometheus:
+        monitor:
+          enabled: true
       metricLabelsAllowlist:
         - pods=[app.kubernetes.io/name]
     kubeApiServer:
@@ -128,14 +131,7 @@ spec:
               - node
             targetLabel: instance
     nodeExporter:
-      serviceMonitor:
-        relabelings:
-          - action: replace
-            regex: (.*)
-            replacement: $1
-            sourceLabels:
-              - __meta_kubernetes_pod_node_name
-            targetLabel: kubernetes_node
+      enabled: true
     prometheus:
       ingress:
         enabled: false
@@ -200,6 +196,15 @@ spec:
         enabled: true
     prometheus-node-exporter:
       fullnameOverride: node-exporter
+      monitor:
+        enabled: true
+        relabelings:
+          - action: replace
+            regex: (.*)
+            replacement: $1
+            sourceLabels:
+              - __meta_kubernetes_pod_node_name
+            targetLabel: kubernetes_node
     prometheusOperator:
       image:
         repository: quay.io/prometheus-operator/prometheus-operator
