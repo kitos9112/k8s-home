@@ -20,6 +20,13 @@ spec:
     connect:
       annotations:
         reloader.stakater.com/auto: "true"
-      credentials_base64: ${SECRET_1PASSWORD_CREDENTIALS_B64}
+      credentials_base64: ${SECRET_1PASSWORD_CONNECT_CREDENTIALS_B64}
       credentialsName: op-credentials
       credentialsKey: op-session
+    operator:
+      create: true
+      autoRestart: true
+      token:
+        name: onepassword-token
+        key: token
+        value: ${SECRET_1PASSWORD_OPERATOR_TOKEN}
