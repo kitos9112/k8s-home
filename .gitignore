@@ -7,3 +7,6 @@ idea
 bin/
 
 # nodeJS components
+
+# sops-decrypted-files
+**/.decrypted**
