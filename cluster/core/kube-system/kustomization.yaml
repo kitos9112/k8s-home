@@ -5,4 +5,5 @@ namespace: kube-system
 resources:
   - metrics-server
   - dashboard
+  - reloader
   - 1password
