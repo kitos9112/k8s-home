@@ -9,7 +9,7 @@ spec:
   url: https://github.com/1Password/connect-helm-charts.git
   ref:
     # renovate: registryUrl=https://1password.github.io/connect-helm-charts chart=connect
-    tag: v1.7.0
+    tag: connect-1.7.0
   ignore: |
     # exclude all but the CDRs
     /*
