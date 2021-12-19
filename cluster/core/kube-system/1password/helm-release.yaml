@@ -16,6 +16,12 @@ spec:
         name: 1password-charts
         namespace: flux-system
       interval: 1m
+  install:
+    # https://helm.sh/docs/chart_best_practices/custom_resource_definitions/#install-a-crd-declaration-before-using-the-resource
+    # https://fluxcd.io/docs/components/helm/helmreleases/#crds
+    crds: Skip
+  upgrade:
+    crds: Skip
   values:
     connect:
       annotations:
