@@ -1,0 +1,33 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: 1password-crd-source
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://github.com/1Password/connect-helm-charts.git
+  ref:
+    # renovate: registryUrl=https://1password.github.io/connect-helm-charts chart=connect
+    tag: v1.7.0
+  ignore: |
+    # exclude all but the CDRs
+    /*
+    # path to crds
+    !/charts/connect/crds/
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: 1password-crds
+  namespace: flux-system
+spec:
+  interval: 15m
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: 1password-crd-source
+  healthChecks:
+    - apiVersion: apiextensions.k8s.io/v1
+      kind: CustomResourceDefinition
+      name: onepassworditems.onepassword.com
