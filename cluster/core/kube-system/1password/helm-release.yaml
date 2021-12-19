@@ -20,6 +20,6 @@ spec:
     connect:
       annotations:
         reloader.stakater.com/auto: "true"
-      credentials: ${SECRET_1PASSWORD_CREDENTIALS}
+      credentials_base64: ${SECRET_1PASSWORD_CREDENTIALS_B64}
       credentialsName: op-credentials
       credentialsKey: op-session
