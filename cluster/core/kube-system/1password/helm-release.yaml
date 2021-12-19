@@ -1,0 +1,22 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: 1password
+spec:
+  interval: 5m
+  releaseName: 1password
+  chart:
+    spec:
+      # renovate: registryUrl=https://1password.github.io/connect-helm-charts
+      chart: 1password
+      version: 1.7.0
+      sourceRef:
+        kind: HelmRepository
+        name: 1password-charts
+        namespace: flux-system
+      interval: 1m
+  values:
+    connect:
+      credentialsName: op-session
+      credentialsKey: op-credentials
