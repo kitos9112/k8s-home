@@ -8,6 +8,3 @@
 **.pem filter=git-crypt diff=git-crypt
 secret.enc.yaml diff=sopsdiffer
 cluster-secrets.yaml diff=sopsdiffer
-
-# sops-decrypted-files
-**/decrypted-**
