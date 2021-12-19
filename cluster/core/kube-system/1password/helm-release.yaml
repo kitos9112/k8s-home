@@ -18,5 +18,7 @@ spec:
       interval: 1m
   values:
     connect:
-      credentialsName: op-session
-      credentialsKey: op-credentials
+      annotations:
+        reloader.stakater.com/auto: "true"
+      credentialsName: op-credentials
+      credentialsKey: op-session
