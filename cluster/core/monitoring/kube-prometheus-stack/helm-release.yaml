@@ -211,7 +211,7 @@ spec:
         tag: v0.53.0
       prometheusConfigReloaderImage:
         repository: quay.io/prometheus-operator/prometheus-config-reloader
-        tag: v0.53.0
+        tag: v0.53.1
       configReloaderCpu: 0
       admissionWebhooks:
         certManager:
