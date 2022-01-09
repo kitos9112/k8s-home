@@ -105,13 +105,6 @@ spec:
       enabled: true
       endpoints:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
-      service:
-        enabled: true
-        port: 10250
-        targetPort: 10250
-      serviceMonitor:
-        https: true
-        insecureSkipVerify: true
     kubeEtcd:
       enabled: false
     kubeProxy:
@@ -130,18 +123,18 @@ spec:
             sourceLabels:
               - node
             targetLabel: instance
-    nodeExporter:
-      enabled: true
     prometheus:
       ingress:
         enabled: false
       prometheusSpec:
+        replicas: 1
+        replicaExternalLabelName: "replica"
         image:
           repository: quay.io/prometheus/prometheus
           tag: v2.32.1
         additionalScrapeConfigs:
           - honor_timestamps: true
-            job_name: minio-job
+            job_name: minio
             metrics_path: /minio/v2/metrics/cluster
             static_configs:
               - targets:
@@ -212,6 +205,13 @@ spec:
       prometheusConfigReloaderImage:
         repository: quay.io/prometheus-operator/prometheus-config-reloader
         tag: v0.53.1
+        resources:
+          requests:
+            cpu: 100m
+            memory: 50Mi
+          limits:
+            cpu: 200m
+            memory: 100Mi
       configReloaderCpu: 0
       admissionWebhooks:
         certManager:
