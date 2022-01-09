@@ -7,6 +7,8 @@ on: # yamllint disable-line rule:truthy
       - main
     paths:
       - "cluster/**.yaml"
+  schedule:
+    - cron: "0 */12 * * *"
 
 jobs:
   detect-file-changes:
