@@ -39,7 +39,7 @@ spec:
         enabled: false
       nodeSelector:
         kubernetes.io/arch: amd64
-      retentionResolutionRaw: 1d
+      retentionResolutionRaw: 3d
       retentionResolution5m: 30d
       retentionResolution1h: 2y
       resources:
@@ -60,7 +60,7 @@ spec:
     query:
       dnsDiscovery:
         sidecarsNamespace: monitoring
-        sidecarsService: kube-thanos-discovery
+        sidecarsService: prometheus-thanos-discovery
       enabled: true
       replicaLabels:
         - replica
