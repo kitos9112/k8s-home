@@ -6,19 +6,19 @@
 
 # K3[8]S @ HOME
 
-This repo contains my home infrastructure defined as Kubernetes manifests and other set of helper scripts deployed via FluxCD. It will also shortly contain a whole personal arsenal of Ansible playbooks and roles to automate my home setup.
+This repo contains my home infrastructure defined as Kubernetes manifests and other set of helper scripts deployed via FluxCD. The underlying infrastructure is also maintained through a whole personal (still private) arsenal of Ansible playbooks and roles to automate my home setup.
 
-I am a firm believer in GitOps and Kubernetes as the defacto cloud orchestrator for running everything as containers.
+I am a firm believer in GitOps and Kubernetes as the defacto cloud orchestrator for running everything as containers in the private and public clouds alike.
 
 ## Repository structure
 
-The cluster breaks down all its services into **four** well-defined categories:
+The cluster components break down all its services into **four** well-defined categories:
 
 1. [base](./base)
 
 Serves as entrypoint to [FluxCD](https://fluxcd.io/docs/) thus a declaration to the other components.
 
-Cluster-wide [secrets](./cluster/base/cluster-secrets.yaml) and [settings](./cluster/base/cluster-settings.yaml) employed in more than one place live in [cluster-secrets.yaml] and they are leveraged in combination with [Variable Substitution features](https://fluxcd.io/docs/components/kustomize/kustomization/#variable-substitution) which emulates bash string replacements.
+Cluster-wide [secrets](./cluster/base/cluster-secrets.yaml) and [settings](./cluster/base/cluster-settings.yaml) employed in more than one place live in this category. They are leveraged in combination with [Flux variable substitution features](https://fluxcd.io/docs/components/kustomize/kustomization/#variable-substitution) which emulates bash string replacements as if they were executed on a terminal.
 
 ```sh
 ${var:=default}
@@ -30,39 +30,41 @@ ${var/substring/replacement}
 # The Kustomization controller validates the var names using this regular expression: ^[_[:alpha:]][_[:alpha:][:digit:]]*$.
 ```
 
-[Flux system sources](./cluster/base/flux-system/sources) contain either GitRepositories or HelmRepositories custom resources that are used as common interface for artifact acquisition.
+In addition, [Flux system sources](./cluster/base/flux-system/sources) contain either GitRepositories and HelmRepositories Custom Resources Definitions (CRDs) that are used as a common interface for artifact acquisition from within the cluster itself. The other `gotk` components and `sync` manifests are deployed upon cluster initialisation once and maintained up-to-date via a custom [GitHub Actions workflow](.github/workflows/flux-schedule.yaml) thereafter.
 
 2. [crds](./crds)
 
 Contains Custom Resource Definitions (CRDs) for several K8s applications used in the cluster (e.g. `alertmanagerconfigs.monitoring.coreos.com`)
-They are mandatory to be deployed in the first place, and all other listed-below categories depend on this.
+They must be deployed in the first place, and all other listed-below categories depend on them. This basically means that a simple change in one of the CRDs will require a full cluster reconcialiation.
 
 3. [core](./core)
 
-Made up of applications that become the heart and the foundation of any Kubernetes cluster to fullfil needs as:
+It is made up of applications that become the heart and the foundation of any Kubernetes cluster to fullfil needs as:
 
 - Storage
-- Namespace declatation
-- Certificate manager
+- Namespace declaration
+- Certificate management
+- Secret Management
 - Monitoring and Observability
-- Networking
+- Networking and Load Balancing
 - Auto-os K8s worker upgrade
-- Backup and restore
+- K8s manifests and Persistent Volume Backup and Restore
 
-They all ensure a well maintained and secure Kubernetes cluster, each application is deployed in its own namespace.
-It depends on **crds** and Flux should never prune them.
+They all ensure a well-maintained and secure Kubernetes cluster, each application fulfils a single cause and gets deployed onto its own namespace.
+Also, they all depend on **crds** and Flux should never prune them in case a manifest disappears from the source of truth (e.g. Git)
 
 > Each category contains a directory that depicts the Kubernetes namespace where to deploy `kustomize` objects.
 
 4. [apps](./apps)
 
-All the actual containerised applications that run in my K8s home cluster, following the same approach as the core category. Flux will prune resources here if they are not tracked by Git anymore
-It depends on **core**
+All the actual containerised applications that run in my K8s home cluster, following the same approach as the core category.
+Not many applications have yet landed here. They also depend on **core** and inherently **cdrs**, but Flux will prune resources here if they are not tracked by Git anymore.
 
 ## Bootstrap cluster using Flux
 
 ```sh
 flux bootstrap github --branch=main \
+                      --components-extra=image-reflector-controller,image-automation-controller \
                       --personal \
                       --repository=k8s-home \
                       --owner=kitos9112 \
@@ -71,7 +73,7 @@ flux bootstrap github --branch=main \
                       --token-auth
 ```
 
-After the aforementioned command is fired off on a nuked cluster, some deployments might fail and require manual intervention
+After the aforementioned command is fired off against a nuked cluster, the cluster bootstrapping logic should take place starting with CRDs objects, them moving to core items, and finalising with the apps objects.
 
 ## Uninstall FluxCD alongside all CRDs
 
@@ -81,17 +83,9 @@ The following CLI command will uninstall FluxCD alongside all CRDs:
 flux uninstall --resources --crds --namespace=flux-system
 ```
 
-## Troubleshooting
+## Troubleshooting - NOT YET IMPLEMENTED (WIP)
 
-A dedicated directory with a set of runbooks should live under /docs/troubleshooting. NOT YET IMPLEMENTED.
-
-### DNS investigation
-
-Install a short-lived pod from where commands can be triggered
-
-```sh
-kubectl apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml
-```
+A dedicated directory with a set of `runbooks` should live under /docs/troubleshooting.
 
 ## Frequently Answered Questions (FAQ)
 
@@ -101,7 +95,7 @@ This is quite important despite adding extra management overhead as it ensures t
 
 ## Credits :handshake:&nbsp;
 
-A high representation of this repository came from the following two sources predominantly:
+A high representation as well as inspiration of this repository came from the following three sources predominantly:
 
 - [onedr0p/home-cluster](https://github.com/onedr0p/home-cluster)
 - [carpenike/k8s-gitops](https://github.com/carpenike/k8s-gitops)
