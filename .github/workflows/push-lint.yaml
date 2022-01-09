@@ -3,11 +3,9 @@ name: lint YAML and Shell
 on:
   push:
     branches:
-      - master
       - main
   pull_request:
     branches:
-      - master
       - main
 jobs:
   lint-yaml:
