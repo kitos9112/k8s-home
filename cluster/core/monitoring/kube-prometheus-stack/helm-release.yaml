@@ -19,6 +19,12 @@ spec:
     - name: longhorn
       namespace: longhorn-system
   interval: 5m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
   values:
     nameOverride: ""
     fullnameOverride: "prometheus"
@@ -101,6 +107,8 @@ spec:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
       service:
         enabled: true
+        port: 10250
+        targetPort: 10250
       serviceMonitor:
         https: true
         insecureSkipVerify: true
@@ -110,14 +118,10 @@ spec:
       enabled: true
       endpoints:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
-      service:
-        enabled: true
     kubeScheduler:
       enabled: true
       endpoints:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
-      service:
-        enabled: true
     kubelet:
       enabled: true
       serviceMonitor:
