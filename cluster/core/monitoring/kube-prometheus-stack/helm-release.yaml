@@ -21,7 +21,7 @@ spec:
   interval: 5m
   values:
     nameOverride: ""
-    fullnameOverride: "kube"
+    fullnameOverride: "prometheus"
     alertmanager:
       alertmanagerSpec:
         image:
@@ -86,13 +86,9 @@ spec:
         enabled: false
     grafana:
       enabled: false
+      forceDeployDashboards: true
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
-      prometheus:
-        monitor:
-          enabled: true
-      metricLabelsAllowlist:
-        - pods=[app.kubernetes.io/name]
     kubeApiServer:
       enabled: true
     kubeControllerManager:
@@ -100,7 +96,7 @@ spec:
       # When running K3s on a single master node, there seems to be a bug in the helm chart that causes the controller manager to not scrape/display metrics correctly with the default configuration. This means alerts are firing off constantly. To work around this, we have to disable the controller manager from scraping metrics.
       # assignees: kitos9112
       # labels: enhancement
-      enabled: false
+      enabled: true
       endpoints:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
       service:
