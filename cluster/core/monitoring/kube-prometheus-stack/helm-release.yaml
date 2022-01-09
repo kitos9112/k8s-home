@@ -9,7 +9,7 @@ spec:
     spec:
       # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
-      version: 30.0.0
+      version: 29.0.1
       interval: 5m
       sourceRef:
         kind: HelmRepository
@@ -102,7 +102,7 @@ spec:
       # When running K3s on a single master node, there seems to be a bug in the helm chart that causes the controller manager to not scrape/display metrics correctly with the default configuration. This means alerts are firing off constantly. To work around this, we have to disable the controller manager from scraping metrics.
       # assignees: kitos9112
       # labels: enhancement
-      enabled: true
+      enabled: false
       endpoints:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
     kubeEtcd:
