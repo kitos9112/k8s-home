@@ -103,18 +103,18 @@ spec:
       # assignees: kitos9112
       # labels: enhancement
       enabled: false
-      # endpoints:
-      #   - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
+      endpoints:
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
     kubeEtcd:
       enabled: false
     kubeProxy:
       enabled: true
-      # endpoints:
-      #   - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
+      endpoints:
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
     kubeScheduler:
       enabled: true
-      # endpoints:
-      #   - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
+      endpoints:
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
     kubelet:
       enabled: true
       serviceMonitor:
