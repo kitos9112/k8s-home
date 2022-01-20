@@ -23,7 +23,11 @@ spec:
     metrics:
       enabled: true
       serviceMonitor:
-        interval: 60m
+        interval: 1m
         scrapeTimeout: 1m
       prometheusRule:
-        enabled: false
+        enabled: true
+        downloadLimit: 150
+        uploadLimit: 20
+        pingLimit: 30
+        jitterLimit: 30
