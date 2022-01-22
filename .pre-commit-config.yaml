@@ -18,7 +18,7 @@ repos:
       - id: yamllint
         args:
           - -c
-          - ".github/yamllint.config.yaml"
+          - ".github/linters/.yamllint.yaml"
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.1.0
@@ -53,3 +53,8 @@ repos:
     rev: v2.1.0
     hooks:
       - id: forbid-secrets
+
+  - repo: https://github.com/zricethezav/gitleaks
+    rev: v8.2.7
+    hooks:
+      - id: gitleaks
