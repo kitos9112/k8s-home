@@ -20,10 +20,10 @@ Name-Real: ${FLUX_KEY_NAME}
 EOF
 
 gpg --list-secret-keys "${PERSONAL_KEY_NAME}"
-# pub   rsa4096 2021-03-11 [SC]
-#       772154FFF783DE317KLCA0EC77149AC618D75581
-# uid           [ultimate] k8s@home (Macbook) <k8s-at-home@gmail.com>
-# sub   rsa4096 2021-03-11 [E]
+ pub   rsa4096 2021-03-11 [SC]
+       772154FFF783DE317KLCA0EC77149AC618D75581
+ uid           [ultimate] k8s@home (Macbook) <>
+ sub   rsa4096 2021-03-11 [E]
 
 export FLUX_KEY_FP=C2C7D852AA45C7B41C440A772141D0D63053C652
 
@@ -31,4 +31,3 @@ gpg --export-secret-keys --armor "${FLUX_KEY_FP}" |
 kubectl create secret generic sops-gpg \
 --namespace=flux-system \
 --from-file=sops.asc=/dev/stdin
-

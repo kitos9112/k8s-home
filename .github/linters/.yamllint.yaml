@@ -3,10 +3,12 @@ ignore: |
   charts/
   docs/
   .private/
-  .terraform/
   .vscode/
   *.sops.*
   gotk-components.yaml
+  .yamllint.yml
+  templates/
+  *-crds.yaml
 extends: default
 rules:
   truthy:

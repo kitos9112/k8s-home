@@ -1,10 +1,11 @@
+# K3[8]S @ HOME OPS
 
-[![k3s](https://img.shields.io/badge/k3s-v1.22.4-brightgreen?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
+[![k3s](https://img.shields.io/badge/k3s-v1.22.5-brightgreen?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=for-the-badge)](https://github.com/pre-commit/pre-commit)
 [![renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?style=for-the-badge&logo=renovatebot&logoColor=white)](https://github.com/renovatebot/renovate)
 [![Lines of code](https://img.shields.io/tokei/lines/github/kitos9112/k8s-home?style=for-the-badge&color=brightgreen&label=lines&logo=codefactor&logoColor=white)](https://github.com/kitos9112/k8s-home/graphs/contributors)
 
-# K3[8]S @ HOME
+![GitHub repo size](https://img.shields.io/github/repo-size/kitos9112/k8s-home)
 
 This repo contains my home infrastructure defined as Kubernetes manifests and other set of helper scripts deployed via FluxCD. The underlying infrastructure is also maintained through a whole personal (still private) arsenal of Ansible playbooks and roles to automate my home setup.
 
@@ -14,7 +15,7 @@ I am a firm believer in GitOps and Kubernetes as the defacto cloud orchestrator 
 
 The cluster components break down all its services into **four** well-defined categories:
 
-1. [base](./base)
+- [base](./base)
 
 Serves as entrypoint to [FluxCD](https://fluxcd.io/docs/) thus a declaration to the other components.
 
@@ -27,17 +28,18 @@ ${var:position:length}
 ${var/substring/replacement}
 
 # Note that the name of a variable can contain only alphanumeric and underscore characters.
-# The Kustomization controller validates the var names using this regular expression: ^[_[:alpha:]][_[:alpha:][:digit:]]*$.
+# The Kustomization controller validates the var names using this regular expression:
+#   ^[_[:alpha:]][_[:alpha:][:digit:]]*$.
 ```
 
 In addition, [Flux system sources](./cluster/base/flux-system/sources) contain either GitRepositories and HelmRepositories Custom Resources Definitions (CRDs) that are used as a common interface for artifact acquisition from within the cluster itself. The other `gotk` components and `sync` manifests are deployed upon cluster initialisation once and maintained up-to-date via a custom [GitHub Actions workflow](.github/workflows/flux-schedule.yaml) thereafter.
 
-2. [crds](./crds)
+- [crds](./crds)
 
 Contains Custom Resource Definitions (CRDs) for several K8s applications used in the cluster (e.g. `alertmanagerconfigs.monitoring.coreos.com`)
 They must be deployed in the first place, and all other listed-below categories depend on them. This basically means that a simple change in one of the CRDs will require a full cluster reconcialiation.
 
-3. [core](./core)
+- [core](./core)
 
 It is made up of applications that become the heart and the foundation of any Kubernetes cluster to fullfil needs as:
 
@@ -55,7 +57,7 @@ Also, they all depend on **crds** and Flux should never prune them in case a man
 
 > Each category contains a directory that depicts the Kubernetes namespace where to deploy `kustomize` objects.
 
-4. [apps](./apps)
+- [apps](./apps)
 
 All the actual containerised applications that run in my K8s home cluster, following the same approach as the core category.
 Not many applications have yet landed here. They also depend on **core** and inherently **cdrs**, but Flux will prune resources here if they are not tracked by Git anymore.
@@ -64,7 +66,8 @@ Not many applications have yet landed here. They also depend on **core** and inh
 
 ```sh
 flux bootstrap github --branch=main \
-                      --components-extra=image-reflector-controller,image-automation-controller \
+                      --components-extra=image-reflector-controller,\
+                        image-automation-controller \
                       --personal \
                       --repository=k8s-home \
                       --owner=kitos9112 \
