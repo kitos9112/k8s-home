@@ -1,15 +1,30 @@
 {
-  "enabled": true,
+  "extends": [
+    ":enableRenovate",
+    "config:base",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":separatePatchReleases",
+    "docker:enableMajor",
+    ":enablePreCommit",
+    "github>kitos9112/k8s-home//.github/renovate/autoMerge",
+    "github>kitos9112/k8s-home//.github/renovate/labels",
+    "github>kitos9112/k8s-home//.github/renovate/semanticCommits"
+  ],
+  "platform": "github",
+  "username": "henry-bot[bot]",
+  "repositories": ["kitos9112/k8s-home"],
+  "onboarding": false,
+  "requireConfig": false,
+  "gitAuthor": "rosey-bot <166536+henry-bot[bot]@users.noreply.github.com>",
+  "assignees": ["@kitos9112"],
   "timezone": "Europe/London",
-  "semanticCommits": "enabled",
-  "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
-  "commitBody": "Signed-off-by: Marcos Soutullo Rodriguez <marcos.soutullo91@gmail.com>",
-  "suppressNotifications": ["prIgnoreNotification"],
+  "suppressNotifications": [
+    "prIgnoreNotification"
+  ],
   "rebaseWhen": "conflicted",
-  "commitMessageTopic": "{{depName}}",
-  "commitMessageExtra": "to {{newVersion}}",
-  "commitMessageSuffix": "",
   // set up Renovate Managers
   "helmv3": {
     "fileMatch": ["charts/.+/Chart\\.yaml$"]
@@ -17,33 +32,15 @@
   "helm-values": {
     "fileMatch": ["cluster/.+/helm-release\\.yaml$"]
   },
-  "kubernetes": {
-    "fileMatch": [
-      "cluster/.+\\.yaml$"
-    ],
-    "ignorePaths": [
-      "cluster/base/"
-    ]
+  "flux": {
+   "fileMatch": ["cluster/.+\\.yaml$"],
   },
-  // Do not rebase PRs
-  "assignees": [
-    "@kitos9112"
-  ],
+  "kubernetes": {
+    "fileMatch": ["cluster/.+\\.yaml$"],
+    "ignorePaths": ["cluster/base/"]
+  },
+
   "regexManagers": [
-    // 1- regexManager to read and process HelmRelease files
-    {
-      "fileMatch": [
-        "cluster/.+\\.yaml$"
-      ],
-      "matchStringsStrategy": "any",
-      "matchStrings": [
-        // helm releases
-        // "version" line may live a few lines after the `chart` once the YAML file gets alphabetically sorted
-        // https://stackoverflow.com/a/45981809/6444614
-        "# renovate: registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
-      ],
-      "datasourceTemplate": "helm"
-    },
      // regexManager to read and process cert-manager CRD's
     {
       "fileMatch": [
