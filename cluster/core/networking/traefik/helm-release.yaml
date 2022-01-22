@@ -7,7 +7,6 @@ metadata:
 spec:
   chart:
     spec:
-      # renovate: registryUrl=https://helm.traefik.io/traefik
       chart: traefik
       version: 10.9.1
       interval: 5m
@@ -23,6 +22,8 @@ spec:
   upgrade:
     crds: Skip
   values:
+    image:
+      tag: 2.5.7
     additionalArguments:
       - "--providers.kubernetesingress.ingressendpoint.hostname=${SECRET_DOMAIN}"
     deployment:
@@ -55,7 +56,6 @@ spec:
             names:
               X-Forwarded-User: keep
       general:
-        #format: json
         level: INFO
     pilot:
       enabled: true

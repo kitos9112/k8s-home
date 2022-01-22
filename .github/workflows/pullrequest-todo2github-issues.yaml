@@ -1,3 +1,4 @@
+---
 name: "Create GH issues based on TODO comments"
 
 on: # yamllint disable-line rule:truthy

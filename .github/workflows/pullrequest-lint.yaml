@@ -1,3 +1,4 @@
+---
 name: lint YAML and Shell
 
 on: # yamllint disable-line rule:truthy
@@ -33,3 +34,4 @@ jobs:
           MARKDOWN_CONFIG_FILE: .markdownlint.yaml
           YAML_CONFIG_FILE: .yamllint.yaml
           KUBERNETES_KUBEVAL_OPTIONS: --ignore-missing-schemas
+          VALIDATE_NATURAL_LANGUAGE: false
