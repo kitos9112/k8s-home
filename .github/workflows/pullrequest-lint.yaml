@@ -1,3 +1,4 @@
+---
 name: lint YAML and Shell
 
 on: # yamllint disable-line rule:truthy
