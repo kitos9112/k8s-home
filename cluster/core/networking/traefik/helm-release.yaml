@@ -7,7 +7,6 @@ metadata:
 spec:
   chart:
     spec:
-      # renovate: registryUrl=https://helm.traefik.io/traefik
       chart: traefik
       version: 10.9.1
       interval: 5m
