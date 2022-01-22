@@ -22,6 +22,8 @@ spec:
   upgrade:
     crds: Skip
   values:
+    image:
+      tag: 2.5.7
     additionalArguments:
       - "--providers.kubernetesingress.ingressendpoint.hostname=${SECRET_DOMAIN}"
     deployment:
@@ -54,7 +56,6 @@ spec:
             names:
               X-Forwarded-User: keep
       general:
-        #format: json
         level: INFO
     pilot:
       enabled: true
