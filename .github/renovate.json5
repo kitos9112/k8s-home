@@ -13,11 +13,11 @@
     "github>kitos9112/k8s-home//.github/renovate/semanticCommits"
   ],
   "platform": "github",
-  "username": "henry-bot[bot]",
+  "username": "henry-pa-bot[bot]",
   "repositories": ["kitos9112/k8s-home"],
   "onboarding": false,
   "requireConfig": false,
-  "gitAuthor": "rosey-bot <166536+henry-bot[bot]@users.noreply.github.com>",
+  "gitAuthor": "rosey-pa-bot <166536+henry-bot[bot]@users.noreply.github.com>",
   "assignees": ["@kitos9112"],
   "timezone": "Europe/London",
   "dependencyDashboardTitle": "Renovate Dashboard",
