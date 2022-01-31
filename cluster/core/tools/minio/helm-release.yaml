@@ -29,7 +29,7 @@ spec:
           name: minio
     image:
       repository: quay.io/minio/minio
-      tag: RELEASE.2021-12-29T06-49-06Z
+      tag: RELEASE.2022-01-28T02-28-16Z
     ingress:
       main:
         annotations:
