@@ -15,7 +15,7 @@ spec:
         name: jetstack-charts
         namespace: flux-system
   values:
-    installCRDs: false
+    installCRDs: true
     webhook:
       enabled: true
     extraArgs:
@@ -26,7 +26,7 @@ spec:
     resources:
       requests:
         cpu: "10m"
-        memory: "32Mi"
+        memory: "32Mi"W
       limits:
         cpu: "250m"
         memory: "250Mi"
