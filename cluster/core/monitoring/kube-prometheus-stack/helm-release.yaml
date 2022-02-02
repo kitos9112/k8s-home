@@ -140,7 +140,7 @@ spec:
         replicaExternalLabelName: "replica"
         image:
           repository: quay.io/prometheus/prometheus
-          tag: v2.33.0
+          tag: v2.33.1
         additionalScrapeConfigs:
           - honor_timestamps: true
             job_name: minio
