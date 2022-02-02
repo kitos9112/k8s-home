@@ -134,14 +134,5 @@
     },
     // Custom rules
     // TODO: Avoid bumping a breaking release that was categorised as "fix"
-        {
-      "matchDatasources": [
-        "flux"
-      ],
-      "matchPackagePatterns": [
-        "grafana/helm-charts"
-      ],
-      "automerge": false
-    }
   ]
 }
