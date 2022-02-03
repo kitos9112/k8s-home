@@ -6,14 +6,14 @@ metadata:
   namespace: node-feature-discovery
 spec:
   interval: 5m
-  releaseName: longhorn
+  releaseName: node-feature-discovery
   chart:
     spec:
       chart: node-feature-discovery
       version: 0.2.1
       sourceRef:
         kind: HelmRepository
-        name: longhorn-charts
+        name: node-feature-discovery-charts
         namespace: flux-system
       interval: 1m
   values:
