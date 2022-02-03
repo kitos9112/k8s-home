@@ -13,4 +13,5 @@ resources:
   - media.yaml
   - monitoring.yaml
   - networking.yaml
+  - node-feature-discovery.yaml
   - velero.yaml

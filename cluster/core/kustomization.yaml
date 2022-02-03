@@ -10,5 +10,6 @@ resources:
   - networking
   - longhorn-system
   - monitoring
+  - node-feature-discovery
   - tools
   - velero
