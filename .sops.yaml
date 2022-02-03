@@ -5,7 +5,7 @@ creation_rules:
     pgp: >-
       0x2141D0D63053C652,
       0x03249595A54E0BC8
-  # TODO Add support for age as an immediate successor of GNUPG
+  # TODO: Add support for age as an immediate successor of GNUPG
   #
   # - path_regex: cluster/.*\.ya?ml
   #   encrypted_regex: "^(data|stringData)$"

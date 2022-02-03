@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: node-feature-discovery
+  labels:
+    managed-by: flux
