@@ -62,6 +62,12 @@ Also, they all depend on **crds** and Flux should never prune them in case a man
 All the actual containerised applications that run in my K8s home cluster, following the same approach as the core category.
 Not many applications have yet landed here. They also depend on **core** and inherently **cdrs**, but Flux will prune resources here if they are not tracked by Git anymore.
 
+## Type of nodes
+
+This Kubernetes cluster spans two well-defined delimitations; `internal` || `home`, and `external` || `cloud` node types. Each node is automatically labelled with a `node_locality` label that could be either `internal` or `external`. By taking this approach, some pods will feel more "affinity" to land in a specific node that matches a given label (e.g. `external`).
+
+The labeling process is taken care by the K3s Ansible role and should never be a manual task as it is prone to forgiveness.
+
 ## Bootstrap cluster using Flux
 
 ```sh
