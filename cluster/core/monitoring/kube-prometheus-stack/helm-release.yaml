@@ -136,6 +136,8 @@ spec:
       ingress:
         enabled: false
       prometheusSpec:
+        nodeSelector:
+          node_locality: "internal"
         replicas: 1
         replicaExternalLabelName: "replica"
         image:
