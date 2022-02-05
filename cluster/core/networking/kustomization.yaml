@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: networking
 resources:
   - metallb
-  - traefik
+  - traefik-internal
   - traefik-forward-auth
   - wildcard-certificate
