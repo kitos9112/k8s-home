@@ -5,3 +5,5 @@ namespace: longhorn-system
 resources:
   - helm-release.yaml
   - volume-snapshot-class.yaml
+  - ingress-route.yaml
+  - certificate.yaml
