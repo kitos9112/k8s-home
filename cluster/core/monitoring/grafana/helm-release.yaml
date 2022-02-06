@@ -19,6 +19,8 @@ spec:
       namespace: monitoring
   interval: 5m
   values:
+    nodeSelector:
+      node_locality: "internal"
     adminPassword: ${SECRET_GRAFANA_PASSWORD}
     dashboardProviders:
       dashboardproviders.yaml:
@@ -119,13 +121,8 @@ spec:
       enabled: false
     persistence:
       enabled: true
-      type: pvc
       storageClassName: longhorn
-      accessModes:
-        - ReadWriteOnce
       size: 4Gi
-      finalizers:
-        - kubernetes.io/pvc-protection
     plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
