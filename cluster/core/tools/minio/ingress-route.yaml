@@ -23,6 +23,3 @@ spec:
           scheme: api
   tls:
     secretName: "minio-${SECRET_DOMAIN/./-}-tls"
-    domains:
-      - minio.${SECRET_DOMAIN}
-      - s3.${SECRET_DOMAIN}
