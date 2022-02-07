@@ -115,8 +115,8 @@ spec:
       endpoints:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
       service:
-        port: 10250
-        targetPort: 10250
+        port: 10249
+        targetPort: 10249
     kubeScheduler:
       enabled: true
       endpoints:
