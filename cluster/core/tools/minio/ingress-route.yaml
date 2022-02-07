@@ -2,20 +2,27 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: grafana-ingress
+  name: minio-ingress
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`grafana.${SECRET_DOMAIN}`)
+    - match: Host(`minio.${SECRET_DOMAIN}`)
       kind: Rule
       services:
-        - name: grafana
-          namespace: monitoring
-          port: 80
+        - name: minio
+          namespace: tools
+          port: 9001
           scheme: http
-      middlewares:
-        - name: traefik-forward-auth
-          namespace: networking
+    - match: Host(`s3.${SECRET_DOMAIN}`)
+      kind: Rule
+      services:
+        - name: minio
+          namespace: tools
+          port: 9000
+          scheme: api
   tls:
-    secretName: "grafana-${SECRET_DOMAIN/./-}-tls"
+    secretName: "minio-${SECRET_DOMAIN/./-}-tls"
+    domains:
+      - minio.${SECRET_DOMAIN}
+      - s3.${SECRET_DOMAIN}

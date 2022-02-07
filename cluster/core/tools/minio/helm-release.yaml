@@ -30,29 +30,6 @@ spec:
     image:
       repository: quay.io/minio/minio
       tag: RELEASE.2022-02-07T08-17-33Z
-    ingress:
-      main:
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        enabled: true
-        hosts:
-          - host: minio.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  port: 9001
-          - host: s3.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  port: 9000
-        ingressClassName: traefik
-        tls:
-          - hosts:
-              - minio.${SECRET_DOMAIN}
-              - s3.${SECRET_DOMAIN}
     nameOverride: minio
     persistence:
       config:
