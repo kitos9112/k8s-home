@@ -8,19 +8,23 @@ spec:
   chart:
     spec:
       chart: grafana
-      version: 6.21.3
       interval: 5m
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
+      version: 6.21.2
   dependsOn:
     - name: kube-prometheus-stack
       namespace: monitoring
+  install:
+    remediation:
+      retries: 3
   interval: 5m
+  upgrade:
+    remediation:
+      retries: 3
   values:
-    nodeSelector:
-      node_locality: "internal"
     adminPassword: ${SECRET_GRAFANA_PASSWORD}
     dashboardProviders:
       dashboardproviders.yaml:
@@ -66,7 +70,7 @@ spec:
             isDefault: true
             name: Prometheus
             type: prometheus
-            url: http://thanos-query:9090
+            url: http://thanos-query:9090/
           - access: proxy
             name: Loki
             type: loki
@@ -119,10 +123,14 @@ spec:
         viewers_can_edit: true
     ingress:
       enabled: false
+    networkPolicy:
+      enabled: true
+    nodeSelector:
+      node_locality: internal
     persistence:
       enabled: true
-      storageClassName: longhorn
       size: 4Gi
+      storageClassName: longhorn
     plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
@@ -133,19 +141,11 @@ spec:
     podAnnotations:
       configmap.reloader.stakater.com/reload: grafana
     replicas: 1
-    networkPolicy:
-      enabled: true
     serviceAccount:
       autoMount: true
       create: true
     serviceMonitor:
       enabled: true
-    tolerations:
-      - key: "node.kubernetes.io/unreachable"
-        operator: "Exists"
-        effect: "NoExecute"
-        # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
-        tolerationSeconds: 15
     sidecar:
       dashboards:
         enabled: true
