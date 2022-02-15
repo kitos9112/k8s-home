@@ -11,5 +11,6 @@ resources:
   - longhorn-system
   - monitoring
   - node-feature-discovery
+  - portainer
   - tools
   - velero
