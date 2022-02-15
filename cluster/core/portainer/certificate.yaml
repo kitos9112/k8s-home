@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "portainer-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "portainer-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
+    kind: ClusterIssuer
+  commonName: "portainer.${SECRET_DOMAIN}"
+  dnsNames:
+    - "portainer.${SECRET_DOMAIN}"
