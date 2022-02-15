@@ -15,4 +15,5 @@ resources:
   - monitoring.yaml
   - networking.yaml
   - node-feature-discovery.yaml
+  - portainer.yaml
   - velero.yaml
