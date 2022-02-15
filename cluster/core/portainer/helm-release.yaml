@@ -30,12 +30,4 @@ spec:
       size: "10Gi"
       storageClass: longhorn
     ingress:
-      enabled: true
-      ingressClassName: "traefik-internal"
-      annotations: {}
-      hosts:
-        - host: portainer.${SECRET_DOMAIN}
-          paths:
-            - path: "/"
-      tls:
-        - portainer.${SECRET_DOMAIN}
+      enabled: false

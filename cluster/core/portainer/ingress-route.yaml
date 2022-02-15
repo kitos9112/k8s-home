@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: portainer-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`portainer.${SECRET_DOMAIN}`)
+      kind: Rule
+      services:
+        - name: portainer
+          namespace: portainer
+          port: 9000
+          scheme: http
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: networking
+  tls:
+    secretName: "portainer-${SECRET_DOMAIN/./-}-tls"
