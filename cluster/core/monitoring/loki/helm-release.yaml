@@ -33,6 +33,7 @@ spec:
               severity: critical
     nodeSelector:
       node_locality: "internal"
+      kubernetes.io/arch: "amd64"
     config:
       ruler:
         alertmanager_url: http://prometheus-alertmanager:9093
