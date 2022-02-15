@@ -24,6 +24,7 @@ spec:
     bucketweb:
       enabled: true
       nodeSelector:
+        node_locality: internal
         kubernetes.io/arch: amd64
       resources:
         requests:
@@ -37,6 +38,7 @@ spec:
       persistence:
         enabled: false
       nodeSelector:
+        node_locality: internal
         kubernetes.io/arch: amd64
       retentionResolutionRaw: 3d
       retentionResolution5m: 30d
@@ -64,6 +66,7 @@ spec:
       replicaLabels:
         - replica
       nodeSelector:
+        node_locality: internal
         kubernetes.io/arch: amd64
       resources:
         requests:
@@ -79,6 +82,7 @@ spec:
     storegateway:
       enabled: true
       nodeSelector:
+        node_locality: internal
         kubernetes.io/arch: amd64
       resources:
         requests:
