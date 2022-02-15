@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Create Github Issue from TODO comments
-        uses: "alstr/todo-to-issue-action@v4.5"
+        uses: alstr/todo-to-issue-action@v4.6
         id: "todo"
         with:
           token: "${{ steps.generate-token.outputs.token }}"
