@@ -5,3 +5,4 @@ namespace: portainer
 resources:
   - helm-release.yaml
   - certificate.yaml
+  - ingress-route.yaml
