@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
-      version: 6.21.5
+      version: 6.21.6
   dependsOn:
     - name: kube-prometheus-stack
       namespace: monitoring
