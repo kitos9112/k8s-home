@@ -61,7 +61,7 @@ spec:
           shared_store: s3
       query_range:
         parallelise_shardable_queries: false
-      query_scheduler_config:
+      query_scheduler:
         max_outstanding_requests_per_tenant: 2048
     image:
       repository: ghcr.io/k8s-at-home/loki
