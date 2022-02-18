@@ -15,7 +15,7 @@ I am a firm believer in GitOps and Kubernetes as the defacto cloud orchestrator 
 
 The cluster components break down all its services into **four** well-defined categories:
 
-- [base](./base)
+- [base](https://github.com/kitos9112/k8s-home/tree/main/cluster/base)
 
 Serves as entrypoint to [FluxCD](https://fluxcd.io/docs/) thus a declaration to the other components.
 
@@ -34,12 +34,12 @@ ${var/substring/replacement}
 
 In addition, [Flux system sources](./cluster/base/flux-system/sources) contain either GitRepositories and HelmRepositories Custom Resources Definitions (CRDs) that are used as a common interface for artifact acquisition from within the cluster itself. The other `gotk` components and `sync` manifests are deployed upon cluster initialisation once and maintained up-to-date via a custom [GitHub Actions workflow](.github/workflows/flux-schedule.yaml) thereafter.
 
-- [crds](./crds)
+- [crds](https://github.com/kitos9112/k8s-home/tree/main/cluster/crds)
 
 Contains Custom Resource Definitions (CRDs) for several K8s applications used in the cluster (e.g. `alertmanagerconfigs.monitoring.coreos.com`)
 They must be deployed in the first place, and all other listed-below categories depend on them. This basically means that a simple change in one of the CRDs will require a full cluster reconcialiation.
 
-- [core](./core)
+- [core](https://github.com/kitos9112/k8s-home/tree/main/cluster/core)
 
 It is made up of applications that become the heart and the foundation of any Kubernetes cluster to fullfil needs as:
 
@@ -57,7 +57,7 @@ Also, they all depend on **crds** and Flux should never prune them in case a man
 
 > Each category contains a directory that depicts the Kubernetes namespace where to deploy `kustomize` objects.
 
-- [apps](./apps)
+- [apps](https://github.com/kitos9112/k8s-home/tree/main/cluster/apps)
 
 All the actual containerised applications that run in my K8s home cluster, following the same approach as the core category.
 Not many applications have yet landed here. They also depend on **core** and inherently **cdrs**, but Flux will prune resources here if they are not tracked by Git anymore.
