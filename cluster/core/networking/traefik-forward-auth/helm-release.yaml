@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: traefik-forward-auth
-      version: 1.0.10
+      version: 2.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -22,20 +22,20 @@ spec:
       repository: ghcr.io/kitos9112/traefik-forward-auth
       tag: v2.5.1
       pullPolicy: IfNotPresent
-    nodeSelector:
-      kubernetes.io/arch: arm64
-    logging:
-      level: trace
-      format: pretty
-    logoutRedirect: ""
     middleware:
       enabled: true
-      name: traefik-forward-auth
-    restrictions:
-      # restrictions.whitelist -- Only allow given email addresses. (Comma delimited)
-      whitelist: ${SECRET_TRAEFIK_AUTH_WHITELIST}
-    lifetime: "28000"
-    urlPath: "/_oauth"
+      nameOverride: traefik-forward-auth
+    env:
+      LOG_LEVEL: trace
+      LOG_FORMAT: pretty
+      LOGOUT_REDIRECT: "https://www.google.co.uk"
+      WHITELIST: ${SECRET_TRAEFIK_AUTH_WHITELIST}
+      LIFETIME: "28000"
+      URL_PATH: "/_oauth"
+      AUTH_HOST: "auth.${SECRET_DOMAIN}"
+      COOKIE_DOMAIN: "${SECRET_DOMAIN}"
+      PROVIDERS_GOOGLE_CLIENT_ID: "${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENT_ID}"
+      PROVIDERS_GOOGLE_CLIENT_SECRET: "${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENT_SECRET}"
     resources:
       requests:
         cpu: "100m"
@@ -43,15 +43,3 @@ spec:
       limits:
         cpu: "300m"
         memory: "150Mi"
-    authHost: "auth.${SECRET_DOMAIN}"
-    cookie:
-      # cookie.domain -- Domain(s) to set auth cookie on. (Comma delimited)
-      domain: "${SECRET_DOMAIN}"
-    providers:
-      google:
-        # providers.google.enabled -- Enable the google provider
-        enabled: true
-        # providers.google.clientId -- Client ID
-        clientId: "${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENT_ID}"
-        # providers.google.clientSecret -- Client Secret
-        clientSecret: "${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENT_SECRET}"
