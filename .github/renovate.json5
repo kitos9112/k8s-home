@@ -17,23 +17,24 @@
   "repositories": ["kitos9112/k8s-home"],
   "onboarding": false,
   "requireConfig": false,
-  "gitAuthor": "rosey-pa-bot <166536+henry-bot[bot]@users.noreply.github.com>",
+  "gitAuthor": "henry-pa-bot <166536+henry-bot[bot]@users.noreply.github.com>",
   "assignees": ["@kitos9112"],
   "timezone": "Europe/London",
-  "dependencyDashboardTitle": "Renovate Dashboard",
+  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": [
     "prIgnoreNotification"
   ],
   "rebaseWhen": "conflicted",
+  "commitBodyTable": true,
   // set up Renovate Managers
   "helmv3": {
     "fileMatch": ["charts/.+/Chart\\.yaml$"]
   },
   "helm-values": {
-    "fileMatch": ["cluster/.+/helm-release\\.yaml$"]
+    "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
   "flux": {
-   "fileMatch": ["cluster/.+\\.yaml$"],
+   "fileMatch": ["cluster/.+\\.ya?ml$"],
   },
   "kubernetes": {
     "fileMatch": ["cluster/.+\\.yaml$"],
