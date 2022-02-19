@@ -37,10 +37,6 @@ spec:
                     operator: In
                     values:
                       - "external"
-                  - key: topology.kubernetes.io/region
-                    operator: In
-                    values:
-                      - "civo"
   monitoring:
     pgmonitor:
       exporter: {}
