@@ -1,0 +1,41 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: portainer
+spec:
+  interval: 5m
+  releaseName: hummingbot-postgres
+  chart:
+    spec:
+      chart: postgres
+      version: 11.0.6
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+      interval: 1m
+  values:
+    global:
+      storageClass: longhorn-civo
+      postgresql:
+        auth:
+          username: "hummingbot"
+          database: "hummingbot"
+          existingSecret: "hummingbot-postgres"
+    primary:
+      nodeSelector:
+        node_locality: external
+      persistence:
+        size: 100Gi
+    readReplicas:
+      nodeSelector:
+        node_locality: external
+      persistence:
+        size: 100Gi
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true

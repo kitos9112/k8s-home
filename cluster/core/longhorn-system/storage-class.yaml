@@ -4,12 +4,11 @@ metadata:
   name: longhorn-civo
 provisioner: driver.longhorn.io
 allowVolumeExpansion: true
-reclaimPolicy: Retain
+reclaimPolicy: Delete
 volumeBindingMode: Immediate
 parameters:
-  numberOfReplicas: "4"
-  staleReplicaTimeout: "3600" # 1hour in minutes
+  numberOfReplicas: "1"
+  staleReplicaTimeout: "36000" # 10-hour in minutes
   nodeSelector: "civo"
-  dataLocality: "disabled"
-  replicaAutoBalance: "best-effort"
+  dataLocality: "best-effort"
   fsType: "ext4"

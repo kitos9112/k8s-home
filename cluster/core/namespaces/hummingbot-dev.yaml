@@ -2,6 +2,6 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: hummingbot
+  name: hummingbot-dev
   labels:
     managed-by: flux
