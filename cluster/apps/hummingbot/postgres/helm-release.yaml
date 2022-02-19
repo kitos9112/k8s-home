@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: hummingbot-postgres
+  name: postgres
 spec:
   interval: 5m
-  releaseName: hummingbot-postgres
+  releaseName: postgres
   chart:
     spec:
-      chart: postgres
-      version: 11.0.6
+      chart: postgres-ha
+      version: 8.2.9
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
@@ -19,23 +19,21 @@ spec:
     global:
       storageClass: longhorn-civo
       postgresql:
-        auth:
-          username: "hummingbot"
-          database: "hummingbot"
-          existingSecret: "hummingbot-postgres"
-    primary:
+        username: "hummingbot"
+        repmgrUsername: "repmgr"
+        database: "hummingbot"
+        existingSecret: "postgres"
+      pgpool:
+        existingSecret: "pgpool"
+    postgresql:
       nodeSelector:
         node_locality: external
-      persistence:
-        size: 100Gi
-    readReplicas:
+    pgpool:
       nodeSelector:
         node_locality: external
-      persistence:
-        size: 100Gi
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
-      prometheusRule:
-        enabled: true
+    persistence:
+      size: 100Gi
