@@ -5,12 +5,9 @@ metadata:
   name: postgres
 spec:
   entryPoints:
-    - websecure
+    - hg-pg
   routes:
-    - match: HostSNI(`pg-hummingbot.${SECRET_DOMAIN}`)
+    - match: "*"
       services:
-        - name: postgres-postgresql
+        - name: postgres-replicas
           port: 5432
-  tls:
-    secretName: "pg-hummingbot-${SECRET_DOMAIN/./-}-tls"
-    passthrough: false

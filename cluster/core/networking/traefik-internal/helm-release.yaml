@@ -61,6 +61,9 @@ spec:
       token: ${SECRET_TRAEFIK_PILOT_TOKEN}
       dashboard: true
     ports:
+      hg-pg:
+        port: 5432
+        protocol: TCP
       traefik:
         port: 9000
       metrics:
