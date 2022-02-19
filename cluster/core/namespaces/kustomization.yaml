@@ -17,4 +17,5 @@ resources:
   - networking.yaml
   - node-feature-discovery.yaml
   - portainer.yaml
+  - postgres.yaml
   - velero.yaml
