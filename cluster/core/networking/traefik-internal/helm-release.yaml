@@ -62,6 +62,8 @@ spec:
       dashboard: true
     ports:
       hg-pg:
+        expose: true
+        exposedPort: 5432
         port: 5432
         protocol: TCP
       traefik:

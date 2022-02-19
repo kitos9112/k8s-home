@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - hg-pg
   routes:
-    - match: "*"
+    - match: HostSNI(`*`)
       services:
         - name: postgres-replicas
           port: 5432
