@@ -7,3 +7,4 @@ resources:
   - volume-snapshot-class.yaml
   - ingress-route.yaml
   - certificate.yaml
+  - storage-class.yaml
