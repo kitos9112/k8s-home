@@ -10,6 +10,7 @@ resources:
   - kasten-io.yaml
   - kube-system.yaml
   - hummingbot.yaml
+  - hummingbot-dev.yaml
   - longhorn-system.yaml
   - media.yaml
   - monitoring.yaml
