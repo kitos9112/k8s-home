@@ -7,7 +7,7 @@ allowVolumeExpansion: true
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
 parameters:
-  numberOfReplicas: "2"
+  numberOfReplicas: "1"
   staleReplicaTimeout: "2880" # 48 hours in minutes
   nodeSelector: "civo, cloud"
   dataLocality: "best-effort"
