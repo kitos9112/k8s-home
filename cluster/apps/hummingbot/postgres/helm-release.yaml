@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: postgresql-ha
-      version: 8.2.9
+      version: 8.4.0
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
