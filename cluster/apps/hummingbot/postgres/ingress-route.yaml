@@ -8,7 +8,6 @@ spec:
     - websecure
   routes:
     - match: HostSNI(`pg-hummingbot.${SECRET_DOMAIN}`)
-      kind: Rule
       services:
         - name: postgres-postgresql
           port: 5432
