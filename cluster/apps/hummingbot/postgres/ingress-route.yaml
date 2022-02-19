@@ -10,8 +10,8 @@ spec:
     - match: HostSNI(`pg-hummingbot.${SECRET_DOMAIN}`)
       kind: Rule
       services:
-        - name:
-          port: 4181
+        - name: postgres-postgresql
+          port: 5432
   tls:
     secretName: "auth-${SECRET_DOMAIN/./-}-tls"
     passthrough: false
