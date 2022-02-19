@@ -1,0 +1,48 @@
+# https://access.crunchydata.com/documentation/postgres-operator/5.0.4/references/crd/#postgresclusterspecusersindex
+---
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: postgres
+spec:
+  postgresVersion: 14
+  instances:
+    - name: hummingbot
+      replicas: 3
+      users:
+        - name: hummingbot-bots
+          database:
+            - hummingbot
+      monitoring:
+        pgmonitor:
+          exporter: {}
+      services:
+        type: ClusterIP
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1024Mi"
+        limits:
+          cpu: "1000m"
+          memory: "8096Mi"
+      dataVolumeClaimSpec:
+        volumeName: hummingbot-postgres-data
+        accessModes:
+          - "ReadWriteOnce"
+        storageClassName: longhorn-civo
+        resources:
+          requests:
+            storage: 100Gi
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node_locality
+                    operator: In
+                    values:
+                      - "external"
+                  - key: topology.kubernetes.io/region
+                    operator: In
+                    values:
+                      - "civo"

@@ -13,4 +13,5 @@ resources:
   - node-feature-discovery
   - portainer
   - tools
+  - postgres
   - velero
