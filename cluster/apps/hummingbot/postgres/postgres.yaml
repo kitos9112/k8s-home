@@ -10,9 +10,12 @@ spec:
     - name: hummingbot-bots
       databases:
         - hummingbot
+    - name: hummingbot-dev
+      databases:
+        - hummingbot-dev
   instances:
     - name: hummingbot
-      replicas: 3
+      replicas: 2
       resources:
         requests:
           cpu: "500m"
