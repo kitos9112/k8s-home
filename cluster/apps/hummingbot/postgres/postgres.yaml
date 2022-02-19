@@ -8,7 +8,7 @@ spec:
   postgresVersion: 14
   users:
     - name: hummingbot-bots
-      database:
+      databases:
         - hummingbot
   instances:
     - name: hummingbot
@@ -21,7 +21,7 @@ spec:
           cpu: "1000m"
           memory: "8096Mi"
       dataVolumeClaimSpec:
-        volumeName: hummingbot-postgres-data
+        #volumeName: hummingbot-postgres-data
         accessModes:
           - "ReadWriteOnce"
         storageClassName: longhorn-civo
@@ -44,3 +44,16 @@ spec:
   monitoring:
     pgmonitor:
       exporter: {}
+  backups:
+    pgbackrest:
+      repos:
+        - name: repo1
+          volume:
+            volumeClaimSpec:
+              #volumeName: hummingbot-postgres-backup
+              accessModes:
+                - "ReadWriteOnce"
+              storageClassName: longhorn-civo
+              resources:
+                requests:
+                  storage: 50Gi
