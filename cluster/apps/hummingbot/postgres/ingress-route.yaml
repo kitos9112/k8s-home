@@ -12,5 +12,5 @@ spec:
         - name: postgres-postgresql
           port: 5432
   tls:
-    secretName: "auth-${SECRET_DOMAIN/./-}-tls"
+    secretName: "pg-hummingbot-${SECRET_DOMAIN/./-}-tls"
     passthrough: false
