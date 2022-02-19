@@ -8,7 +8,7 @@ spec:
   releaseName: postgres
   chart:
     spec:
-      chart: postgres-ha
+      chart: bitnami/postgres-ha
       version: 8.2.9
       sourceRef:
         kind: HelmRepository
