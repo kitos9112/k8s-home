@@ -1,7 +1,7 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: longhorn-hyper-converged
+  name: longhorn-civo
 provisioner: driver.longhorn.io
 allowVolumeExpansion: true
 reclaimPolicy: Retain
@@ -9,6 +9,6 @@ volumeBindingMode: Immediate
 parameters:
   numberOfReplicas: "1"
   staleReplicaTimeout: "2880" # 48 hours in minutes
-  nodeSelector: "civo, cloud"
+  nodeSelector: "civo"
   dataLocality: "best-effort"
   fsType: "ext4"
