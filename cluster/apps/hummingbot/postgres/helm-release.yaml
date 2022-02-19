@@ -16,6 +16,7 @@ spec:
         namespace: flux-system
       interval: 1m
   values:
+    fullnameOverride: postgres
     global:
       storageClass: longhorn-civo
       postgresql:
