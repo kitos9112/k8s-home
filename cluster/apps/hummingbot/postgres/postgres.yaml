@@ -7,6 +7,11 @@ metadata:
 spec:
   postgresVersion: 14
   users:
+    - name: grafana
+      databases:
+        - hummingbot-dev
+        - hummingbot
+      options: ""
     - name: hummingbot-bots
       databases:
         - hummingbot
