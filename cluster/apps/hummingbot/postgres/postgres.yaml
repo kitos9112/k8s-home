@@ -11,7 +11,7 @@ spec:
       databases:
         - hummingbot-dev
         - hummingbot
-      options: ""
+      options: "SUPERUSER"
     - name: hummingbot-bots
       databases:
         - hummingbot
