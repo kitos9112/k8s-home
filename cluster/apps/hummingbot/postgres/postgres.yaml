@@ -67,4 +67,11 @@ spec:
                 requests:
                   storage: 50Gi
   proxy:
-    pgBouncer: {}
+    pgBouncer:
+      config:
+        global:
+          "server_tls_sslmode": "verify-ca"
+        databases:
+          "hummingbot-dev-read": "host=postgres-replicas port=5432 dbname=hummingbot-dev"
+          "hummingbot-dev-read-write": "host=postgres-primary port=5432 dbname=hummingbot-dev"
+      replicas: 1
