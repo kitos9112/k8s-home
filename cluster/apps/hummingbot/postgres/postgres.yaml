@@ -66,6 +66,6 @@ spec:
               resources:
                 requests:
                   storage: 50Gi
-  # proxy:
-  #   pgBouncer:
-  #     replicas: 1
+  proxy:
+    pgBouncer:
+      replicas: 1
