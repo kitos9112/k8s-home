@@ -6,6 +6,11 @@ metadata:
   name: postgres
 spec:
   postgresVersion: 14
+  patroni:
+    dynamicConfiguration:
+      postgresql:
+        pg_hba:
+          - "hostnossl all all all md5"
   users:
     - name: grafana-dev
       databases:
