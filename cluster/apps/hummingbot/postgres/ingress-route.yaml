@@ -9,5 +9,5 @@ spec:
   routes:
     - match: HostSNI(`*`)
       services:
-        - name: postgres-pgbouncer
+        - name: postgres-primary
           port: 5432
