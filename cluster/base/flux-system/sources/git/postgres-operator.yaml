@@ -2,11 +2,23 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  name: postgres-operator
+  name: crunchy-data-postgres-operator
   namespace: flux-system
 spec:
   interval: 30m0s
   url: https://github.com/CrunchyData/postgres-operator-examples/
   ref:
     branch: main
+  recurseSubmodules: true
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: zalando-postgres-operator
+  namespace: flux-system
+spec:
+  interval: 30m0s
+  url: https://github.com/zalando/postgres-operator/
+  ref:
+    branch: master
   recurseSubmodules: true
