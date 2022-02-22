@@ -12,14 +12,9 @@ spec:
         pg_hba:
           - "hostnossl all all all md5"
   users:
-    - name: grafana-dev
+    - name: hummingbot-prod
       databases:
-        - hummingbot-dev
-        - hummingbot
-      options: "SELECT CONNECT"
-    - name: hummingbot-bots
-      databases:
-        - hummingbot
+        - hummingbot-prod
     - name: hummingbot-dev
       databases:
         - hummingbot-dev

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: postgres-operator
+  name: crunchy-data-postgres-operator
 spec:
   targetNamespace: postgres
   releaseName: postgres-operator
@@ -12,6 +12,23 @@ spec:
       chart: ./helm/install
       sourceRef:
         kind: GitRepository
-        name: postgres-operator
+        name: crunchy-data-postgres-operator
+        namespace: flux-system
+  values: {}
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: zalando-postgres-operator
+spec:
+  targetNamespace: postgres
+  releaseName: postgres-operator
+  interval: 10m
+  chart:
+    spec:
+      chart: ./charts/postgres-operator
+      sourceRef:
+        kind: GitRepository
+        name: zalando-postgres-operator
         namespace: flux-system
   values: {}
