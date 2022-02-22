@@ -5,7 +5,7 @@ metadata:
   name: crunchy-data-postgres-operator
 spec:
   targetNamespace: postgres
-  releaseName: postgres-operator
+  releaseName: crunchy-data-postgres-operator
   interval: 10m
   chart:
     spec:
@@ -22,7 +22,7 @@ metadata:
   name: zalando-postgres-operator
 spec:
   targetNamespace: postgres
-  releaseName: postgres-operator
+  releaseName: zalando-postgres-operator
   interval: 10m
   chart:
     spec:
