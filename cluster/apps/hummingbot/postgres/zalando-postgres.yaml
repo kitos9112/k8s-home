@@ -1,0 +1,50 @@
+---
+apiVersion: acid.zalan.do/v1
+kind: postgresql
+metadata:
+  name: hummingbot-postgres
+spec:
+  teamId: hummingbot
+  numberOfInstances: 2
+  volume:
+    size: 10Gi
+    storageClass: longhorn-civo
+  users:
+    superuser:
+      - superuser
+      - createdb
+  databases:
+    foo: superuser
+    hummingbot-dev: hummingbot-dev
+    hummingbot: hummingbot
+  preparedDatabases:
+    hummingbot-dev:
+      defaultUsers: true
+      extensions:
+        pg_partman: public
+        pgcrypto: public
+      schemas:
+        data: {}
+        history:
+          defaultRoles: true
+          defaultUsers: true
+    hummingbot:
+      defaultUsers: true
+      extensions:
+        pg_partman: public
+        pgcrypto: public
+      schemas:
+        data: {}
+        history:
+          defaultRoles: true
+          defaultUsers: true
+  postgresql:
+    version: "14"
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node_locality
+              operator: In
+              values:
+                - "external"
