@@ -5,7 +5,9 @@ metadata:
   name: hummingbot-postgres
 spec:
   teamId: hummingbot
-  numberOfInstances: 2
+  numberOfInstances: 3
+  enableConnectionPooler: false
+  enableReplicaConnectionPooler: false
   volume:
     size: 10Gi
     storageClass: longhorn-civo
@@ -21,6 +23,9 @@ spec:
       extensions:
         pg_partman: public
         pgcrypto: public
+      schemas:
+        data:
+          defaultUsers: true
   postgresql:
     version: "14"
   resources:

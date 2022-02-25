@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - ingress-route.yaml
   - zalando-postgres.yaml
-  - crunchy-data-postgres.yaml
