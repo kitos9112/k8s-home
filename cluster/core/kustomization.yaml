@@ -10,7 +10,7 @@ resources:
   - networking
   - longhorn-system
   - monitoring
-  - node-feature-discovery
+  # - node-feature-discovery # Disabled for now
   - portainer
   - tools
   - postgres
