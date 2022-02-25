@@ -8,6 +8,9 @@ spec:
   numberOfInstances: 3
   enableConnectionPooler: false
   enableReplicaConnectionPooler: false
+  patroni:
+    ttl: 30
+    retry_timeout: 60
   volume:
     size: 10Gi
     storageClass: longhorn-civo
@@ -28,6 +31,8 @@ spec:
           defaultUsers: true
   postgresql:
     version: "14"
+    parameters:
+      max_connections: "200"
   resources:
     requests:
       cpu: 500m
