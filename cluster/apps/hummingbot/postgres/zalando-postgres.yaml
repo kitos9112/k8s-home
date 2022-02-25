@@ -14,7 +14,6 @@ spec:
       - superuser
       - createdb
   databases:
-    foo: superuser
     hummingbot-dev: hummingbot-dev
     hummingbot: hummingbot
   preparedDatabases:
@@ -24,7 +23,9 @@ spec:
         pg_partman: public
         pgcrypto: public
       schemas:
-        data: {}
+        data:
+          defaultRoles: true
+          defaultUsers: true
         history:
           defaultRoles: true
           defaultUsers: true
@@ -34,12 +35,21 @@ spec:
         pg_partman: public
         pgcrypto: public
       schemas:
-        data: {}
+        data:
+          defaultRoles: true
+          defaultUsers: true
         history:
           defaultRoles: true
           defaultUsers: true
   postgresql:
     version: "14"
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 2500m
+      memory: 8192Mi
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
