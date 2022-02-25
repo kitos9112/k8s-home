@@ -21,12 +21,6 @@ spec:
       extensions:
         pg_partman: public
         pgcrypto: public
-      schemas:
-        data: {}
-        hummingbot: {}
-        history:
-          defaultRoles: true
-          defaultUsers: true
   postgresql:
     version: "14"
   resources:
