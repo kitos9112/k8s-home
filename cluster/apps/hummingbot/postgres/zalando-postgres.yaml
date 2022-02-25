@@ -14,30 +14,16 @@ spec:
       - superuser
       - createdb
   databases:
-    # hummingbot-dev: hummingbot-dev
     hummingbot: hummingbot
   preparedDatabases:
-    # hummingbot-dev:
-    #   defaultUsers: true
-    #   extensions:
-    #     pg_partman: public
-    #     pgcrypto: public
-    #   schemas:
-    #     data:
-    #       defaultRoles: true
-    #       defaultUsers: true
-    #     history:
-    #       defaultRoles: true
-    #       defaultUsers: true
     hummingbot:
       defaultUsers: true
       extensions:
         pg_partman: public
         pgcrypto: public
       schemas:
-        data:
-          defaultRoles: true
-          defaultUsers: true
+        data: {}
+        hummingbot: {}
         history:
           defaultRoles: true
           defaultUsers: true
