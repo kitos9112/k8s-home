@@ -8,6 +8,7 @@ resources:
   - kube-prometheus-stack
   - loki
   - dashboard
+  - influxdb
   - promtail
   - thanos
   - speedtest-exporter

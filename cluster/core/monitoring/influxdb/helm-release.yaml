@@ -1,0 +1,39 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: influxdb
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      chart: influxdb2
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: influxdata-charts
+        namespace: flux-system
+      version: 2.0.9
+  install:
+    remediation:
+      retries: 3
+  interval: 5m
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 1024Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    adminUser:
+      organization: "home"
+    persistence:
+      storageClass: longhorn
+      size: 20Gi
+    nodeSelector:
+      node_locality: "internal"
+      kubernetes.io/arch: "amd64"
