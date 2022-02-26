@@ -10,7 +10,7 @@ spec:
     - match: Host(`influxdb.${SECRET_DOMAIN}`)
       kind: Rule
       services:
-        - name: influxdb
+        - name: influxdb-influxdb2
           namespace: monitoring
           port: 80
           scheme: http
