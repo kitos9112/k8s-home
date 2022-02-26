@@ -29,7 +29,7 @@ spec:
           name: minio
     image:
       repository: quay.io/minio/minio
-      tag: RELEASE.2022-02-18T01-50-10Z
+      tag: RELEASE.2022-02-26T02-54-46Z
     nameOverride: minio
     persistence:
       config:
