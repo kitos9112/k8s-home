@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: influxdb-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`influxdb.${SECRET_DOMAIN}`)
+      kind: Rule
+      services:
+        - name: influxdb
+          namespace: monitoring
+          port: 80
+          scheme: http
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: networking
+  tls:
+    secretName: "influxdb-${SECRET_DOMAIN/./-}-tls"

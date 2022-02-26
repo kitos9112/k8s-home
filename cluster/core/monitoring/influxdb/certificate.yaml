@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "influxdb-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "influxdb-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
+    kind: ClusterIssuer
+  commonName: "influxdb.${SECRET_DOMAIN}"
+  dnsNames:
+    - "influxdb.${SECRET_DOMAIN}"

@@ -13,6 +13,7 @@ resources:
   - jaeger-charts.yaml
   - jetstack-charts.yaml
   - hashicorp-charts.yaml
+  - influxdata-charts.yaml
   - k8s-at-home-charts.yaml
   - kasten-charts.yaml
   - kubernetes-sigs-descheduler-charts.yaml
