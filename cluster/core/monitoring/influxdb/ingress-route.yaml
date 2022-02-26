@@ -14,8 +14,8 @@ spec:
           namespace: monitoring
           port: 80
           scheme: http
-      middlewares:
-        - name: traefik-forward-auth
-          namespace: networking
+      # middlewares:
+      #   - name: traefik-forward-auth
+      #     namespace: networking
   tls:
     secretName: "influxdb-${SECRET_DOMAIN/./-}-tls"
