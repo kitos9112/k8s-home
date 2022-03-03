@@ -226,4 +226,4 @@ spec:
           enabled: true
       thanosImage:
         repository: quay.io/thanos/thanos
-        tag: v0.24.0
+        tag: v0.25.0
