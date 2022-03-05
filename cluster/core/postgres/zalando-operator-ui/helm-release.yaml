@@ -16,3 +16,6 @@ spec:
         namespace: flux-system
   values:
     fullnameOverride: zalando-postgres-operator-ui
+    env:
+      teams:
+        - hummingbot
