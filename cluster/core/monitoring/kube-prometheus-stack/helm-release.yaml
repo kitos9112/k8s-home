@@ -30,9 +30,6 @@ spec:
     fullnameOverride: "prometheus"
     alertmanager:
       alertmanagerSpec:
-        image:
-          repository: quay.io/prometheus/alertmanager
-          tag: v0.23.0
         storage:
           volumeClaimTemplate:
             spec:
@@ -137,9 +134,6 @@ spec:
           kubernetes.io/arch: "amd64"
         replicas: 1
         replicaExternalLabelName: "replica"
-        image:
-          repository: quay.io/prometheus/prometheus
-          tag: v2.33.4
         additionalScrapeConfigs:
           - honor_timestamps: true
             job_name: minio
@@ -207,12 +201,7 @@ spec:
               - __meta_kubernetes_pod_node_name
             targetLabel: kubernetes_node
     prometheusOperator:
-      image:
-        repository: quay.io/prometheus-operator/prometheus-operator
-        tag: v0.54.1
       prometheusConfigReloaderImage:
-        repository: quay.io/prometheus-operator/prometheus-config-reloader
-        tag: v0.54.1
         resources:
           requests:
             cpu: 100m
@@ -224,6 +213,3 @@ spec:
       admissionWebhooks:
         certManager:
           enabled: true
-      thanosImage:
-        repository: quay.io/thanos/thanos
-        tag: v0.25.0
