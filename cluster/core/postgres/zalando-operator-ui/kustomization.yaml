@@ -4,3 +4,5 @@ kind: Kustomization
 namespace: postgres
 resources:
   - helm-release.yaml
+  - certificate.yaml
+  - ingress-route.yaml

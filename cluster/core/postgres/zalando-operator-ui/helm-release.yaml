@@ -2,16 +2,17 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: zalando-postgres-operator
+  name: zalando-postgres-operator-ui
 spec:
   targetNamespace: postgres
   releaseName: zalando-postgres-operator
   interval: 10m
   chart:
     spec:
-      chart: ./charts/postgres-operator
+      chart: ./charts/postgres-operator-ui
       sourceRef:
         kind: GitRepository
         name: zalando-postgres-operator
         namespace: flux-system
-  values: {}
+  values:
+    fullnameOverride: zalando-postgres-operator-ui
