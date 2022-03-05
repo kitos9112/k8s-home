@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "pgo-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "pgo-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
+    kind: ClusterIssuer
+  commonName: "pgo.${SECRET_DOMAIN}"
+  dnsNames:
+    - "pgo.${SECRET_DOMAIN}"

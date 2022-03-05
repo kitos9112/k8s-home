@@ -31,4 +31,5 @@ spec:
         kind: GitRepository
         name: zalando-postgres-operator
         namespace: flux-system
-  values: {}
+  values:
+    fullnameOverride: zalando-postgres-operator-ui
