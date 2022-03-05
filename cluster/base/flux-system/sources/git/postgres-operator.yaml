@@ -20,5 +20,5 @@ spec:
   interval: 30m0s
   url: https://github.com/zalando/postgres-operator/
   ref:
-    branch: master
+    branch: v1.7.1
   recurseSubmodules: true
