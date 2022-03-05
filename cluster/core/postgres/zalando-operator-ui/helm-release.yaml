@@ -5,7 +5,7 @@ metadata:
   name: zalando-postgres-operator-ui
 spec:
   targetNamespace: postgres
-  releaseName: zalando-postgres-operator
+  releaseName: zalando-postgres-operator-ui
   interval: 10m
   chart:
     spec:
