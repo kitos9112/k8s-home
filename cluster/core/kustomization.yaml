@@ -4,14 +4,11 @@ kind: Kustomization
 resources:
   - namespaces
   - cert-manager
-  # - system-upgrade # Disabled for now
   - kube-system
   - flux-system
   - networking
   - longhorn-system
   - monitoring
-  # - node-feature-discovery # Disabled for now
-  - portainer
   - tools
   - postgres
   - velero
