@@ -43,7 +43,7 @@ spec:
       secret.reloader.stakater.com/reload: minio
     resources:
       limits:
-        memory: 750Mi
+        memory: 1024Mi
       requests:
         cpu: 100m
         memory: 100Mi
@@ -57,7 +57,9 @@ spec:
           http:
             enabled: true
             port: 9001
-
+    nodeSelector:
+      node_locality: "internal"
+      kubernetes.io/arch: "amd64"
     tolerations:
       - key: "node.kubernetes.io/unreachable"
         operator: "Exists"
