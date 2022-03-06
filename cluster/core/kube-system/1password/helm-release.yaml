@@ -23,6 +23,7 @@ spec:
     crds: Skip
   values:
     connect:
+      serviceType: ClusterIP
       annotations:
         reloader.stakater.com/auto: "true"
       credentials_base64: ${SECRET_1PASSWORD_CONNECT_CREDENTIALS_B64}
