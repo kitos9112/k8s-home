@@ -35,10 +35,8 @@ spec:
       config:
         enabled: true
         type: pvc
-        size: 250Gi
-        storageClass: longhorn
+        existingClaim: minio-s3
         mountPath: /data
-        retain: true
     podAnnotations:
       secret.reloader.stakater.com/reload: minio
     resources:
