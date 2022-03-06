@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - namespaces
   - cert-manager
-  - system-upgrade
+  # - system-upgrade # Disabled for now
   - kube-system
   - flux-system
   - networking
