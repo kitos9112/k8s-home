@@ -9,7 +9,7 @@ resources:
   - loki
   - dashboard
   - influxdb
-  - promtail
   - thanos
   - speedtest-exporter
   - cronitor-heartbeat
+  - vector
