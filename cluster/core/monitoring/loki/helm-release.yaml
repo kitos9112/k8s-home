@@ -57,8 +57,10 @@ spec:
         boltdb_shipper:
           active_index_directory: /data/loki/index
           cache_location: /data/loki/index_cache
-          resync_interval: 5s
+          resync_interval: 1m
           shared_store: s3
+      compactor:
+        retention_enabled: true
       query_range:
         parallelise_shardable_queries: false
       query_scheduler:
