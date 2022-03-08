@@ -117,4 +117,4 @@ spec:
               - op: add
                 path: /spec/externalIPs
                 value:
-                  - "${SVC_SYSLOG_ADDR}"
+                  - "${SECRET_SVC_SYSLOG_ADDRESS}"
