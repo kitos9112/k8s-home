@@ -35,6 +35,12 @@ spec:
       node_locality: "internal"
       kubernetes.io/arch: "amd64"
     config:
+      limits_config:
+        enforce_metric_name: false
+        reject_old_samples: true
+        reject_old_samples_max_age: 168h
+        ingestion_rate_mb: 16
+        ingestion_burst_size_mb: 24
       ruler:
         alertmanager_url: http://prometheus-alertmanager:9093
         enable_api: true
@@ -57,7 +63,7 @@ spec:
         boltdb_shipper:
           active_index_directory: /data/loki/index
           cache_location: /data/loki/index_cache
-          resync_interval: 1m
+          resync_interval: 5s
           shared_store: s3
       compactor:
         retention_enabled: true
@@ -65,8 +71,6 @@ spec:
         parallelise_shardable_queries: false
       query_scheduler:
         max_outstanding_requests_per_tenant: 2048
-    image:
-      repository: ghcr.io/k8s-at-home/loki
     resources:
       limits:
         cpu: 1000m
