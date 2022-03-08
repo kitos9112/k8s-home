@@ -78,30 +78,6 @@ spec:
               {{`{{ kubernetes.pod_node_name }}`}}
             pod: >-
               {{`{{ kubernetes.pod_name }}`}}
-        loki_opnsense:
-          type: loki
-          inputs:
-            - opnsense_logs_remap
-          endpoint: http://loki:3100
-          encoding:
-            codec: json
-          batch:
-            max_bytes: 2049000
-          out_of_order_action: rewrite_timestamp
-          labels:
-            hostname: opnsense
-        loki_opnsense_filterlog:
-          type: loki
-          inputs:
-            - opnsense_filterlog_logs
-          endpoint: http://loki:3100
-          encoding:
-            codec: json
-          batch:
-            max_bytes: 2049000
-          out_of_order_action: rewrite_timestamp
-          labels:
-            hostname: opnsense
     podMonitor:
       enabled: true
     service:
