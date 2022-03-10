@@ -44,6 +44,10 @@ spec:
           datasource: Prometheus
           gnetId: 12175
           revision: 5
+        minio:
+          datasource: Prometheus
+          gnetId: 13502
+          revision: 10
         flux-cluster:
           datasource: Prometheus
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
@@ -82,12 +86,6 @@ spec:
       type: Recreate
     env:
       GF_DATE_FORMATS_FULL_DATE: MMM Do, YYYY hh:mm:ss a
-      GF_DATE_FORMATS_INTERVAL_DAY: DD/MM
-      GF_DATE_FORMATS_INTERVAL_HOUR: DD/MM hh:mm a
-      GF_DATE_FORMATS_INTERVAL_MINUTE: hh:mm a
-      GF_DATE_FORMATS_INTERVAL_MONTH: MM-YYYY
-      GF_DATE_FORMATS_INTERVAL_SECOND: hh:mm:ss a
-      GF_DATE_FORMATS_INTERVAL_YEAR: YYYY
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
       GF_LOG_FILTERS: rendering:debug
@@ -126,8 +124,8 @@ spec:
     networkPolicy:
       enabled: true
     nodeSelector:
+      kubernetes.io/arch: amd64
       node_locality: internal
-      kubernetes.io/arch: "amd64"
     persistence:
       enabled: true
       size: 4Gi
@@ -150,6 +148,9 @@ spec:
     sidecar:
       dashboards:
         enabled: true
+        folderAnnotation: grafana_folder
+        provider:
+          foldersFromFilesStructure: true
         searchNamespace: ALL
       datasources:
         enabled: true
