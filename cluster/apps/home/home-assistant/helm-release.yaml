@@ -86,3 +86,5 @@ spec:
             mountPath: /config
         securityContext:
           privileged: true
+    nodeSelector:
+      node_locality: internal
