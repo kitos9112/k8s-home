@@ -69,8 +69,6 @@ spec:
         volumeMounts:
           - name: config
             mountPath: /config
-    # nodeSelector:
-    #   kubernetes.io/arch: amd64
     resources:
       requests:
         cpu: 100m
@@ -88,3 +86,4 @@ spec:
           privileged: true
     nodeSelector:
       node_locality: internal
+      kubernetes.io/arch: amd64
