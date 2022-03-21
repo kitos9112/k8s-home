@@ -18,6 +18,12 @@ spec:
   dependsOn:
     - name: traefik-internal
   values:
+    controller:
+      replicas: 2
+      strategy: RollingUpdate
+      rollingUpdate:
+        unavailable: 1
+        surge: 1
     image:
       repository: ghcr.io/kitos9112/traefik-forward-auth
       tag: v2.5.1
@@ -38,9 +44,8 @@ spec:
       PROVIDERS_GOOGLE_CLIENT_SECRET: "${SECRET_TRAEFIK_AUTH_GOOGLE_CLIENT_SECRET}"
     resources:
       requests:
-        cpu: "100m"
-
-        memory: "50Mi"
+        cpu: "25m"
+        memory: "25Mi"
       limits:
         cpu: "300m"
         memory: "150Mi"
