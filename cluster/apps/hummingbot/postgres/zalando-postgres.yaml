@@ -5,7 +5,7 @@ metadata:
   name: hummingbot-postgres
 spec:
   teamId: hummingbot
-  numberOfInstances: 3
+  numberOfInstances: 0
   enableConnectionPooler: false
   enableReplicaConnectionPooler: false
   patroni:
