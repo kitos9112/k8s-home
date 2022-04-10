@@ -13,4 +13,5 @@ resources:
   - thanos
   - speedtest-exporter
   - cronitor-heartbeat
+  - node-problem-detector
   - vector
