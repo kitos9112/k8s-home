@@ -1,0 +1,22 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: karma-ingress
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`karma.${SECRET_DOMAIN}`)
+      kind: Rule
+      services:
+        - name: karma
+          namespace: monitoring
+          port: 8080
+          scheme: http
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: networking
+  tls:
+    secretName: "karma-${SECRET_DOMAIN/./-}-tls"
