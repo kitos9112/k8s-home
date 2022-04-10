@@ -22,7 +22,7 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
-    # TODO: Remove this once node-problem-detector releases a cross-architecture Docker image.
+    # TODO Remove this once node-problem-detector releases a cross-architecture Docker image.
     #   Keep an eye on https://github.com/kubernetes/node-problem-detector/pull/644
     # assignees: @kitos9112
     nodeSelector:
