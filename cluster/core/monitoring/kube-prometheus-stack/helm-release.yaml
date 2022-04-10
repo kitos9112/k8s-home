@@ -8,26 +8,24 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 34.9.0
       interval: 5m
       sourceRef:
         kind: HelmRepository
         name: prometheus-community-charts
         namespace: flux-system
+      version: 34.9.0
   dependsOn:
     - name: longhorn
       namespace: longhorn-system
-  interval: 5m
   install:
     remediation:
       retries: 3
+  interval: 5m
   upgrade:
     force: true
     remediation:
       retries: 3
   values:
-    nameOverride: ""
-    fullnameOverride: "prometheus"
     alertmanager:
       alertmanagerSpec:
         storage:
@@ -87,6 +85,7 @@ spec:
               receiver: discord
       ingress:
         enabled: false
+    fullnameOverride: prometheus
     grafana:
       enabled: false
       forceDeployDashboards: true
@@ -125,15 +124,11 @@ spec:
             sourceLabels:
               - node
             targetLabel: instance
+    nameOverride: ""
     prometheus:
       ingress:
         enabled: false
       prometheusSpec:
-        nodeSelector:
-          node_locality: "internal"
-          kubernetes.io/arch: "amd64"
-        replicas: 1
-        replicaExternalLabelName: "replica"
         additionalScrapeConfigs:
           - honor_timestamps: true
             job_name: minio
@@ -141,38 +136,41 @@ spec:
             static_configs:
               - targets:
                   - minio.tools:9000
-          - job_name: "felix_metrics"
-            scrape_interval: 5s
-            scheme: http
+          - job_name: felix_metrics
             kubernetes_sd_configs:
               - role: endpoints
             relabel_configs:
-              - source_labels: [__meta_kubernetes_service_name]
+              - action: keep
                 regex: felix-metrics-svc
                 replacement: $1
-                action: keep
-          - job_name: "kube_controllers_metrics"
-            scrape_interval: 5s
+                source_labels:
+                  - __meta_kubernetes_service_name
             scheme: http
+            scrape_interval: 5s
+          - job_name: kube_controllers_metrics
             kubernetes_sd_configs:
               - role: endpoints
             relabel_configs:
-              - source_labels: [__meta_kubernetes_service_name]
+              - action: keep
                 regex: kube-controllers-metrics-svc
                 replacement: $1
-                action: keep
+                source_labels:
+                  - __meta_kubernetes_service_name
+            scheme: http
+            scrape_interval: 5s
         enableAdminAPI: true
+        nodeSelector:
+          kubernetes.io/arch: amd64
+          node_locality: internal
         podMonitorNamespaceSelector: {}
         podMonitorSelector: {}
         podMonitorSelectorNilUsesHelmValues: false
-        retention: 3h
-        ruleNamespaceSelector: {}
-        ruleSelector: {}
-        ruleSelectorNilUsesHelmValues: false
-        serviceMonitorNamespaceSelector: {}
-        serviceMonitorSelector: {}
-        serviceMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
+        replicaExternalLabelName: replica
+        replicas: 1
+        retention: 6h
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
         storageSpec:
           volumeClaimTemplate:
             spec:
@@ -201,15 +199,15 @@ spec:
               - __meta_kubernetes_pod_node_name
             targetLabel: kubernetes_node
     prometheusOperator:
-      prometheusConfigReloaderImage:
-        resources:
-          requests:
-            cpu: 100m
-            memory: 50Mi
-          limits:
-            cpu: 200m
-            memory: 100Mi
-      configReloaderCpu: 0
       admissionWebhooks:
         certManager:
           enabled: true
+      configReloaderCpu: 0
+      prometheusConfigReloaderImage:
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
