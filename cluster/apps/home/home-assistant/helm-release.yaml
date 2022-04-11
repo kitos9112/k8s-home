@@ -24,7 +24,7 @@ spec:
         tolerationSeconds: 15
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2022.4.1
+      tag: 2022.4.2
     env:
       TZ: "Europe/London"
     envFrom:
