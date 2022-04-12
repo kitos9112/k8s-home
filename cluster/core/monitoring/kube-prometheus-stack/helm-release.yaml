@@ -27,8 +27,6 @@ spec:
       retries: 3
   values:
     alertmanager:
-      annotations:
-        reloader.stakater.com/auto: "true"
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
