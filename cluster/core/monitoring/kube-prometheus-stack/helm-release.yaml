@@ -27,6 +27,8 @@ spec:
       retries: 3
   values:
     alertmanager:
+      annotations:
+        reloader.stakater.com/auto: "true"
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -51,6 +53,43 @@ spec:
               severity: warning
         receivers:
           - name: "null"
+          - name: "opsgenie"
+            opsgenie_configs:
+              - api_key: ${SECRET_OPSGENIE_API_KEY}
+                send_resolved: true
+                html: true
+                priority: |-
+                  {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
+                url_title: View alert in Karma
+                url: |-
+                  https://karma.${SECRET_DOMAIN}/?q=%40receiver%3D{{ .Receiver | urlquery }}&q=%40state%3Dactive
+                title: |-
+                  [{{ .Status | toUpper -}}
+                  {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
+                  ] {{ .CommonLabels.alertname }}
+                message: |-
+                  {{- range .Alerts }}
+                    {{- if ne .Labels.severity "" }}
+                      <b>Severity:</b> <i>{{ .Labels.severity }}</i>
+                    {{- else }}
+                      <b>Severity:</b> <i>N/A</i>
+                    {{- end }}
+                    {{- if ne .Annotations.description "" }}
+                      <b>Description:</b> <i>{{ .Annotations.description }}</i>
+                    {{- else if ne .Annotations.summary "" }}
+                      <b>Summary:</b> <i>{{ .Annotations.summary }}</i>
+                    {{- else if ne .Annotations.message "" }}
+                      <b>Message:</b> <i>{{ .Annotations.message }}</i>
+                    {{- else }}
+                      <b>Description:</b> <i>N/A</i>
+                    {{- end }}
+                    {{- if gt (len .Labels.SortedPairs) 0 }}
+                      <b>Details:</b>
+                      {{- range .Labels.SortedPairs }}
+                        • <b>{{ .Name }}:</b> <i>{{ .Value }}</i>
+                      {{- end }}
+                    {{- end }}
+                  {{- end }}
           - name: discord
             slack_configs:
               - channel: "#k8s-uk-home-notifications"
