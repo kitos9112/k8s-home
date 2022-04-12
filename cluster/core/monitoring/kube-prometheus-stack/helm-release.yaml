@@ -55,39 +55,49 @@ spec:
             opsgenie_configs:
               - api_key: ${SECRET_OPSGENIE_API_KEY}
                 send_resolved: true
-                html: true
-                priority: |-
-                  {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
-                url_title: View alert in Karma
-                url: |-
-                  https://karma.${SECRET_DOMAIN}/?q=%40receiver%3D{{ .Receiver | urlquery }}&q=%40state%3Dactive
-                title: |-
+                priority: '{{ if eq .GroupLabels.severity "critical" }}P1{{ else if eq .GroupLabels.severity "warning" }}P2{{ else if eq .GroupLabels.severity "info" }}P3{{ else }}P4{{ end }}'
+                message: |-
                   [{{ .Status | toUpper -}}
                   {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
                   ] {{ .CommonLabels.alertname }}
-                message: |-
-                  {{- range .Alerts }}
-                    {{- if ne .Labels.severity "" }}
-                      <b>Severity:</b> <i>{{ .Labels.severity }}</i>
-                    {{- else }}
-                      <b>Severity:</b> <i>N/A</i>
-                    {{- end }}
-                    {{- if ne .Annotations.description "" }}
-                      <b>Description:</b> <i>{{ .Annotations.description }}</i>
-                    {{- else if ne .Annotations.summary "" }}
-                      <b>Summary:</b> <i>{{ .Annotations.summary }}</i>
-                    {{- else if ne .Annotations.message "" }}
-                      <b>Message:</b> <i>{{ .Annotations.message }}</i>
-                    {{- else }}
-                      <b>Description:</b> <i>N/A</i>
-                    {{- end }}
-                    {{- if gt (len .Labels.SortedPairs) 0 }}
-                      <b>Details:</b>
-                      {{- range .Labels.SortedPairs }}
-                        • <b>{{ .Name }}:</b> <i>{{ .Value }}</i>
-                      {{- end }}
-                    {{- end }}
+                description: |-
+                  {{ if gt (len .Alerts.Firing) 0 -}}
+                  Alerts Firing:
+                  {{ range .Alerts.Firing }}
+                  - Message: {{ .Annotations.message }}
+                    Labels:
+                  {{ range .Labels.SortedPairs }}   - {{ .Name }} = {{ .Value }}
+                  {{ end }}   Annotations:
+                  {{ range .Annotations.SortedPairs }}   - {{ .Name }} = {{ .Value }}
+                  {{ end }}   Source: {{ .GeneratorURL }}
+                  {{ end }}
                   {{- end }}
+                  {{ if gt (len .Alerts.Resolved) 0 -}}
+                  Alerts Resolved:
+                  {{ range .Alerts.Resolved }}
+                  - Message: {{ .Annotations.message }}
+                    Labels:
+                  {{ range .Labels.SortedPairs }}   - {{ .Name }} = {{ .Value }}
+                  {{ end }}   Annotations:
+                  {{ range .Annotations.SortedPairs }}   - {{ .Name }} = {{ .Value }}
+                  {{ end }}   Source: {{ .GeneratorURL }}
+                  {{ end }}
+                  {{- end }}
+                  View Alert in Karma:
+                    https://karma.${SECRET_DOMAIN}/?q=%40receiver%3D{{ .Receiver | urlquery }}&q=%40state%3Dactive
+                details:
+                  namespace: "{{- if .CommonLabels.exported_namespace -}}{{- .CommonLabels.exported_namespace -}}{{- else if .CommonLabels.namespace -}}{{- .CommonLabels.namespace -}}{{- end -}}"
+                  pod: "{{- if .CommonLabels.pod -}}{{- .CommonLabels.pod -}}{{- end -}}"
+                  deployment: "{{- if .CommonLabels.deployment -}}{{- .CommonLabels.deployment -}}{{- end -}}"
+                  alertname: "{{ .GroupLabels.alertname }}"
+                  severity: "{{ .GroupLabels.severity }}"
+                tags: "{{ .GroupLabels.severity }},
+                  {{ .GroupLabels.alertname }},
+                  {{ .GroupLabels.namespace }},
+                  {{- if .CommonLabels.exported_namespace -}}{{ .CommonLabels.exported_namespace }},{{- end -}}"
+                responders:
+                  - id: ab411aaa-0f56-477a-9028-13cd801e5213
+                    type: team
           - name: discord
             slack_configs:
               - channel: "#k8s-uk-home-notifications"
@@ -107,19 +117,18 @@ spec:
         route:
           group_by:
             - alertname
-            - job
+            - namespace
+            - severity
           group_interval: 5m
           group_wait: 30s
-          receiver: discord
+          receiver: opsgenie
           repeat_interval: 6h
           routes:
             - match:
                 alertname: Watchdog
               receiver: "null"
             - continue: true
-              match_re:
-                severity: critical
-              receiver: discord
+              receiver: opsgenie
       ingress:
         enabled: false
     fullnameOverride: prometheus
