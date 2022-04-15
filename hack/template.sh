@@ -23,5 +23,5 @@ repo=$(yq eval '.spec.chart.spec.sourceRef.name' ${releaseFile})
 chart=$(yq eval '.spec.chart.spec.chart' ${releaseFile})
 
 # dump the values into template
-yq eval '.spec.values' ${releaseFile}  \
-  | helm template ${name} "${repo}/${chart}" --values -
+yq eval '.spec.values' ${releaseFile} |
+  helm template ${name} "${repo}/${chart}" --values -
