@@ -40,6 +40,12 @@ spec:
             type: file
     dashboards:
       default:
+        flux-cluster:
+          datasource: Prometheus
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
+        flux-control-plane:
+          datasource: Prometheus
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
         calico-felix:
           datasource: Prometheus
           gnetId: 12175
@@ -47,13 +53,7 @@ spec:
         minio:
           datasource: Prometheus
           gnetId: 13502
-          revision: 10
-        flux-cluster:
-          datasource: Prometheus
-          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
-        flux-control-plane:
-          datasource: Prometheus
-          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
+          revision: 13
         loki-logs:
           datasource: Loki
           gnetId: 12019
@@ -61,11 +61,15 @@ spec:
         speedtest:
           datasource: Prometheus
           gnetId: 13665
-          revision: 1
+          revision: 3
         traefik-ingress:
           datasource: Prometheus
           gnetId: 4475
           revision: 5
+        longhorn:
+          datasource: Prometheus
+          gnetId: 13032
+          revision: 6
     datasources:
       datasources.yaml:
         apiVersion: 1
