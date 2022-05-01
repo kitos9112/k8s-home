@@ -146,22 +146,34 @@ spec:
       enabled: true
     kubeControllerManager:
       enabled: false
-      endpoints: ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
+      endpoints:
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_2}
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_3}
       service:
         port: 10250
         targetPort: 10250
     kubeEtcd:
       enabled: true
-      endpoints: ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
+      endpoints:
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_2}
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_3}
     kubeProxy:
       enabled: true
-      endpoints: ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
+      endpoints:
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_2}
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_3}
       service:
         port: 10249
         targetPort: 10249
     kubeScheduler:
       enabled: true
-      endpoints: ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
+      endpoints:
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_2}
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_3}
       service:
         port: 10250
         targetPort: 10250
