@@ -135,30 +135,33 @@ spec:
     grafana:
       enabled: false
       forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
     kubeApiServer:
       enabled: true
     kubeControllerManager:
       enabled: false
-      endpoints:
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
+      endpoints: ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
       service:
         port: 10250
         targetPort: 10250
     kubeEtcd:
-      enabled: false
+      enabled: true
+      endpoints: ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
     kubeProxy:
       enabled: true
-      endpoints:
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
+      endpoints: ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
       service:
         port: 10249
         targetPort: 10249
     kubeScheduler:
       enabled: true
-      endpoints:
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
+      endpoints: ${SECRET_K3S_CONTROL_PLANE_ADDRESS}
       service:
         port: 10250
         targetPort: 10250
@@ -205,6 +208,8 @@ spec:
             scheme: http
             scrape_interval: 5s
         enableAdminAPI: true
+        podAntiAffinity: hard
+        retentionSize: "6GB"
         nodeSelector:
           kubernetes.io/arch: amd64
           node_locality: internal
@@ -252,7 +257,6 @@ spec:
       prometheusConfigReloaderImage:
         resources:
           limits:
-            cpu: 200m
             memory: 100Mi
           requests:
             cpu: 100m
