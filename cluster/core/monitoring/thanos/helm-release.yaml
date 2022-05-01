@@ -31,7 +31,6 @@ spec:
           cpu: 100m
           memory: 128Mi
         limits:
-          cpu: 250m
           memory: 256Mi
     compactor:
       enabled: true
@@ -40,15 +39,14 @@ spec:
       nodeSelector:
         node_locality: internal
         kubernetes.io/arch: amd64
-      retentionResolutionRaw: 3d
-      retentionResolution5m: 30d
+      retentionResolutionRaw: 15d
+      retentionResolution5m: 90d
       retentionResolution1h: 2y
       resources:
         requests:
           cpu: 100m
           memory: 128Mi
         limits:
-          cpu: 250m
           memory: 256Mi
     existingObjstoreSecret: thanos-objstore
     image:
@@ -73,7 +71,6 @@ spec:
           cpu: 100m
           memory: 128Mi
         limits:
-          cpu: 250m
           memory: 256Mi
     queryFrontend:
       enabled: false
@@ -89,9 +86,8 @@ spec:
           cpu: 100m
           memory: 250Mi
         limits:
-          cpu: 250m
           memory: 500Mi
       persistence:
         enabled: true
         storageClass: longhorn
-        size: 8Gi
+        size: 12Gi
