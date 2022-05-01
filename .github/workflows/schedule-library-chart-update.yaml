@@ -19,17 +19,22 @@ jobs:
         with:
           app_id: "${{ secrets.BOT_APP_ID }}"
           private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
       - name: Install Helm
         uses: azure/setup-helm@v1
         with:
-          version: v3.7.2
+          version: v3.8.2
+
       - name: Add library chart
         run: helm repo add k8s-at-home-library https://library-charts.k8s-at-home.com
+
       - name: Update helm repositories
         run: helm repo update
+
       - name: Update helm dependencies
         run: helm dep update
         working-directory: charts/kah-common
+
       - name: Create pull request
         uses: peter-evans/create-pull-request@v4
         with:
