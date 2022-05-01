@@ -19,8 +19,10 @@ jobs:
         with:
           app_id: "${{ secrets.BOT_APP_ID }}"
           private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Create Github Issue from TODO comments
         uses: alstr/todo-to-issue-action@v4.6
         id: "todo"
