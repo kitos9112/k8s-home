@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: /charts/kah-common/
+      chart: ./charts/kah-common
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -28,22 +28,6 @@ spec:
         ports:
           http:
             port: 5000
-    # ingress:
-    #   main:
-    #     enabled: true
-    #     ingressClassName: "traefik"
-    #     annotations:
-    #       hajimari.io/enable: "true"
-    #       hajimari.io/icon: "web-sync"
-    #       traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-    #     hosts:
-    #       - host: "change-detection.${SECRET_DOMAIN}"
-    #         paths:
-    #           - path: /
-    #             pathType: Prefix
-    #     tls:
-    #       - hosts:
-    #           - "change-detection.${SECRET_DOMAIN}"
     persistence:
       config:
         enabled: true
