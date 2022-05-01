@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: /charts/kah-common/
+      chart: ./charts/kah-common
       interval: 5m
       sourceRef:
         kind: GitRepository
