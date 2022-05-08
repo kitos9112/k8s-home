@@ -14,8 +14,8 @@ spec:
           namespace: flux-system
           port: 80
           scheme: http
-      middlewares:
-        - name: github-hooks
-          namespace: networking
+      # middlewares:
+      #   - name: github-hooks
+      #     namespace: networking
   # tls:
   #   secretName: "flux-${SECRET_DOMAIN/./-}-tls"
