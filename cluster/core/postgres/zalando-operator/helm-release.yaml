@@ -14,4 +14,6 @@ spec:
         kind: GitRepository
         name: zalando-postgres-operator
         namespace: flux-system
-  values: {}
+  values:
+    configKubernetes:
+      enable_cross_namespace_secret: true
