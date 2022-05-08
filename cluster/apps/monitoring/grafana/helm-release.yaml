@@ -116,7 +116,7 @@ spec:
         viewers_can_edit: true
       database:
         type: postgres
-        host: home-postgres.home.svc
+        host: home-postgres.home.svc:5432
         ssl_mode: require
         name: grafana
     env:
