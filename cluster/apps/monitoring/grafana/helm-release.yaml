@@ -14,11 +14,6 @@ spec:
         name: grafana-charts
         namespace: flux-system
       version: 6.29.1
-  dependsOn:
-    - name: kube-prometheus-stack
-      namespace: home
-    - name: kube-prometheus-stack
-      namespace: monitoring
   install:
     remediation:
       retries: 3
