@@ -2,9 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ip-whitelist/cloudflare.yaml
-  - ip-whitelist/rfc1918.yaml
-  - ip-whitelist/github-hooks.yaml
+  - ip-whitelist
   - redirect-path.yaml
   - basic-auth.yaml
   - secret.enc.yaml
