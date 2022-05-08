@@ -230,7 +230,7 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         replicaExternalLabelName: replica
-        replicas: 1
+        replicas: 2
         retention: 6h
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false

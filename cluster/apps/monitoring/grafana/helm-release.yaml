@@ -84,7 +84,7 @@ spec:
           - name: Loki
             orgId: 1
     deploymentStrategy:
-      type: Recreate
+      type: RollingUpdate
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -154,7 +154,7 @@ spec:
       - grafana-clock-panel
     podAnnotations:
       configmap.reloader.stakater.com/reload: grafana
-    replicas: 1
+    replicas: 2
     serviceAccount:
       autoMount: true
       create: true
