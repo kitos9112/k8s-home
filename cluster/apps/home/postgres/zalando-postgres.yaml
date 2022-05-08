@@ -5,7 +5,7 @@ metadata:
   name: home-postgres
 spec:
   teamId: home
-  numberOfInstances: 3
+  numberOfInstances: 2
   # enableMasterLoadBalancer: true
   # enableMasterPoolerLoadBalancer: true
   enableConnectionPooler: true

@@ -22,6 +22,7 @@ spec:
     remediation:
       retries: 3
   values:
+    replicas: 1
     adminPassword: ${SECRET_GRAFANA_PASSWORD}
     dashboardProviders:
       dashboardproviders.yaml:
@@ -154,7 +155,6 @@ spec:
       - grafana-clock-panel
     podAnnotations:
       configmap.reloader.stakater.com/reload: grafana
-    replicas: 1
     serviceAccount:
       autoMount: true
       create: true
