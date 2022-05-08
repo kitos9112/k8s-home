@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: grafana
-      interval: 10m
+      interval: 5m
       sourceRef:
         kind: HelmRepository
         name: grafana-charts

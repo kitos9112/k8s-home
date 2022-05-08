@@ -15,19 +15,12 @@ spec:
     ttl: 30
     retry_timeout: 60
   volume:
-    size: 25Gi
+    size: 10Gi
     storageClass: longhorn
-  users:
-    superuser:
-      - superuser
-      - createdb
   preparedDatabases:
     grafana:
       defaultUsers: true
       secretNamespace: monitoring
-      schemas:
-        data:
-          defaultUsers: true
   postgresql:
     version: "14"
     parameters:
