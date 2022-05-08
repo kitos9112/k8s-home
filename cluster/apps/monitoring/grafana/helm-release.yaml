@@ -143,9 +143,7 @@ spec:
       kubernetes.io/arch: amd64
       node_locality: internal
     persistence:
-      enabled: true
-      size: 4Gi
-      storageClassName: longhorn
+      enabled: false
     plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
