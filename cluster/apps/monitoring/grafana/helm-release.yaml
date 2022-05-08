@@ -22,7 +22,7 @@ spec:
     remediation:
       retries: 3
   values:
-    replicas: 1
+    replicas: 2
     adminPassword: ${SECRET_GRAFANA_PASSWORD}
     dashboardProviders:
       dashboardproviders.yaml:
