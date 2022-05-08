@@ -19,3 +19,4 @@ spec:
     env:
       teams:
         - hummingbot
+        - home
