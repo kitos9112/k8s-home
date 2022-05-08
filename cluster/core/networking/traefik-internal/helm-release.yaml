@@ -61,7 +61,7 @@ spec:
       token: ${SECRET_TRAEFIK_PILOT_TOKEN}
       dashboard: true
     ports:
-      hg-pg:
+      home-postgres:
         expose: true
         exposedPort: 5432
         port: 5432

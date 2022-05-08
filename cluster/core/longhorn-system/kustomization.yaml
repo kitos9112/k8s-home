@@ -7,6 +7,5 @@ resources:
   - volume-snapshot-class.yaml
   - ingress-route.yaml
   - certificate.yaml
-  - storage-class.yaml
   - service-monitor.yaml
   - prometheus-rules.yaml
