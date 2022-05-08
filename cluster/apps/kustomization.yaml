@@ -5,4 +5,5 @@ resources:
   - home
   - tools
   - monitoring
+  - kube-system
   # - hummingbot
