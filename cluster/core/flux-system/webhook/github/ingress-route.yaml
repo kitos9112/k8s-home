@@ -17,5 +17,5 @@ spec:
       middlewares:
         - name: github-hooks
           namespace: networking
-  tls:
-    secretName: "flux-${SECRET_DOMAIN/./-}-tls"
+  # tls:
+  #   secretName: "flux-${SECRET_DOMAIN/./-}-tls"
