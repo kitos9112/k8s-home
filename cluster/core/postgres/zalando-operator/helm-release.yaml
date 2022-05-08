@@ -17,3 +17,4 @@ spec:
   values:
     configKubernetes:
       enable_cross_namespace_secret: true
+      secret_name_template: "{username}.{cluster}.credentials"
