@@ -16,6 +16,8 @@ spec:
       version: 6.29.1
   dependsOn:
     - name: kube-prometheus-stack
+      namespace: home
+    - name: kube-prometheus-stack
       namespace: monitoring
   install:
     remediation:
@@ -123,6 +125,17 @@ spec:
         allow_sign_up: false
         auto_assign_org_role: Admin
         viewers_can_edit: true
+      database:
+        host: home-postgres.home.svc
+        ssl_mode: require
+        name: grafana
+    envValueFrom:
+      GF_DATABASE_USER:
+        - name: grafana-owner-user.home-postgres.credentials.postgresql.acid.zalan.do
+          optional: true
+      GF_DATABASE_PASSWORD:
+        - name: grafana-owner-user.home-postgres.credentials.postgresql.acid.zalan.do
+          optional: true
     ingress:
       enabled: false
     networkPolicy:
