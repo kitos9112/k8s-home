@@ -2,12 +2,12 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: flux-webhook-ingress
+  name: flux-ingress
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`flux-webhook.${SECRET_DOMAIN}`)
+    - match: Host(`flux.${SECRET_DOMAIN}`)
       kind: Rule
       services:
         - name: webhook-receiver
@@ -18,4 +18,4 @@ spec:
         - name: github-hooks
           namespace: networking
   tls:
-    secretName: "flux-webhook-${SECRET_DOMAIN/./-}-tls"
+    secretName: "flux-${SECRET_DOMAIN/./-}-tls"

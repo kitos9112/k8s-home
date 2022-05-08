@@ -2,12 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "flux-webhook-${SECRET_DOMAIN/./-}"
+  name: "flux-${SECRET_DOMAIN/./-}"
 spec:
-  secretName: "flux-webhook-${SECRET_DOMAIN/./-}-tls"
+  secretName: "flux-${SECRET_DOMAIN/./-}-tls"
   issuerRef:
     name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
     kind: ClusterIssuer
-  commonName: "flux-webhook.${SECRET_DOMAIN}"
+  commonName: "flux.${SECRET_DOMAIN}"
   dnsNames:
-    - "flux-webhook.${SECRET_DOMAIN}"
+    - "flux.${SECRET_DOMAIN}"
