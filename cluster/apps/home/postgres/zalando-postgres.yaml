@@ -1,0 +1,42 @@
+---
+apiVersion: acid.zalan.do/v1
+kind: postgresql
+metadata:
+  name: home-postgres
+spec:
+  teamId: home
+  numberOfInstances: 3
+  # enableMasterLoadBalancer: true
+  # enableMasterPoolerLoadBalancer: true
+  enableConnectionPooler: true
+  enableReplicaConnectionPooler: true
+  enableLogicalBackup: false
+  patroni:
+    ttl: 30
+    retry_timeout: 60
+  volume:
+    size: 25Gi
+    storageClass: longhorn
+  users:
+    superuser:
+      - superuser
+      - createdb
+  preparedDatabases:
+    grafana:
+      defaultUsers: true
+      extensions:
+        pg_partman: public
+        pgcrypto: public
+      schemas:
+        data:
+          defaultUsers: true
+  postgresql:
+    version: "14"
+    parameters:
+      max_connections: "250"
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      memory: 2500Mi
