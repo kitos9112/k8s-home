@@ -85,12 +85,6 @@ spec:
             orgId: 1
     deploymentStrategy:
       type: Recreate
-    env:
-      GF_DATE_FORMATS_FULL_DATE: MMM Do, YYYY hh:mm:ss a
-      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
-      GF_EXPLORE_ENABLED: true
-      GF_LOG_FILTERS: rendering:debug
-      GF_PANELS_DISABLE_SANITIZE_HTML: true
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -124,6 +118,12 @@ spec:
         host: home-postgres.home.svc
         ssl_mode: require
         name: grafana
+    env:
+      GF_DATE_FORMATS_FULL_DATE: MMM Do, YYYY hh:mm:ss a
+      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+      GF_EXPLORE_ENABLED: true
+      GF_LOG_FILTERS: rendering:debug
+      GF_PANELS_DISABLE_SANITIZE_HTML: true
     envValueFrom:
       GF_DATABASE_USER:
         - name: grafana-owner-user.home-postgres.credentials.postgresql.acid.zalan.do
