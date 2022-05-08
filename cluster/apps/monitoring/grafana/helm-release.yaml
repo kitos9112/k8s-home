@@ -124,13 +124,16 @@ spec:
       GF_EXPLORE_ENABLED: true
       GF_LOG_FILTERS: rendering:debug
       GF_PANELS_DISABLE_SANITIZE_HTML: true
+
     envValueFrom:
       GF_DATABASE_USER:
-        - name: grafana-owner-user.home-postgres.credentials.postgresql.acid.zalan.do
-          optional: true
+        - secretRef:
+            - name: grafana-owner-user.home-postgres.credentials.postgresql.acid.zalan.do
+              key: username
       GF_DATABASE_PASSWORD:
-        - name: grafana-owner-user.home-postgres.credentials.postgresql.acid.zalan.do
-          optional: true
+        - secretRef:
+            - name: grafana-owner-user.home-postgres.credentials.postgresql.acid.zalan.do
+              key: password
     ingress:
       enabled: false
     networkPolicy:
