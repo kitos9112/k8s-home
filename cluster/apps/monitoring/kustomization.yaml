@@ -5,6 +5,7 @@ namespace: monitoring
 resources:
   # - botkube
   - grafana
+  - kube-system
   # - kube-prometheus-stack
   # - loki
   # - dashboard

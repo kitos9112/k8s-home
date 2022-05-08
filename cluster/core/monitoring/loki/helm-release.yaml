@@ -19,6 +19,7 @@ spec:
     - name: minio
       namespace: tools
   values:
+    replicas: 2
     alerting_groups:
       - name: home-assistant
         rules:
@@ -35,7 +36,6 @@ spec:
       node_locality: "internal"
       kubernetes.io/arch: "amd64"
     config:
-      replicas: 2
       limits_config:
         enforce_metric_name: false
         reject_old_samples: true

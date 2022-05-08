@@ -154,7 +154,7 @@ spec:
       - grafana-clock-panel
     podAnnotations:
       configmap.reloader.stakater.com/reload: grafana
-    replicas: 2
+    replicas: 1
     serviceAccount:
       autoMount: true
       create: true
