@@ -115,6 +115,7 @@ spec:
         auto_assign_org_role: Admin
         viewers_can_edit: true
       database:
+        type: postgres
         host: home-postgres.home.svc
         ssl_mode: require
         name: grafana
@@ -124,7 +125,6 @@ spec:
       GF_EXPLORE_ENABLED: true
       GF_LOG_FILTERS: rendering:debug
       GF_PANELS_DISABLE_SANITIZE_HTML: true
-
     envValueFrom:
       GF_DATABASE_USER:
         secretKeyRef:
