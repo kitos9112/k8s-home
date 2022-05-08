@@ -127,13 +127,13 @@ spec:
 
     envValueFrom:
       GF_DATABASE_USER:
-        - secretRef:
-            - name: grafana-owner-user.home-postgres.credentials.postgresql.acid.zalan.do
-              key: username
+        secretRef:
+          name: grafana-owner-user.home-postgres.credentials.postgresql.acid.zalan.do
+          key: username
       GF_DATABASE_PASSWORD:
-        - secretRef:
-            - name: grafana-owner-user.home-postgres.credentials.postgresql.acid.zalan.do
-              key: password
+        secretRef:
+          name: grafana-owner-user.home-postgres.credentials.postgresql.acid.zalan.do
+          key: password
     ingress:
       enabled: false
     networkPolicy:
