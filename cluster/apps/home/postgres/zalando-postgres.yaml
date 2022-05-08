@@ -24,9 +24,7 @@ spec:
   preparedDatabases:
     grafana:
       defaultUsers: true
-      extensions:
-        pg_partman: public
-        pgcrypto: public
+      secretNamespace: monitoring
       schemas:
         data:
           defaultUsers: true
