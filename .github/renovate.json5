@@ -10,6 +10,7 @@
     ":enablePreCommit",
     "github>kitos9112/k8s-home//.github/renovate/autoMerge",
     "github>kitos9112/k8s-home//.github/renovate/labels",
+    "github>kitos9112/k8s-home//.github/renovate/groups.json5",
     "github>kitos9112/k8s-home//.github/renovate/semanticCommits"
   ],
   "platform": "github",
@@ -36,9 +37,6 @@
     "ghcr.io/fluxcd/source-controller"
   ],
   // set up Renovate Managers
-  "helmv3": {
-    "fileMatch": ["charts/.+/Chart\\.yaml$"]
-  },
   "helm-values": {
     "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
@@ -47,12 +45,12 @@
   },
   "kubernetes": {
     "fileMatch": ["cluster/.+\\.yaml$"],
-    "ignorePaths": ["cluster/base/"]
   },
 
   "regexManagers": [
     // Read and process GitHub Releases
     {
+      "description": "Process various dependencies",
       "fileMatch": [
         "cluster/.+\\.ya?ml$",
         "ansible/.+\\.ya?ml$",
@@ -63,13 +61,13 @@
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?_version: \"(?<currentValue>.*)\"\n",
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?_VERSION=\"(?<currentValue>.*)\"\n"
       ],
-      "datasourceTemplate": "github-releases"
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
     // Read and process Custom Resource Definitions
     {
-      "fileMatch": [
-        "cluster/.+\\.ya?ml$"
-      ],
+      "description": "Process GitRepository CRD dependencies - Chart and Github Release are the same version",
+      "fileMatch": ["cluster/crds/.+\\.ya?ml$"],
       "matchStrings": [
         "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n",
         "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
@@ -78,11 +76,10 @@
     },
     // Read and process Custom Resources
     {
-      "fileMatch": [
-        "cluster/.+\\.ya?ml$"
-      ],
+      "description": "Process Kustomization CRD dependencies - Image and Github Release are the same version",
+      "fileMatch": ["cluster/crds/.+\\.ya?ml$"],
       "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n .*: (?<currentValue>.*=?)"
+        "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n"
       ],
       "datasourceTemplate": "docker"
     }
