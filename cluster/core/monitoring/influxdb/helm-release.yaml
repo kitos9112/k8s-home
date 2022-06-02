@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: influxdata-charts
         namespace: flux-system
-      version: 2.0.12
+      version: 2.1.0
   install:
     remediation:
       retries: 3
