@@ -29,6 +29,7 @@
   "commitBodyTable": true,
   // set up ignored deps
   "ignoreDeps": [
+    "fluxcd/flux2",
     "ghcr.io/fluxcd/helm-controller",
     "ghcr.io/fluxcd/image-automation-controller",
     "ghcr.io/fluxcd/image-reflector-controller",
