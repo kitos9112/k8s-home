@@ -78,7 +78,7 @@ spec:
           options: default
     resources:
       limits:
-        cpu: 500m
+        cpu: 2000m
         memory: 100Mi
       requests:
         cpu: 100m
