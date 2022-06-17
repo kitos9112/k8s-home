@@ -29,13 +29,13 @@ spec:
       createDefaultDiskLabeledNodes: true
       replicaSoftAntiAffinity: false
       upgradeChecker: false
-      priorityClass: system-node-critical
       autoSalvage: true
       autoDeletePodWhenVolumeDetachedUnexpectedly: true
+      allowVolumeCreationWithDegradedAvailability: true
+      #priorityClass: system-node-critical
       nodeDownPodDeletionPolicy: "delete-both-statefulset-and-deployment-pod"
       volumeAttachmentRecoveryPolicy: "wait"
       replicaReplenishmentWaitInterval: 300
-      allowVolumeCreationWithDegradedAvailability: true
 
     # BEST PRACTICES - https://longhorn.io/docs/1.2.3/best-practices/
 
@@ -47,10 +47,7 @@ spec:
     # Guaranteed Instance Manager CPU ✅
     # StorageClass (https://longhorn.io/docs/1.2.3/best-practices/#storageclass) ✅
     # Scheduling Settings (https://longhorn.io/docs/1.2.3/best-practices/#scheduling-settings) ❌
-    longhornManager:
-      priorityClass: "system-node-critical"
     longhornDriver:
-      priorityClass: "system-node-critical"
       tolerations:
         - key: "node.kubernetes.io/unreachable"
           operator: "Exists"
