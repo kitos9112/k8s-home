@@ -6,16 +6,12 @@ metadata:
 spec:
   teamId: home
   numberOfInstances: 2
-  # enableMasterLoadBalancer: true
-  # enableMasterPoolerLoadBalancer: true
-  enableConnectionPooler: true
-  enableReplicaConnectionPooler: true
   enableLogicalBackup: false
   patroni:
     ttl: 30
     retry_timeout: 60
   volume:
-    size: 10Gi
+    size: 20Gi
     storageClass: longhorn
   preparedDatabases:
     grafana:
@@ -27,8 +23,8 @@ spec:
       max_connections: "250"
   resources:
     requests:
-      cpu: 500m
+      cpu: 150m
       memory: 512Mi
     limits:
-      cpu: 1000m
+      cpu: 2000m
       memory: 2500Mi
