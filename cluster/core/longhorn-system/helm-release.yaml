@@ -18,41 +18,24 @@ spec:
   values:
     persistence:
       defaultClass: true
-      defaultFsType: ext4
       defaultClassReplicaCount: 2
-      # reclaimPolicy: Delete
-      # recurringJobSelector:
-      #   enable: false
-      #   jobList: []
-      # backingImage:
-      #   enable: false
-      #   name: ~
-      #   dataSourceType: ~
-      #   dataSourceParameters: ~
-      #   expectedChecksum: ~
     csi:
       kubeletRootDir: /var/lib/kubelet
+      attacherReplicaCount: 1
+      provisionerReplicaCount: 1
+      resizerReplicaCount: 1
+      snapshotterReplicaCount: 1
     defaultSettings:
       createDefaultDiskLabeledNodes: true
       replicaSoftAntiAffinity: false
-      storageOverProvisioningPercentage: "200%"
-      storageMinimalAvailablePercentage: "25%"
       upgradeChecker: false
-      defaultReplicaCount: 2
-      backupstorePollInterval: 500
       priorityClass: high-priority
       autoSalvage: true
       autoDeletePodWhenVolumeDetachedUnexpectedly: true
-      disableSchedulingOnCordonedNode: false
-      replicaZoneSoftAntiAffinity: false
       nodeDownPodDeletionPolicy: "delete-both-statefulset-and-deployment-pod"
       volumeAttachmentRecoveryPolicy: "wait"
-      mkfsExt4Parameters: -O ^64bit,^metadata_csum
       replicaReplenishmentWaitInterval: 300
       allowVolumeCreationWithDegradedAvailability: true
-      concurrentAutomaticEngineUpgradePerNodeLimit: 1
-      guaranteedEngineManagerCPU: 8
-      guaranteedReplicaManagerCPU: 8
 
     # BEST PRACTICES - https://longhorn.io/docs/1.2.3/best-practices/
 
@@ -76,7 +59,6 @@ spec:
           tolerationSeconds: 15
     ingress:
       enabled: false
-      ingressClassName: traefik
     longhornUI:
       tolerations:
         - key: "node.kubernetes.io/unreachable"
@@ -89,5 +71,5 @@ spec:
         cpu: "50m"
         memory: "50Mi"
       limits:
-        cpu: "250m"
+        cpu: "2500m"
         memory: "500Mi"
