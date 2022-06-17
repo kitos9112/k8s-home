@@ -29,7 +29,7 @@ spec:
       createDefaultDiskLabeledNodes: true
       replicaSoftAntiAffinity: false
       upgradeChecker: false
-      priorityClass: high-priority
+      priorityClass: system-node-critical
       autoSalvage: true
       autoDeletePodWhenVolumeDetachedUnexpectedly: true
       nodeDownPodDeletionPolicy: "delete-both-statefulset-and-deployment-pod"
