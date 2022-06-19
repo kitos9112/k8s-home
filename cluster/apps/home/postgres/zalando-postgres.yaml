@@ -6,12 +6,15 @@ metadata:
 spec:
   teamId: home
   numberOfInstances: 2
+  enableConnectionPooler: false
+  enableReplicaConnectionPooler: false
   enableLogicalBackup: false
   patroni:
-    ttl: 30
-    retry_timeout: 60
+    loop_wait: 10
+    ttl: 10
+    retry_timeout: 5
   volume:
-    size: 20Gi
+    size: 40Gi
     storageClass: longhorn
   preparedDatabases:
     grafana:
