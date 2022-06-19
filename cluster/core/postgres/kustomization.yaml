@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: postgres
 resources:
   - zalando-operator
-  - crunchy-data-operator
   - zalando-operator-ui
