@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: cluster-settings
-    namespace: flux-system
+  name: cluster-settings
+  namespace: flux-system
 data:
-    SETTING_CERT_MANAGER_CLUSTER_ISSUER: letsencrypt-production
-    SETTING_CERT_MANAGER_CLUSTER_ISSUER_TEST: letsencrypt-staging
+  SETTING_CERT_MANAGER_CLUSTER_ISSUER: letsencrypt-production
+  SETTING_CERT_MANAGER_CLUSTER_ISSUER_TEST: letsencrypt-staging

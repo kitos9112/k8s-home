@@ -6,5 +6,5 @@ resources:
   - ingress-route.yaml
   - certificate.yaml
   # - code-server.enc.yaml
-  - home-assistant.enc.yaml
+  - home-assistant.sops.yaml
   - helm-release.yaml
