@@ -36,24 +36,42 @@ spec:
           journal_directory: /var/log/journal
         kubernetes_logs:
           type: kubernetes_logs
+          glob_minimum_cooldown_ms: 5000
+          auto_partial_merge: true
+        vector_metrics:
+          type: internal_metrics
       # Sinks
       sinks:
-        loki_journal_sink:
-          type: vector
-          inputs:
-            - journal_logs
-          address: vector-aggregator:6000
-          version: "2"
         loki_kubernetes_sink:
           type: vector
           inputs:
             - kubernetes_logs
           address: vector-aggregator:6010
           version: "2"
+        loki_journal_sink:
+          type: vector
+          inputs:
+            - journal_logs
+          address: vector-aggregator:6000
+          version: "2"
+        prometheus_sink:
+          type: prometheus_exporter
+          inputs:
+            - vector_metrics
+          address: 0.0.0.0:9090
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "50m"
+      limits:
+        memory: "1024Mi"
+        cpu: "6000m"
     service:
       enabled: false
     podMonitor:
       enabled: true
+      jobLabel: vector-agent
+      port: prometheus-sink
     securityContext:
       privileged: true
     tolerations:

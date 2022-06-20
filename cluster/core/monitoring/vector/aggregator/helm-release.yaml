@@ -39,6 +39,20 @@ spec:
           address: 0.0.0.0:6010
           type: vector
           version: "2"
+      #
+      # Transformations
+      #
+      transforms:
+        kubernetes_logs_remap:
+          type: remap
+          inputs:
+            - kubernetes_logs
+          source: |
+            # Standardize 'app' index
+            .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || .pod_name
+      #
+      # Sinks
+      #
       sinks:
         loki_journal:
           type: loki
@@ -69,17 +83,17 @@ spec:
           remove_timestamp: true
           labels:
             app: >-
-              {{`{{ kubernetes.pod_labels.app\.kubernetes\.io/name }}`}}
-            container: >-
+              {{`{{ custom_app_name }}`}}
+            container_name: >-
               {{`{{ kubernetes.container_name }}`}}
             namespace: >-
               {{`{{ kubernetes.pod_namespace }}`}}
             node: >-
               {{`{{ kubernetes.pod_node_name }}`}}
-            pod: >-
-              {{`{{ kubernetes.pod_name }}`}}
     podMonitor:
       enabled: true
+      jobLabel: vector-aggregator
+      port: prometheus-sink
     service:
       enabled: true
       type: LoadBalancer
