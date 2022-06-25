@@ -25,7 +25,7 @@ The cluster components break down all their services into **6** well-defined "ca
 - [core](https://github.com/kitos9112/k8s-home/tree/main/cluster/core)
 - [apps](https://github.com/kitos9112/k8s-home/tree/main/cluster/apps)
 - [config](https://github.com/kitos9112/k8s-home/tree/main/cluster/config)
-s
+
 ### 🍳 GitOps
 
 Flux watches the aforementioned cluster folders in the `main` Git branch. Also, it makes the appropriate changes in the K8s cluster based on the Kustomization and Helm controllers specifications.

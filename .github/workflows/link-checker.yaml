@@ -3,6 +3,9 @@ name: Schedule - Link Checker
 
 on: # yamllint disable-line rule:truthy
   workflow_dispatch:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "0 0 * * *"
 

@@ -12,9 +12,8 @@
   color: "72ccf3"
   description: >-
     Changes made in the hack directory
+
 # Renovate
-- name: renovate/ansible
-  color: "ffc300"
 - name: renovate/container
   color: "ffc300"
 - name: renovate/github-action
@@ -23,8 +22,7 @@
   color: "ffc300"
 - name: renovate/helm
   color: "ffc300"
-- name: renovate/terraform
-  color: "ffc300"
+
 # Semantic Type
 - name: type/patch
   color: "FFEC19"
@@ -32,6 +30,7 @@
   color: "FF9800"
 - name: type/major
   color: "F6412D"
+
 # Size
 - name: size/XS
   color: "009900"
@@ -57,6 +56,7 @@
   color: "ee0000"
   description: >-
     Denotes a PR that changes 1000+ lines, ignoring generated files.
+
 # Uncategorized
 - name: bug
   color: "ee0701"
