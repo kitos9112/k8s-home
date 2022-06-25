@@ -61,11 +61,6 @@ spec:
       token: ${SECRET_TRAEFIK_PILOT_TOKEN}
       dashboard: true
     ports:
-      home-postgres:
-        expose: true
-        exposedPort: 5432
-        port: 5432
-        protocol: TCP
       traefik:
         port: 9000
       metrics:
@@ -78,8 +73,8 @@ spec:
           options: default
     resources:
       limits:
-        cpu: 2000m
-        memory: 100Mi
+        cpu: 4000m
+        memory: 256Mi
       requests:
         cpu: 100m
         memory: 50Mi
