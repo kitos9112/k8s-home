@@ -22,21 +22,30 @@ spec:
           protocol: layer2
           addresses:
             - 10.10.10.210-10.10.10.220
-    prometheusRule:
-      enabled: true
     prometheus:
-      enabled: true
-      serviceMonitor:
+      serviceAccount: prometheus-prometheus
+      namespace: monitoring
+      podMonitor:
         enabled: true
+        additionalLabels:
+          app: metallb
       prometheusRule:
         enabled: true
+        bgpSessionDown:
+          enabled: false
     controller:
-      tolerations:
-        - key: "arm"
-          operator: "Exists"
+      priorityClassName: "system-node-critical"
+      resources:
+        limits:
+          cpu: 250m
+          memory: 250Mi
+      nodeSelector:
+        node_locality: internal
     speaker:
-      tolerations:
-        - key: "arm"
-          operator: "Exists"
+      priorityClassName: "system-node-critical"
+      resources:
+        limits:
+          cpu: 250m
+          memory: 250Mi
       nodeSelector:
         node_locality: internal
