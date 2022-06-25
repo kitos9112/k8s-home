@@ -51,15 +51,9 @@ spec:
               severity: warning
         receivers:
           - name: "null"
-          - name: "opsgenie"
+          - name: opsgenie
             opsgenie_configs:
               - api_key: ${SECRET_OPSGENIE_API_KEY}
-                send_resolved: true
-                priority: '{{ if eq .GroupLabels.severity "critical" }}P1{{ else if eq .GroupLabels.severity "warning" }}P2{{ else if eq .GroupLabels.severity "info" }}P3{{ else }}P4{{ end }}'
-                message: |-
-                  [{{ .Status | toUpper -}}
-                  {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
-                  ] {{ .CommonLabels.alertname }}
                 description: |-
                   {{ if gt (len .Alerts.Firing) 0 -}}
                   Alerts Firing:
@@ -86,18 +80,21 @@ spec:
                   View Alert in Karma:
                     https://karma.${SECRET_DOMAIN}/?q=%40receiver%3D{{ .Receiver | urlquery }}&q=%40state%3Dactive
                 details:
+                  alertname: "{{ .GroupLabels.alertname }}"
+                  deployment: "{{- if .CommonLabels.deployment -}}{{- .CommonLabels.deployment -}}{{- end -}}"
                   namespace: "{{- if .CommonLabels.exported_namespace -}}{{- .CommonLabels.exported_namespace -}}{{- else if .CommonLabels.namespace -}}{{- .CommonLabels.namespace -}}{{- end -}}"
                   pod: "{{- if .CommonLabels.pod -}}{{- .CommonLabels.pod -}}{{- end -}}"
-                  deployment: "{{- if .CommonLabels.deployment -}}{{- .CommonLabels.deployment -}}{{- end -}}"
-                  alertname: "{{ .GroupLabels.alertname }}"
                   severity: "{{ .GroupLabels.severity }}"
-                tags: "{{ .GroupLabels.severity }},
-                  {{ .GroupLabels.alertname }},
-                  {{ .GroupLabels.namespace }},
-                  {{- if .CommonLabels.exported_namespace -}}{{ .CommonLabels.exported_namespace }},{{- end -}}"
+                message: |-
+                  [{{ .Status | toUpper -}}
+                  {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
+                  ] {{ .CommonLabels.alertname }}
+                priority: '{{ if eq .GroupLabels.severity "critical" }}P1{{ else if eq .GroupLabels.severity "warning" }}P2{{ else if eq .GroupLabels.severity "info" }}P3{{ else }}P4{{ end }}'
                 responders:
                   - id: ab411aaa-0f56-477a-9028-13cd801e5213
                     type: team
+                send_resolved: true
+                tags: "{{ .GroupLabels.severity }}, {{ .GroupLabels.alertname }}, {{ .GroupLabels.namespace }}, {{- if .CommonLabels.exported_namespace -}}{{ .CommonLabels.exported_namespace }},{{- end -}}"
           - name: discord
             slack_configs:
               - channel: "#k8s-uk-home-notifications"
@@ -220,11 +217,10 @@ spec:
             scheme: http
             scrape_interval: 5s
         enableAdminAPI: true
-        podAntiAffinity: hard
-        retentionSize: "6GB"
         nodeSelector:
           kubernetes.io/arch: amd64
           node_locality: internal
+        podAntiAffinity: hard
         podMonitorNamespaceSelector: {}
         podMonitorSelector: {}
         podMonitorSelectorNilUsesHelmValues: false
@@ -232,6 +228,7 @@ spec:
         replicaExternalLabelName: replica
         replicas: 2
         retention: 6h
+        retentionSize: 6GB
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         storageSpec:

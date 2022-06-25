@@ -1,0 +1,17 @@
+# Core
+
+ Made up of applications that become the heart and the foundation of any Kubernetes cluster to fullfil needs as:
+
+- Storage
+- Namespace declaration
+- Certificate management
+- Secret Management
+- Monitoring and Observability
+- Networking and Load Balancing
+- Auto-os K8s worker upgrade
+- K8s manifests and Persistent Volume Backup and Restore
+
+They all ensure a well-maintained and secure Kubernetes cluster, each application fulfils a single cause and gets deployed onto its own namespace.
+Also, they all depend on **crds** and Flux should never prune them in case a manifest disappears from the source of truth (e.g. Git)
+
+> Each category contains a directory that depicts the Kubernetes namespace where to deploy `kustomize` objects.
