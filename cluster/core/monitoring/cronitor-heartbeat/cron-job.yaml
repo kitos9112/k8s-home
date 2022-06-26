@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring
   name: cronitor-heartbeat
 spec:
-  schedule: "*/2W * * * *"
+  schedule: "*/2 * * * *"
   concurrencyPolicy: "Forbid"
   successfulJobsHistoryLimit: 0
   failedJobsHistoryLimit: 1
