@@ -1,6 +1,6 @@
 # Config
 
-This section offers cluster-wide [secrets](https://github.com/kitos9112/k8s-home/tree/main/cluster/config/cluster-secrets.yaml) and [settings](https://github.com/kitos9112/k8s-home/tree/main/cluster/config/cluster-settings.yaml) available across all other cluster "categories" (e.g. apps). They are implemented in combination with [Flux variable substitution features](https://fluxcd.io/docs/components/kustomize/kustomization/#variable-substitution) which emulates bash string replacements as if they were executed on a terminal.
+This section offers cluster-wide [secrets](https://github.com/kitos9112/k8s-home/tree/main/cluster/config/cluster-secrets.sops.yaml) and [settings](https://github.com/kitos9112/k8s-home/tree/main/cluster/config/cluster-settings.yaml) available across all other cluster "categories" (e.g. apps). They are implemented in combination with [Flux variable substitution features](https://fluxcd.io/docs/components/kustomize/kustomization/#variable-substitution) which emulates bash string replacements as if they were executed on a terminal.
 
 ```sh
 ${var:=default}
