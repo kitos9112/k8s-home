@@ -28,6 +28,7 @@ spec:
   values:
     alertmanager:
       alertmanagerSpec:
+        replicas: 2
         storage:
           volumeClaimTemplate:
             spec:
@@ -139,6 +140,16 @@ spec:
               enabled: true
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
+              targetLabel: kubernetes_node
     kubeApiServer:
       enabled: true
     kubeControllerManager:
@@ -147,24 +158,28 @@ spec:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_2}
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_3}
-      service:
-        port: 10250
-        targetPort: 10250
+      # service:
+      #   port: 10250
+      #   targetPort: 10250
     kubeEtcd:
       enabled: true
       endpoints:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_2}
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_3}
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
     kubeProxy:
       enabled: true
       endpoints:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_2}
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_3}
-      service:
-        port: 10249
-        targetPort: 10249
+      # service:
+      #   port: 10249
+      #   targetPort: 10249
     kubeScheduler:
       enabled: true
       endpoints:
@@ -231,6 +246,12 @@ spec:
         retentionSize: 6GB
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
+        resources:
+          requests:
+            cpu: 10m
+            memory: 750Mi
+          limits:
+            memory: 8000Mi
         storageSpec:
           volumeClaimTemplate:
             spec:
