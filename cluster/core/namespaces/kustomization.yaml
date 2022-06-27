@@ -16,7 +16,7 @@ resources:
   - monitoring.yaml
   - networking.yaml
   - node-feature-discovery.yaml
-  - system-upgrade-controller.yaml
+  - system-upgrade.yaml
   - portainer.yaml
   - postgres.yaml
   - velero.yaml
