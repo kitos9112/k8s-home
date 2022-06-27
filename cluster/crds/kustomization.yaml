@@ -7,5 +7,6 @@ resources:
   - external-dns
   - external-snapshotter
   - kube-prometheus-stack
+  - system-upgrade-controller
   - traefik
   - velero
