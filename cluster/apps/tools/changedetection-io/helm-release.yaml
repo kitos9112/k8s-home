@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: dgtlmoon/changedetection.io
-      tag: "0.39.15"
+      tag: "0.39.16"
     nameOverride: changedetection-io
     env:
       BASE_URL: "https://change-detection.${SECRET_DOMAIN}"
