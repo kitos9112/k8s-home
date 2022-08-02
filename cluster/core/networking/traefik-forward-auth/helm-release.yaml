@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: traefik-forward-auth
-      version: 2.1.2
+      version: 2.2.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
