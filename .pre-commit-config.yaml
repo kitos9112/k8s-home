@@ -43,7 +43,7 @@ repos:
       - id: fix-smartquotes
 
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 2.1.6
+    rev: 3.0.0
     hooks:
       - id: shellcheck
 
