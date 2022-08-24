@@ -4,3 +4,9 @@ kind: Kustomization
 resources:
   - pod-monitor.yaml
   - prometheus-rule.yaml
+configMapGenerator:
+  - name: fluxcd-dashboard
+    files:
+      - fluxcd-cluster-dashboard.json=https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
+      - fluxcd-control-plane-dashboard.json=https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
+      - fluxcd-logs-dashboard.json=https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/logs.json
