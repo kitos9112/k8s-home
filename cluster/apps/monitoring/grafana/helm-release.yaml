@@ -162,9 +162,15 @@ spec:
     serviceMonitor:
       enabled: true
     sidecar:
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 150Mi
+        requests:
+          cpu: 50m
+          memory: 50Mi
       dashboards:
         enabled: true
-        folderAnnotation: grafana_folder
         provider:
           foldersFromFilesStructure: true
         searchNamespace: ALL
