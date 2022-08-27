@@ -69,6 +69,14 @@
                "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)/(?<currentValue>[^/]+)/[^/]+\n"
              ],
              "datasourceTemplate": "docker"
+           },
+           {
+             "description": "Process standalone ASDF tool versions"
+             "fileMatch": ["^.tool-versions$"],
+             "matchStrings": [
+                "# renovate: datasource=(?<datasource>.+?) packageName=(?<packageName>.+?)( extractVersion=(?<extractVersion>.+?))?( registryUrl=(?<registryUrl>.+?))?\\s+(?<depName>.+?) (?<currentValue>.+)"
+             ],
+            "extractVersionTemplate": "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}"
            }
          ],
          "packageRules": [

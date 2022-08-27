@@ -1,4 +1,6 @@
 # See https://toolkit.fluxcd.io/components/source/gitrepositories/#excluding-files
+_docs/
+.gitcrypt/
 .github/
 .taskfiles/
 .vscode/
