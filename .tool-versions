@@ -1,4 +1,4 @@
 # renovate: datasource=github-tags packageName=kubernetes/kubernetes
-kubectl 1.23.9
+kubectl 1.23.10
 # renovate: datasource=github-tags packageName=helm/helm
 helm 3.9.2
