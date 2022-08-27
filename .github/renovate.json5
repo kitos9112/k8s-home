@@ -71,7 +71,7 @@
              "datasourceTemplate": "docker"
            },
            {
-             "description": "Process standalone ASDF tool versions"
+             "description": "Process standalone ASDF tool versions",
              "fileMatch": ["^.tool-versions$"],
              "matchStrings": [
                 "# renovate: datasource=(?<datasource>.+?) packageName=(?<packageName>.+?)( extractVersion=(?<extractVersion>.+?))?( registryUrl=(?<registryUrl>.+?))?\\s+(?<depName>.+?) (?<currentValue>.+)"
