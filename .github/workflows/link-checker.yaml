@@ -43,7 +43,7 @@ jobs:
         with:
           title: Broken links detected in docs 🔗
           issue-number: "${{ steps.link-checker-issue.outputs.issue_number }}"
-          content-filepath: ./lychee/out.md
+          content-filepath: /tmp/lychee/out.md
           token: "${{ steps.generate-token.outputs.token }}"
           labels: |
             link-checker
