@@ -1,12 +1,9 @@
 {
   "packageRules": [
     {
+      "description": "Auto merge GitHub Actions and minio",
       "matchDatasources": [
-        "docker",
-        "github-actions",
-        "github-releases",
-        "github-tags",
-        "helm"
+        "github-tags"
       ],
       "automerge": true,
       "automergeType": "branch",
@@ -16,11 +13,25 @@
         "patch"
       ],
       "matchPackageNames": [
-        "ghcr.io/k8s-at-home/prowlarr-nightly",
-        "lycheeverse/lychee-action",
-        "minio",
-        "renovatebot/github-action"
+        "renovatebot/github-action",
+        "minio"
       ]
-    }
+    },
+    {
+      "description": "Auto merge container digests",
+      "matchDatasources": [
+        "docker"
+      ],
+      "automerge": true,
+      "automergeType": "branch",
+      "requiredStatusChecks": null,
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "matchPackagePattern": [
+        "ghcr.io/k8s-at-home",
+        "ghcr.io/onedr0p"
+      ]
+    },
   ]
 }
