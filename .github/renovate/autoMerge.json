@@ -33,5 +33,20 @@
         "ghcr.io/onedr0p"
       ]
     },
+    {
+      "description": "Auto merge helm chart patches",
+      "automerge": true,
+      "automergeType": "branch",
+      "requiredStatusChecks": null,
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "matchManagers": [
+        "flux",
+        "helm-requirements",
+        "helm-values",
+        "helmv3"
+      ]
+    }
   ]
 }
