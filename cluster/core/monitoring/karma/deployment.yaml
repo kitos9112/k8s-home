@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: *app
-          image: ghcr.io/prymitive/karma:v0.107
+          image: ghcr.io/prymitive/karma:v0.108
           imagePullPolicy: IfNotPresent
           env:
             - name: ALERTMANAGER_URI
