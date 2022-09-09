@@ -55,7 +55,7 @@ spec:
         enabled: true
         image:
           repository: codercom/code-server
-          tag: 4.6.1
+          tag: 4.7.0
         # git:
         #   deployKeySecret: code-server
         workingDir: "/config"
