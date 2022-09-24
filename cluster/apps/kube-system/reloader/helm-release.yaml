@@ -19,9 +19,14 @@ spec:
     nameOverride: reloader
     fullnameOverride: reloader
     reloader:
-      deployment:
-        image:
-          name: ghcr.io/k8s-at-home/reloader
+      readOnlyRootFileSystem: true
       podMonitor:
         enabled: true
         namespace: kube-system
+      resources:
+        limits:
+          cpu: "5000m"
+          memory: "256Mi"
+        requests:
+          cpu: "10m"
+          memory: "128Mi"
