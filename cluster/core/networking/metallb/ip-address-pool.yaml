@@ -1,0 +1,21 @@
+# Default L2 Configuration protocol using https://metallb.universe.tf/configuration/#layer-2-configuration
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: metallb-ipaddresspools
+  namespace: networking
+spec:
+  addresses:
+    - 10.10.10.210-10.10.10.220
+  autoAssign: false
+  avoidBuggyIPs: true
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: example
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - metallb-ipaddresspools
