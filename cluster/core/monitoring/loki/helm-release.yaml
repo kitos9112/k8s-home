@@ -172,6 +172,8 @@ spec:
     monitoring:
       selfMonitoring:
         enabled: false
+        lokiCanary:
+          enabled: false
         # https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml#L595
         grafanaAgent:
           installOperator: false
