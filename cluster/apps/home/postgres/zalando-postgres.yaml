@@ -12,7 +12,7 @@ spec:
             - key: kubernetes.io/arch
               operator: In
               values:
-                - arm64
+                - amd64
             - key: topology.kubernetes.io/region
               operator: In
               values:
