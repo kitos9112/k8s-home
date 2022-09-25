@@ -241,7 +241,7 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         replicaExternalLabelName: replica
-        replicas: 2
+        replicas: 1
         retention: 6h
         retentionSize: 6GB
         ruleSelectorNilUsesHelmValues: false
