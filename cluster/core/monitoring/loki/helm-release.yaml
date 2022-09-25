@@ -18,72 +18,166 @@ spec:
   dependsOn:
     - name: minio
       namespace: tools
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
-    replicas: 2
-    alerting_groups:
-      - name: home-assistant
-        rules:
-          - alert: HomeAssistantUnableToReachPostgresql
-            annotations:
-              summary: Home Assistant is unable to connect to postgresql
-            expr: |
-              sum by (app) (count_over_time({app=~"home-assistant"} |~ "(?i)error in database connectivity during commit"[2m])) > 0
-            for: 10s
-            labels:
-              category: logs
-              severity: critical
-    nodeSelector:
-      node_locality: "internal"
-      kubernetes.io/arch: "amd64"
-    config:
-      limits_config:
-        enforce_metric_name: false
-        reject_old_samples: true
-        reject_old_samples_max_age: 168h
-        ingestion_rate_mb: 16
-        ingestion_burst_size_mb: 24
-      ruler:
-        alertmanager_url: http://prometheus-alertmanager:9093
-        enable_api: true
-        ring:
-          kvstore:
-            store: inmemory
-        rule_path: /tmp/scratch
-        storage:
-          local:
-            directory: /rules
-          type: local
-      storage_config:
-        aws:
-          access_key_id: ${SECRET_MINIO_ACCESS_KEY}
-          bucketnames: loki-logs
-          endpoint: minio.tools:9000
-          insecure: true
-          s3forcepathstyle: true
-          secret_access_key: ${SECRET_MINIO_SECRET_KEY}
-        boltdb_shipper:
-          active_index_directory: /data/loki/index
-          cache_location: /data/loki/index_cache
-          resync_interval: 5s
+    loki:
+      config: |
+        memberlist:
+          join_members: ["loki-memberlist"]
+      structuredConfig:
+        auth_enabled: false
+        querier:
+          engine:
+            timeout: 5m
+          query_timeout: 5m
+        server:
+          log_level: info
+          http_listen_port: 3100
+          grpc_listen_port: 9095
+          grpc_server_max_recv_msg_size: 8388608
+          grpc_server_max_send_msg_size: 8388608
+          grpc_server_max_concurrent_streams: 250
+          http_server_read_timeout: 90s
+        limits_config:
+          enforce_metric_name: false
+          reject_old_samples: true
+          reject_old_samples_max_age: 168h
+          retention_period: 168h
+          max_query_lookback: 168h
+          max_query_series: 5000
+          max_streams_matchers_per_query: 10000
+          max_entries_limit_per_query: 250000
+          max_cache_freshness_per_query: 10m
+          per_stream_rate_limit: "25MB"
+          per_stream_rate_limit_burst: "50MB"
+          split_queries_by_interval: 15m
+        storage_config:
+          aws:
+            access_key_id: ${SECRET_MINIO_ACCESS_KEY}
+            bucketnames: loki-logs
+            endpoint: minio.tools:9000
+            insecure: true
+            s3forcepathstyle: true
+            secret_access_key: ${SECRET_MINIO_SECRET_KEY}
+          boltdb_shipper:
+            active_index_directory: /data/loki/index
+            cache_location: /data/loki/index_cache
+            resync_interval: 5s
+            cache_ttl: 168h
+            shared_store: s3
+        schema_config:
+          configs:
+            - from: "2021-08-01"
+              store: boltdb-shipper
+              object_store: s3
+              schema: v11
+              index:
+                prefix: loki_index_
+                period: 24h
+        common:
+          path_prefix: /var/loki
+          replication_factor: 1
+          ring:
+            kvstore:
+              store: memberlist
+        ruler:
+          enable_api: true
+          enable_alertmanager_v2: true
+          alertmanager_url: http://prometheus-alertmanager:9093
+          storage:
+            type: local
+            local:
+              directory: /rules
+          rule_path: /tmp/scratch
+          ring:
+            kvstore:
+              store: memberlist
+        distributor:
+          ring:
+            kvstore:
+              store: memberlist
+        compactor:
+          working_directory: /var/loki/boltdb-shipper-compactor
           shared_store: s3
-      compactor:
-        retention_enabled: true
-      query_range:
-        parallelise_shardable_queries: false
-      query_scheduler:
-        max_outstanding_requests_per_tenant: 2048
-    resources:
-      limits:
-        cpu: 1000m
-        memory: 2048Mi
-      requests:
-        cpu: 100m
-        memory: 128Mi
-    serviceMonitor:
-      enabled: true
-    tolerations:
-      - key: "node.kubernetes.io/unreachable"
-        operator: "Exists"
-        effect: "NoExecute"
-        # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
-        tolerationSeconds: 15
+          retention_enabled: true
+          compaction_interval: 10m
+          retention_delete_delay: 2h
+          retention_delete_worker_count: 150
+        ingester:
+          max_chunk_age: 1h
+          lifecycler:
+            ring:
+              kvstore:
+                store: memberlist
+        analytics:
+          reporting_enabled: false
+    gateway:
+      enabled: false
+    write:
+      replicas: 1
+      nodeSelector:
+        node_locality: "internal"
+        kubernetes.io/arch: "amd64"
+      tolerations:
+        - key: "node.kubernetes.io/unreachable"
+          operator: "Exists"
+          effect: "NoExecute"
+          # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
+          tolerationSeconds: 15
+      persistence:
+        size: 5Gi
+      resources:
+        limits:
+          memory: 2048Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
+    read:
+      replicas: 1
+      tolerations:
+        - key: "node.kubernetes.io/unreachable"
+          operator: "Exists"
+          effect: "NoExecute"
+          # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
+          tolerationSeconds: 15
+      nodeSelector:
+        node_locality: "internal"
+        kubernetes.io/arch: "amd64"
+      extraVolumeMounts:
+        - name: loki-rules
+          mountPath: /rules/fake
+        - name: loki-rules-tmp
+          mountPath: /tmp/scratch
+        - name: loki-tmp
+          mountPath: /tmp/loki-tmp
+      extraVolumes:
+        - name: loki-rules
+          configMap:
+            name: loki-alerting-rules
+        - name: loki-rules-tmp
+          emptyDir: {}
+        - name: loki-tmp
+          emptyDir: {}
+      persistence:
+        size: 5Gi
+      resources:
+        limits:
+          memory: 2048Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
+    monitoring:
+      serviceMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: false
+      selfMonitoring:
+        enabled: false
+        grafanaAgent:
+          installOperator: false
