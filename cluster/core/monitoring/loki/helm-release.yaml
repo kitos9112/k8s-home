@@ -178,6 +178,7 @@ spec:
       prometheusRule:
         enabled: false
       selfMonitoring:
-        enabled: false
+        enabled: true
+        # https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml#L595
         grafanaAgent:
-          installOperator: false
+          installOperator: true
