@@ -27,9 +27,6 @@ spec:
       retries: 5
   values:
     loki:
-      config: |
-        memberlist:
-          join_members: ["loki-memberlist"]
       structuredConfig:
         auth_enabled: false
         querier:
@@ -44,6 +41,8 @@ spec:
           grpc_server_max_send_msg_size: 8388608
           grpc_server_max_concurrent_streams: 250
           http_server_read_timeout: 90s
+        memberlist:
+          join_members: ["loki-memberlist"]
         limits_config:
           enforce_metric_name: false
           reject_old_samples: true
@@ -173,12 +172,8 @@ spec:
           cpu: 50m
           memory: 64Mi
     monitoring:
-      serviceMonitor:
-        enabled: true
-      prometheusRule:
-        enabled: false
       selfMonitoring:
-        enabled: true
+        enabled: false
         # https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml#L595
         grafanaAgent:
-          installOperator: true
+          installOperator: false
