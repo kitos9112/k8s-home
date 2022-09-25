@@ -1,6 +1,0 @@
-config: |
-  address-pools:
-  - addresses:
-    - 10.10.10.210-10.10.10.220
-    name: default
-    protocol: layer2
