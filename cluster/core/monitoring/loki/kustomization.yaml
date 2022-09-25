@@ -7,3 +7,4 @@ resources:
   - prometheus-rule.yaml
   - ingress-route.yaml
   - certificate.yaml
+  - config-map.yaml
