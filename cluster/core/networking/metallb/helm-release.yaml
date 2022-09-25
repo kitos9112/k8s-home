@@ -16,12 +16,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    # configInline:
-    #   address-pools:
-    #     - name: default
-    #       protocol: layer2
-    #       addresses:
-    #         - 10.10.10.210-10.10.10.220
     prometheus:
       serviceAccount: prometheus-prometheus
       namespace: monitoring
