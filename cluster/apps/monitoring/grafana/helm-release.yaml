@@ -56,7 +56,7 @@ spec:
           gnetId: 13502
           revision: 13
         loki-logs:
-          datasource: Loki
+          datasource: Loki-new
           gnetId: 12019
           revision: 2
         speedtest:
@@ -81,7 +81,7 @@ spec:
             type: prometheus
             url: http://thanos-query:9090/
           - access: proxy
-            name: Loki
+            name: Loki-new
             type: loki
             url: http://loki-read:3100
             jsonData:
