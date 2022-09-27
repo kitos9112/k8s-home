@@ -19,8 +19,6 @@ spec:
     - name: minio
       namespace: tools
   values:
-    image:
-      repository: ghcr.io/k8s-at-home/velero
     configuration:
       extraEnvVars:
         TZ: "Europe/London"
