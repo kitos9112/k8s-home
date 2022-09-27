@@ -1,0 +1,41 @@
+# yamllint disable
+apiVersion: v1
+kind: Secret
+metadata:
+    name: github-deploy-key
+    namespace: flux-system
+stringData:
+    identity: ENC[AES256_GCM,data:TFSxfS6qZAUF4Nxq4S7U6H6n2kjBq4uQ09IZ9EbCGP9PwXzjlquDjUq3W48Bi2HGI30a6goP5nEFGwFs2roHnpkmVMWc/tkkrKfEexUDKw981YSNY+7qfwUaPm98U+gzBW/CXkhwjJ8n+SbzkkeHvN4+epcO7updCdzRKElmJf3Cf9WW4m26iFDNwFrsC0TlZGKTcrw5olPifZ8cZ6MjSiqy5TNTsGHZv9lCnHEfgOV5YNNe0SdQtf1gbaUTHM/N4QOFAkPgu2H49Off9Y6Bd17J+sJx6zKoc95ZUCMnQnlvgXxm2bHumAogv0H76eT6+yQ74mmSDK2JXdjBsDwG4K99K8ayyxnKWdaUzLdAeKQNjq6EG8UYT5YLGDc56QyjtRc60TS3nu0EGTgloeZGKQsOd+xmKnv0o4ozCCto0yXf4inuiYcerHBQijMAuQnOL6ARSzehe/JQ3ZO9O6CoKP0lKWJbri/j8RLcWcVL4WFArVDIEtIURFVE01ydGfBx5jKrQlRi85uaiVmd09CiCTKxbSwDgdc+1EpS6UugOFgduLlQ/bDKHbrCjd6Niy4orcu6owjVzws0i21/RACibhCD9hk6e5pVpk10vzsa2fLMrod5wNGv9hmC8j5G9wRpgG6PiJWg4tMhLFcowZd7FQGlUIGUUfHVB5GFSEF/jbShaOUVWDm2FCNYN4sVoPXsOT6NqlojrP5k11ofZUyywFiVz/kZzuj5tJG/Q+S8c9E7SpBOxPMsK7JGTD/cWFlYPaDudWUtWyffTYNG+asj8EFqxaibEyZPdY3iwsDg+kvt62do5009BPwLAbz5G7dO30NraJm9aRPCgnVZYPZ6OU1hOwm/kCvGtqYllDzglfN/RMsak9qgIrOrbNSQ9t5dCU4Q4xzTTJLWKZESSHVtnTV2685act7M9RYpUAnIXJ/e3bh3aZUR8Adj9cDFCyU3frx4NOABqd0m5NCQbqDSuw==,iv:ip7DcTrDtaRd7qYvQZSv8N31jTJnOc/mmCuWmLTX094=,tag:K7YmtLBESO2AZD47DHNhtA==,type:str]
+    #ENC[AES256_GCM,data:r9bZ3BT5O65hU5u9qXkwwxvLnY4yGDGlv8/y/e+eK3k8spsLQKmnhF12e0s+TqDmfsl2+9DxkiVgDdTyeNMFb4vxTJtqov0sA6TocgBdL3AKkslZaB27iv5P4x8CSxFXMQ8/,iv:5nWsMTm85hKbL+NmaGxC4yraXsY+K/LvGLkysqObq8Y=,tag:F0r9HeStHfWHtWSyn6h5fQ==,type:comment]
+    known_hosts: ENC[AES256_GCM,data:fnU2J1Z31wwHCJOakYWtSdXAFIM5DiPSjTVoYcrsHE2agE1CH/qQa4esmXYsBnXSwtSCF3Qicgr5D6Iu+vrb3RI3HPcRL2hOsmExqGvcLmxkhN7Q8j0FcRM2bwm7g4YgzVLdmvOJd4iXuHKMgrTm4E7DubTY7KfWItocRGLEBZgAfNEm3rgRuYZAvmo370rYrxsad/7oo7kgs5+LYKqI3q4cGhYaX60SVIzbacp/2sH1HswTvnRVyM1JB+P+jaW4NxdsWfIAsH+qcvhuuk37pG8q1fzUzvkhh8HvGKtr89N2lopZP5C049vZYPRCU2a+uAAjL2XERCgQ7vjasO5Vk1Xt9UhdmDUvrRnIk+EMVSEhxQsRumzhriHfAH+R1KBkGPSQrnWaciTPh5Vcjxm4FfsoG5e4vJ7lXDHpmbtG5a1KISSMPUNtkFejESubjiUt8fDGaWp4EPTS2oVx5Y+0dNNfT0IhbliqWUmFuy6GtiFAcLdD45XfYierIZNTJhNq/rx9kifUCV/KJW3n4dTB8KokQQArW/W2E2gcbD0jOVIEeijmfVDqxqE5tNDlV9YiCVRLsmn3XTT0jp329MYrGYkrd48+d5jGUWwg4XQrOgGBFsm/m73dB0awW3GCNhY4cEe0+ALWnYyUBWpNI/8rj0QpS7iLQ1OkXlYzkb6Rk0sRILOwpfyT0EjXk3dqZFy/uwdUIooSWViE/6t5z7LL+gFVsEgOTDdsJMgoJoJCpUw4BgIh5TNjFQPHniPLL3yz+JlNiaxrltIxKFDicdVcIa/qJQeQcqps1AEEC+WlWPszRtKYp1IWyukUAm8sd9U64Q+mIqB2N6kUVpSEaWrlPlBD5txbR0IkOXCMaAjjlic=,iv:uX/Jw2NknPF2MkKgNxz1Hk/75p60a0THDb+oaXIzTjs=,tag:S3lJs2aNDF430E3y+OAaTg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2022-09-27T20:32:12Z"
+    mac: ENC[AES256_GCM,data:sjjVQFhDJwXQOMGyIkwV7HLWy+TEndbTv6wYML8um3Iov0fjn0JoHZQOAM1iyJ++C4bLl9H02AIpA65ZDvIkxUmP44WGsfxwiMCuQe7hxI3U66L7MgSci7pL6Bcb8m628FbnPmamskh3TCzjULvnyLPW+OaMUwj0k2RN+50mxU8=,iv:Prmxh6afIhm4HoFmy1mncj6Z/oOrdZcQ3E0Oh9Id/wo=,tag:Pa6pBIVQ8L7mpKiYbaJl9A==,type:str]
+    pgp:
+        - created_at: "2022-09-27T20:32:12Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA3t//ZLkhd3HAQ//Q8zsPRwxcYW5Tf9lQuMxn9SNWbgMC9NBixBXvK5BRdus
+            SmrAclunsJxXWOeyw99QZPVPfix56SLJyuD+XO1R8hxCShnQeAjodVwvJOG1rBf0
+            DTGHN0KZZBTDizF7UitE7k1sZZGf4rHo8is6eKZuorYXdyqRj1X4OWQfwupIi0Oh
+            fBomIQdSE4f4X0N6rprFH8ltGbJKClxqzGxkzKg84TYOpoBzMjd/xFn6UHYuUkUE
+            2NIQ1X8LFEm7SeLvMOZjdM2R/PghgKoa4Oa1O+ADtJGZO2cE8MypwYsqXPyZzIvn
+            vEfhrskHzS5gvPuKisrLOski5QzE/M3n+mxD7K5xFVNXKAv/0H8AVqPfEH4Wtbcu
+            icoeemK1sNuQ7J9ir4jEEYRzGTEdDVvMCLgF9aQzGVUXBanToxCNHl3EFLazUKP/
+            MhFgpnV5jrT/KWNZho2ltkSfUP6P3i07Q/F0XxlgIoxYoAuX19zVVytN5vcdtW13
+            6tavqq2W135KLLj+vhE1rmldf9/BeSoVXqEVQJxoPbiwjzI6xSTvj8Jw91aALBbS
+            mMO6lKMN1bswsGDajCCHBJU+B10cGTsMeKZGw0+4kI+MxDyRpmOOCK77aCVDIhZy
+            zxeloYF2DZ7nysBWKkv10qnOxDwaM0BizrcpODKBxzXcTb2UQjEyNzBbBvJtJY/S
+            XAFqHR9CzmVkf/FPuMR3u20u9frbZAPxEU241oNEvVqhi26xKXh5LIatp6x0onFo
+            a2gLiqP69PPvVJMQ44tVUjbdFUV3Q5ilg4YA4zNcVh2OrWC40lXI4IoTCwcr
+            =MDb6
+            -----END PGP MESSAGE-----
+          fp: "0x2141D0D63053C652"
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3

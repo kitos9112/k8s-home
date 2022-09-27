@@ -19,7 +19,7 @@ I am a firm believer in GitOps and Kubernetes as the defacto cloud orchestrator 
 
 The cluster components break down all their services into **6** well-defined "categories" under the [cluster](https://github.com/kitos9112/k8s-home/tree/main/cluster) directory:
 
-- [base](https://github.com/kitos9112/k8s-home/tree/main/cluster/base)
+- [flux](https://github.com/kitos9112/k8s-home/tree/main/cluster/flux)
 - [sources](https://github.com/kitos9112/k8s-home/tree/main/cluster/sources)
 - [crds](https://github.com/kitos9112/k8s-home/tree/main/cluster/crds)
 - [core](https://github.com/kitos9112/k8s-home/tree/main/cluster/core)
@@ -47,19 +47,12 @@ Personally, I use a Github app under the name of `Henrry PA` that kindly assist 
 | Dell Precision 3510      | 1     | 2TB M.2 SSD   | 500GB HDD + 500GB SSD | Intel i7-6800HQ | 32 GB | Ubuntu 22.04     | K3s worker           |
 | Raspberry Pi 4B+         | 3     | 256GB SSD     | N/A                   | BCM2711         | 4GB   | RaspberryOS      | K3s workers          |
 
-
 ## Bootstrap cluster using Flux
 
+Make sure to follow the steps described (here)[cluster/flux/flux-system/README.md] to bootstrap de cluster.
+
 ```sh
-flux bootstrap github --branch=main \
-                      --components-extra=image-reflector-controller,\
-                        image-automation-controller \
-                      --personal \
-                      --repository=k8s-home \
-                      --owner=kitos9112 \
-                      --interval=30s \
-                      --path=./cluster/base \
-                      --token-auth
+kubectl apply -k cluster/bootstrap
 ```
 
 After the aforementioned command is fired off against a nuked cluster, the cluster bootstrapping logic should take place starting with CRDs, sources, and config categories, them moving to core items, whilst finalising with the apps objects.
