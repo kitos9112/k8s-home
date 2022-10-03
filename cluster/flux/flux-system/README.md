@@ -5,7 +5,7 @@
 > ssh-keygen -t ecdsa -b 521 -C "github-deploy-key" -f ./cluster/github-deploy-key -q -P ""
 
 Paste public key: https://github.com/kitos9112/k8s-home/settings/keys
-Create sops secret in `cluster/base/flux-system/github-deploy-key.sops.yaml` with the contents of:
+Create sops secret in `cluster/flux/flux-system/github-deploy-key.sops.yaml` with the contents of:
 
 ```yaml
 # yamllint disable
@@ -29,7 +29,7 @@ stringData:
 
 Encrypt secret:
 
-> sops --encrypt --in-place ./cluster/base/flux-system/github-deploy-key.sops.yaml
+> sops --encrypt --in-place ./cluster/flux/flux-system/github-deploy-key.sops.yaml
 
 Apply secret to cluster:
 
