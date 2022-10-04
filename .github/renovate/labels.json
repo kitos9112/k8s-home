@@ -1,60 +1,60 @@
 {
   "packageRules": [
     {
-      "matchUpdateTypes": [
-        "major"
-      ],
       "labels": [
         "type/major"
+      ],
+      "matchUpdateTypes": [
+        "major"
       ]
     },
     {
-      "matchUpdateTypes": [
-        "minor"
-      ],
       "labels": [
         "type/minor"
+      ],
+      "matchUpdateTypes": [
+        "minor"
       ]
     },
     {
-      "matchUpdateTypes": [
-        "patch"
-      ],
       "labels": [
         "type/patch"
+      ],
+      "matchUpdateTypes": [
+        "patch"
       ]
     },
     {
-      "matchDatasources": [
-        "docker"
-      ],
       "addLabels": [
         "renovate/container"
+      ],
+      "matchDatasources": [
+        "docker"
       ]
     },
     {
-      "matchDatasources": [
-        "helm"
-      ],
       "addLabels": [
         "renovate/helm"
+      ],
+      "matchDatasources": [
+        "helm"
       ]
     },
     {
+      "addLabels": [
+        "renovate/ansible"
+      ],
       "matchDatasources": [
         "galaxy",
         "galaxy-collection"
-      ],
-      "addLabels": [
-        "renovate/ansible"
       ]
     },
     {
-      "matchDatasources": [
-        "terraform-provider"
-      ],
       "addLabels": [
         "renovate/terraform"
+      ],
+      "matchDatasources": [
+        "terraform-provider"
       ]
     }
   ]

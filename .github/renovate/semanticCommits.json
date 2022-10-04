@@ -1,13 +1,13 @@
 {
   "packageRules": [
     {
+      "commitMessagePrefix": "feat(container)!: ",
       "matchDatasources": [
         "docker"
       ],
       "matchUpdateTypes": [
         "major"
-      ],
-      "commitMessagePrefix": "feat(container)!: "
+      ]
     },
     {
       "matchDatasources": [
@@ -16,8 +16,8 @@
       "matchUpdateTypes": [
         "minor"
       ],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "container"
+      "semanticCommitScope": "container",
+      "semanticCommitType": "feat"
     },
     {
       "matchDatasources": [
@@ -26,17 +26,17 @@
       "matchUpdateTypes": [
         "patch"
       ],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "container"
+      "semanticCommitScope": "container",
+      "semanticCommitType": "fix"
     },
     {
+      "commitMessagePrefix": "feat(helm)!: ",
       "matchDatasources": [
         "helm"
       ],
       "matchUpdateTypes": [
         "major"
-      ],
-      "commitMessagePrefix": "feat(helm)!: "
+      ]
     },
     {
       "matchDatasources": [
@@ -45,8 +45,8 @@
       "matchUpdateTypes": [
         "minor"
       ],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "helm"
+      "semanticCommitScope": "helm",
+      "semanticCommitType": "feat"
     },
     {
       "matchDatasources": [
@@ -55,8 +55,18 @@
       "matchUpdateTypes": [
         "patch"
       ],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "helm"
+      "semanticCommitScope": "helm",
+      "semanticCommitType": "fix"
+    },
+    {
+      "commitMessagePrefix": "feat(ansible)!: ",
+      "matchDatasources": [
+        "galaxy",
+        "galaxy-collection"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ]
     },
     {
       "matchDatasources": [
@@ -64,20 +74,10 @@
         "galaxy-collection"
       ],
       "matchUpdateTypes": [
-        "major"
-      ],
-      "commitMessagePrefix": "feat(ansible)!: "
-    },
-    {
-      "matchDatasources": [
-        "galaxy",
-        "galaxy-collection"
-      ],
-      "matchUpdateTypes": [
         "minor"
       ],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "ansible"
+      "semanticCommitScope": "ansible",
+      "semanticCommitType": "feat"
     },
     {
       "matchDatasources": [
@@ -87,17 +87,17 @@
       "matchUpdateTypes": [
         "patch"
       ],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "ansible"
+      "semanticCommitScope": "ansible",
+      "semanticCommitType": "fix"
     },
     {
+      "commitMessagePrefix": "feat(terraform)!: ",
       "matchDatasources": [
         "terraform-provider"
       ],
       "matchUpdateTypes": [
         "major"
-      ],
-      "commitMessagePrefix": "feat(terraform)!: "
+      ]
     },
     {
       "matchDatasources": [
@@ -106,8 +106,8 @@
       "matchUpdateTypes": [
         "minor"
       ],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "terraform"
+      "semanticCommitScope": "terraform",
+      "semanticCommitType": "feat"
     },
     {
       "matchDatasources": [
@@ -116,18 +116,18 @@
       "matchUpdateTypes": [
         "patch"
       ],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "terraform"
+      "semanticCommitScope": "terraform",
+      "semanticCommitType": "fix"
     },
     {
+      "commitMessagePrefix": "feat(github-release)!: ",
       "matchDatasources": [
         "github-releases",
         "github-tags"
       ],
       "matchUpdateTypes": [
         "major"
-      ],
-      "commitMessagePrefix": "feat(github-release)!: "
+      ]
     },
     {
       "matchDatasources": [
@@ -137,8 +137,8 @@
       "matchUpdateTypes": [
         "minor"
       ],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "github-release"
+      "semanticCommitScope": "github-release",
+      "semanticCommitType": "feat"
     },
     {
       "matchDatasources": [
@@ -148,17 +148,17 @@
       "matchUpdateTypes": [
         "patch"
       ],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "github-release"
+      "semanticCommitScope": "github-release",
+      "semanticCommitType": "fix"
     },
     {
+      "commitMessagePrefix": "feat(github-action)!: ",
       "matchManagers": [
         "github-actions"
       ],
       "matchUpdateTypes": [
         "major"
-      ],
-      "commitMessagePrefix": "feat(github-action)!: "
+      ]
     },
     {
       "matchManagers": [
@@ -167,8 +167,8 @@
       "matchUpdateTypes": [
         "minor"
       ],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "github-action"
+      "semanticCommitScope": "github-action",
+      "semanticCommitType": "feat"
     },
     {
       "matchManagers": [
@@ -177,8 +177,8 @@
       "matchUpdateTypes": [
         "patch"
       ],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "github-action"
+      "semanticCommitScope": "github-action",
+      "semanticCommitType": "fix"
     }
   ]
 }
