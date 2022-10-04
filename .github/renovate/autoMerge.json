@@ -1,52 +1,52 @@
 {
   "packageRules": [
     {
+      "automerge": true,
+      "automergeType": "branch",
       "description": "Auto merge GitHub Actions and minio",
       "matchDatasources": [
         "github-tags"
       ],
-      "automerge": true,
-      "automergeType": "branch",
-      "requiredStatusChecks": null,
+      "matchPackageNames": [
+        "renovatebot/github-action",
+        "minio"
+      ],
       "matchUpdateTypes": [
         "minor",
         "patch"
       ],
-      "matchPackageNames": [
-        "renovatebot/github-action",
-        "minio"
-      ]
+      "requiredStatusChecks": null
     },
     {
+      "automerge": true,
+      "automergeType": "branch",
       "description": "Auto merge container digests",
       "matchDatasources": [
         "docker"
       ],
-      "automerge": true,
-      "automergeType": "branch",
-      "requiredStatusChecks": null,
-      "matchUpdateTypes": [
-        "digest"
-      ],
       "matchPackagePattern": [
         "ghcr.io/k8s-at-home",
         "ghcr.io/onedr0p"
-      ]
+      ],
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "requiredStatusChecks": null
     },
     {
-      "description": "Auto merge helm chart patches",
       "automerge": true,
       "automergeType": "branch",
-      "requiredStatusChecks": null,
-      "matchUpdateTypes": [
-        "patch"
-      ],
+      "description": "Auto merge helm chart patches",
       "matchManagers": [
         "flux",
         "helm-requirements",
         "helm-values",
         "helmv3"
-      ]
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "requiredStatusChecks": null
     }
   ]
 }
