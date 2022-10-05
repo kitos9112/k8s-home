@@ -4,4 +4,3 @@ kind: Kustomization
 namespace: postgres
 resources:
   - zalando-operator
-  - zalando-operator-ui
