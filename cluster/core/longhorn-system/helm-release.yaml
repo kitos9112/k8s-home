@@ -16,9 +16,13 @@ spec:
         namespace: flux-system
       interval: 1m
   values:
+    # TODO: Delete `enablePDP: false` after Longhorn v1.4.0 goes out
+    enablePSP: false
     persistence:
       defaultClass: true
       defaultClassReplicaCount: 2
+    longhornManager:
+      priorityClass: system-node-critical
     csi:
       kubeletRootDir: /var/lib/kubelet
       attacherReplicaCount: 1
@@ -32,22 +36,22 @@ spec:
       autoSalvage: true
       autoDeletePodWhenVolumeDetachedUnexpectedly: true
       allowVolumeCreationWithDegradedAvailability: true
-      #priorityClass: system-node-critical
       nodeDownPodDeletionPolicy: "delete-both-statefulset-and-deployment-pod"
       volumeAttachmentRecoveryPolicy: "wait"
       replicaReplenishmentWaitInterval: 300
 
-    # BEST PRACTICES - https://longhorn.io/docs/1.2.3/best-practices/
+    # BEST PRACTICES - https://longhorn.io/docs/1.3.1/best-practices/
 
-    # Minimum Recommended Hardware (https://longhorn.io/docs/1.2.3/best-practices/#minimum-recommended-hardware) ✅
-    # Software (https://longhorn.io/docs/1.2.3/best-practices/#software) ✅
-    # Node and Disk Setup (https://longhorn.io/docs/1.2.3/best-practices/#node-and-disk-setup) ✅
-    # Deploying Workloads (https://longhorn.io/docs/1.2.3/best-practices/#deploying-workloads) ✅
-    # Volume Maintenance (https://longhorn.io/docs/1.2.3/best-practices/#volume-maintenance) ✅
+    # Minimum Recommended Hardware (https://longhorn.io/docs/1.3.1/best-practices/#minimum-recommended-hardware) ✅
+    # Software (https://longhorn.io/docs/1.3.1/best-practices/#software) ✅
+    # Node and Disk Setup (https://longhorn.io/docs/1.3.1/best-practices/#node-and-disk-setup) ✅
+    # Deploying Workloads (https://longhorn.io/docs/1.3.1/best-practices/#deploying-workloads) ✅
+    # Volume Maintenance (https://longhorn.io/docs/1.3.1/best-practices/#volume-maintenance) ✅
     # Guaranteed Instance Manager CPU ✅
-    # StorageClass (https://longhorn.io/docs/1.2.3/best-practices/#storageclass) ✅
-    # Scheduling Settings (https://longhorn.io/docs/1.2.3/best-practices/#scheduling-settings) ❌
+    # StorageClass (https://longhorn.io/docs/1.3.1/best-practices/#storageclass) ✅
+    # Scheduling Settings (https://longhorn.io/docs/1.3.1/best-practices/#scheduling-settings) ❌
     longhornDriver:
+      priorityClass: system-node-critical
       tolerations:
         - key: "node.kubernetes.io/unreachable"
           operator: "Exists"
