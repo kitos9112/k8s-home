@@ -29,21 +29,6 @@
          "flux": {"fileMatch": ["cluster/.+\\.ya?ml$"]},
          "kubernetes": {"fileMatch": ["cluster/.+\\.yaml$"]},
          "regexManagers": [
-           {
-             "description": "Process various dependencies",
-             "fileMatch": [
-               "cluster/.+\\.ya?ml$",
-               "ansible/.+\\.ya?ml$",
-               "hack/.+\\.sh$"
-             ],
-             "matchStrings": [
-               "datasource=(?<datasource>.*?)\n *url: https://github\\.com/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n",
-               "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?_version: \"(?<currentValue>.*)\"\n",
-               "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?_VERSION=\"(?<currentValue>.*)\"\n"
-             ],
-             "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-             "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-           },
             {
               "description": "Process CRD dependencies",
               "fileMatch": ["cluster/.+\\.ya?ml$"],
@@ -57,23 +42,6 @@
               ],
               "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
             },
-
-           {
-             "description": "Process Kustomization CRD dependencies - Image and Github Release are the same version",
-             "fileMatch": ["cluster/crds/.+\\.ya?ml$"],
-             "matchStrings": [
-               "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)/(?<currentValue>[^/]+)/[^/]+\n"
-             ],
-             "datasourceTemplate": "docker"
-           },
-           {
-             "description": "Process standalone ASDF tool versions",
-             "fileMatch": ["^.tool-versions$"],
-             "matchStrings": [
-                "# renovate: datasource=(?<datasource>.+?) packageName=(?<packageName>.+?)( extractVersion=(?<extractVersion>.+?))?( registryUrl=(?<registryUrl>.+?))?\\s+(?<depName>.+?) (?<currentValue>.+)"
-             ],
-            "extractVersionTemplate": "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}"
-           },
             {
               "description": "Process various dependencies",
               "fileMatch": [
@@ -93,7 +61,15 @@
               ],
               "datasourceTemplate": "github-releases",
               "versioningTemplate": "semver"
-            }
+            },
+            {
+              "description": "Process standalone ASDF tool versions",
+              "fileMatch": ["^.tool-versions$"],
+              "matchStrings": [
+                  "# renovate: datasource=(?<datasource>.+?) packageName=(?<packageName>.+?)( extractVersion=(?<extractVersion>.+?))?( registryUrl=(?<registryUrl>.+?))?\\s+(?<depName>.+?) (?<currentValue>.+)"
+              ],
+              "extractVersionTemplate": "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}"
+            },
          ],
          "packageRules": [
            {"matchDatasources": ["helm"], "ignoreDeprecated": true},
