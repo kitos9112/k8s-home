@@ -17,7 +17,7 @@ spec:
               operator: In
               values:
                 - home
-  numberOfInstances: 2
+  numberOfInstances: 3
   enableConnectionPooler: false
   enableReplicaConnectionPooler: false
   enableLogicalBackup: false
@@ -26,7 +26,7 @@ spec:
     ttl: 10
     retry_timeout: 5
   volume:
-    size: 40Gi
+    size: 50Gi
     storageClass: longhorn
   preparedDatabases:
     grafana:

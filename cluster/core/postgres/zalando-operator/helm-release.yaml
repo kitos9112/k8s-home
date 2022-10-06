@@ -20,7 +20,7 @@ spec:
     configKubernetes:
       enable_cross_namespace_secret: true
       secret_name_template: "{username}.{cluster}.credentials"
-      enable_pod_antiaffinity: true
+      enable_pod_antiaffinity: false
       enable_pod_disruption_budget: true
     nodeSelector:
       kubernetes.io/arch: amd64
