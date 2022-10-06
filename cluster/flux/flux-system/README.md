@@ -16,10 +16,12 @@ metadata:
     namespace: flux-system
 stringData:
     # Contents of: github-deploy-key
+    # secretlint-disable
     identity: |
         -----BEGIN OPENSSH PRIVATE KEY-----
             ...
         -----END OPENSSH PRIVATE KEY-----
+    # secretlint-enable
     # Output of: curl --silent https://api.github.com/meta | jq --raw-output '"github.com "+.ssh_keys[]'
     known_hosts: |
         github.com ssh-ed25519 ...
