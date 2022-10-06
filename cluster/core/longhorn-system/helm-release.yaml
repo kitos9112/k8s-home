@@ -15,6 +15,10 @@ spec:
         name: longhorn-charts
         namespace: flux-system
       interval: 1m
+  upgrade:
+    force: true
+    remediation:
+      retries: 3
   values:
     # TODO: Delete `enablePDP: false` after Longhorn v1.4.0 goes out
     enablePSP: false
