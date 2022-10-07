@@ -113,6 +113,13 @@
              "matchPackagePatterns": ["vector"],
              "additionalBranchPrefix": "",
              "separateMinorPatch": true
-           }
+           },
+            {
+              description: "Disable kubernetes-api",
+              matchManagers: ["kubernetes"],
+              matchDatasources: ["kubernetes-api"],
+              enabled: false,
+            }
+
          ]
        }
