@@ -19,6 +19,8 @@ spec:
   #   - name: minio
   #     namespace: tools
   values:
+    annotations:
+      secret.reloader.stakater.com/reload: velero-s3-creds
     configuration:
       extraEnvVars:
         TZ: "Europe/London"
