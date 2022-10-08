@@ -15,9 +15,9 @@ spec:
         name: vmware-tanzu-charts
         namespace: flux-system
       interval: 5m
-  dependsOn:
-    - name: minio
-      namespace: tools
+  # dependsOn:
+  #   - name: minio
+  #     namespace: tools
   values:
     configuration:
       extraEnvVars:
@@ -25,17 +25,17 @@ spec:
       provider: aws
       backupStorageLocation:
         name: default
-        bucket: velero-backups
+        bucket: k8s-home-velero
         default: true
         config:
-          region: eu-west-1
-          s3ForcePathStyle: true
-          s3Url: "http://minio.tools.svc.cluster.local:9000"
+          region: eu-west-2
+          # s3ForcePathStyle: true
+          # s3Url: "http://minio.tools.svc.cluster.local:9000"
           #s3Url: https://s3.${SECRET_DOMAIN}
       resticTimeout: 4h
     initContainers:
       - name: velero-plugin-for-aws
-        image: ghcr.io/k8s-at-home/velero-plugin-for-aws:v1.5.0
+        image: velero/velero-plugin-for-aws:v1.5.1
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - mountPath: /target
@@ -63,8 +63,8 @@ spec:
     cleanUpCRDs: false
     kubectl:
       image:
-        repository: ghcr.io/k8s-at-home/kubectl
-        tag: v1.25.2
+        repository: docker.io/bitnami/kubectl
+        tag: 1.25.2
     deployRestic: true
     restic:
       podVolumePath: /var/lib/kubelet/pods
