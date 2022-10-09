@@ -22,22 +22,36 @@ spec:
       namespace: monitoring
   values:
     role: Stateless-Aggregator
+    replicas: 1
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "100m"
+      limits:
+        memory: "1024Mi"
+        cpu: "4000m"
     image:
       repository: timberio/vector
-      tag: 0.24.1-debian
+      tag: 0.24.1-alpine
     customConfig:
       data_dir: /vector-data-dir
       api:
         enabled: false
+      #
       # Sources
+      #
       sources:
+        vector_logs:
+          type: internal_logs
         journal_logs:
           address: 0.0.0.0:6000
           type: vector
           version: "2"
+        vector_metrics:
+          type: internal_metrics
         kubernetes_logs:
-          address: 0.0.0.0:6010
           type: vector
+          address: 0.0.0.0:6010
           version: "2"
       #
       # Transformations
@@ -47,9 +61,11 @@ spec:
           type: remap
           inputs:
             - kubernetes_logs
-          source: |
+          source: |-
+            # Delete file label from log event
+            del(.file)
             # Standardize 'app' index
-            .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || .pod_name
+            .app = .kubernetes.pod_labels."app.kubernetes.io/name" || .kubernetes.pod_labels.app || .kubernetes.pod_labels."k8s-app" || .kubernetes.pod_name
       #
       # Sinks
       #
@@ -58,7 +74,7 @@ spec:
           type: loki
           inputs:
             - journal_logs
-          endpoint: http://loki:3100
+          endpoint: http://loki-write:3100
           encoding:
             codec: json
           batch:
@@ -73,7 +89,7 @@ spec:
           type: loki
           inputs:
             - kubernetes_logs
-          endpoint: http://loki:3100
+          endpoint: http://loki-write:3100
           encoding:
             codec: json
           batch:
@@ -83,7 +99,7 @@ spec:
           remove_timestamp: true
           labels:
             app: >-
-              {{`{{ custom_app_name }}`}}
+              {{`{{ .app }}`}}
             container_name: >-
               {{`{{ kubernetes.container_name }}`}}
             namespace: >-
@@ -94,17 +110,3 @@ spec:
       enabled: true
       jobLabel: vector-aggregator
       port: prometheus-sink
-    service:
-      enabled: true
-      type: LoadBalancer
-  postRenderers:
-    - kustomize:
-        patchesJson6902:
-          - target:
-              kind: Service
-              name: vector-aggregator
-            patch:
-              - op: add
-                path: /spec/externalIPs
-                value:
-                  - "${SECRET_SVC_SYSLOG_ADDRESS}"
