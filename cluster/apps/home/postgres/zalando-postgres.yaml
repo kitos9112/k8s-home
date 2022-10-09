@@ -22,8 +22,9 @@ spec:
   enableReplicaConnectionPooler: false
   enableLogicalBackup: false
   patroni:
+    # Do not set TTL lower than 2X lower_wait (seconds)
     loop_wait: 10
-    ttl: 10
+    ttl: 20
     retry_timeout: 5
   volume:
     size: 50Gi
