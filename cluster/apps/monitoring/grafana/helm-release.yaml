@@ -23,6 +23,9 @@ spec:
       retries: 3
   values:
     replicas: 2
+    rbac:
+      pspEnabled: false
+      pspUseAppArmor: false
     adminPassword: ${SECRET_GRAFANA_PASSWORD}
     dashboardProviders:
       dashboardproviders.yaml:
