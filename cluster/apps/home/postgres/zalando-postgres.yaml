@@ -17,7 +17,7 @@ spec:
               operator: In
               values:
                 - home
-  numberOfInstances: 3
+  numberOfInstances: 1
   enableConnectionPooler: false
   enableReplicaConnectionPooler: false
   enableLogicalBackup: false

@@ -21,6 +21,10 @@ spec:
     - name: kube-prometheus-stack
       namespace: monitoring
   values:
+    image:
+      registry: public.ecr.aws
+    existingObjstoreSecret: thanos-objstore
+    # Enabled sub-components
     bucketweb:
       enabled: true
       nodeSelector:
@@ -39,8 +43,8 @@ spec:
       nodeSelector:
         node_locality: internal
         kubernetes.io/arch: amd64
-      retentionResolutionRaw: 15d
-      retentionResolution5m: 90d
+      retentionResolutionRaw: 30d
+      retentionResolution5m: 30d
       retentionResolution1h: 2y
       resources:
         requests:
@@ -48,19 +52,11 @@ spec:
           memory: 128Mi
         limits:
           memory: 256Mi
-    existingObjstoreSecret: thanos-objstore
-    image:
-      registry: public.ecr.aws
-      repository: bitnami/thanos
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
     query:
+      enabled: true
       dnsDiscovery:
         sidecarsNamespace: monitoring
         sidecarsService: prometheus-thanos-discovery
-      enabled: true
       replicaLabels:
         - replica
       nodeSelector:
@@ -72,10 +68,6 @@ spec:
           memory: 128Mi
         limits:
           memory: 256Mi
-    queryFrontend:
-      enabled: false
-    ruler:
-      enabled: false
     storegateway:
       enabled: true
       nodeSelector:
@@ -88,6 +80,13 @@ spec:
         limits:
           memory: 500Mi
       persistence:
-        enabled: true
         storageClass: longhorn
-        size: 12Gi
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    # Disabled sub-components
+    queryFrontend:
+      enabled: false
+    ruler:
+      enabled: false
