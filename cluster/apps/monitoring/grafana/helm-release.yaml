@@ -91,6 +91,7 @@ spec:
               maxLines: 2500000
         deleteDatasources:
           - name: Loki
+            orgId: 1
     deploymentStrategy:
       type: RollingUpdate
     grafana.ini:
