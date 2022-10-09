@@ -43,10 +43,6 @@ spec:
       sources:
         vector_logs:
           type: internal_logs
-        journal_logs:
-          address: 0.0.0.0:6000
-          type: vector
-          version: "2"
         vector_metrics:
           type: internal_metrics
         kubernetes_logs:
@@ -70,25 +66,10 @@ spec:
       # Sinks
       #
       sinks:
-        loki_journal:
-          type: loki
-          inputs:
-            - journal_logs
-          endpoint: http://loki-write:3100
-          encoding:
-            codec: json
-          batch:
-            max_bytes: 2049000
-          out_of_order_action: rewrite_timestamp
-          remove_label_fields: true
-          remove_timestamp: true
-          labels:
-            hostname: >-
-              {{`{{ host }}`}}
         loki_kubernetes:
           type: loki
           inputs:
-            - kubernetes_logs
+            - kubernetes_logs_remap
           endpoint: http://loki-write:3100
           encoding:
             codec: json
