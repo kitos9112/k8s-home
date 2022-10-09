@@ -17,12 +17,13 @@ spec:
               operator: In
               values:
                 - home
-  numberOfInstances: 1
+  numberOfInstances: 2
   enableConnectionPooler: false
   enableReplicaConnectionPooler: false
   enableLogicalBackup: false
   patroni:
     # Do not set TTL lower than 2X lower_wait (seconds)
+    # Ref: https://patroni.readthedocs.io/en/latest/watchdog.html
     loop_wait: 10
     ttl: 20
     retry_timeout: 5
