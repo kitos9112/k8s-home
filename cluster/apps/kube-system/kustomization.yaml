@@ -6,4 +6,5 @@ resources:
   - metrics-server
   - dashboard
   - reloader
+  - external-snapshotter
   - 1password
