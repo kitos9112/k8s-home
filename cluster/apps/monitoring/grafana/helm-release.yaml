@@ -81,14 +81,13 @@ spec:
             type: prometheus
             url: http://thanos-query:9090/
           - access: proxy
-            name: Loki-new
+            name: Loki
             type: loki
             url: http://loki-read:3100
             jsonData:
               maxLines: 2500000
         deleteDatasources:
           - name: Loki
-            orgId: 1
     deploymentStrategy:
       type: RollingUpdate
     grafana.ini:

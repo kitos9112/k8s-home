@@ -51,8 +51,8 @@ spec:
           max_query_lookback: 168h
           max_query_series: 5000
           max_streams_matchers_per_query: 10000
-          max_entries_limit_per_query: 250000
-          max_cache_freshness_per_query: 10m
+          max_entries_limit_per_query: 2500000
+          max_cache_freshness_per_query: 60m
           per_stream_rate_limit: "25MB"
           per_stream_rate_limit_burst: "50MB"
           split_queries_by_interval: 15m
