@@ -21,12 +21,11 @@ spec:
       retries: 3
   values:
     # TODO: Delete `enablePDP: false` after Longhorn v1.4.0 goes out
-
     image:
       longhorn:
         manager:
           repository: kitos9112/longhorn-manager
-          tag: 1.4.0
+          tag: 1.4.0-multi
     enablePSP: false
     persistence:
       defaultClass: true
