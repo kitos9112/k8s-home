@@ -26,6 +26,9 @@ spec:
         manager:
           repository: kitos9112/longhorn-manager
           tag: 1.4.0-multi
+        snapshotter:
+          repository: longhornio/csi-snapshotter
+          tag: v5.0.1
     enablePSP: false
     persistence:
       defaultClass: true
