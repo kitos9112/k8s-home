@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: longhorn-system
 resources:
   - helm-release.yaml
-  - volume-snapshot-class.yaml
+  #- volume-snapshot-class.yaml
   - secret.sops.yaml
   - ingress-route.yaml
   - certificate.yaml
