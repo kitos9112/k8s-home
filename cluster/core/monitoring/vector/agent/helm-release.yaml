@@ -23,12 +23,14 @@ spec:
   values:
     image:
       repository: timberio/vector
-      tag: 0.24.1-debian
+      tag: 0.24.1-alpine
     role: Agent
     customConfig:
       data_dir: /vector-data-dir
       api:
         enabled: false
+        address: "[::]:8686"
+        playground: false
       # Sources
       sources:
         journal_logs:
@@ -38,7 +40,16 @@ spec:
           type: kubernetes_logs
           glob_minimum_cooldown_ms: 5000
           auto_partial_merge: true
-        vector_metrics:
+        host_metrics:
+          filesystem:
+            devices:
+              excludes: [binfmt_misc]
+            filesystems:
+              excludes: [binfmt_misc]
+            mountPoints:
+              excludes: ["*/proc/sys/fs/binfmt_misc"]
+          type: host_metrics
+        internal_metrics:
           type: internal_metrics
       # Sinks
       sinks:
@@ -54,11 +65,12 @@ spec:
             - journal_logs
           address: vector-aggregator:6000
           version: "2"
-        prometheus_sink:
+        prom_exporter:
           type: prometheus_exporter
           inputs:
-            - vector_metrics
-          address: 0.0.0.0:9090
+            - host_metrics
+            - internal_metrics
+          address: "[::]:9090"
     resources:
       requests:
         memory: "64Mi"
