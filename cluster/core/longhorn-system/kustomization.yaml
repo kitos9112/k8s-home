@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: longhorn-system
 resources:
   - helm-release.yaml
+  - recurrent-jobs.yaml
   #- volume-snapshot-class.yaml
   - secret.sops.yaml
   - ingress-route.yaml
