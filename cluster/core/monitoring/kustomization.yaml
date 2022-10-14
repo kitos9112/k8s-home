@@ -6,7 +6,6 @@ resources:
   - botkube
   - kube-prometheus-stack
   - loki
-  - dashboard
   - influxdb
   - karma
   - thanos

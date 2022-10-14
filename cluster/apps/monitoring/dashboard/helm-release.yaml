@@ -14,6 +14,9 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   values:
+    image:
+      repository: linuxserver/heimdall
+      tag: version-v2.4.13
     env:
       TZ: Europe/London
     persistence:
