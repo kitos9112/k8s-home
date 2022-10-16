@@ -9,7 +9,6 @@ resources:
   - influxdb
   - karma
   - thanos
-  - speedtest-exporter
   - cronitor-heartbeat
   - node-problem-detector
   - vector
