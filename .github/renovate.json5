@@ -26,7 +26,11 @@
          "rebaseWhen": "conflicted",
          "commitBodyTable": true,
          "helm-values": {"fileMatch": ["cluster/.+\\.ya?ml$"]},
-         "flux": {"fileMatch": ["cluster/.+\\.ya?ml$"]},
+         "flux": {
+          "fileMatch": ["cluster/.+\\.ya?ml$"],
+          // TODO: Longhorn helm chart `1.3.2` is not compatible with K8s>=1.25
+          "ignorePaths": ["cluster/core/longhorn-system"]
+          },
          "kubernetes": {"fileMatch": ["cluster/.+\\.yaml$"]},
          "regexManagers": [
             {
