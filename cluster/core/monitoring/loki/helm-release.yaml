@@ -37,8 +37,8 @@ spec:
           log_level: info
           http_listen_port: 3100
           grpc_listen_port: 9095
-          grpc_server_max_recv_msg_size: 8388608
-          grpc_server_max_send_msg_size: 8388608
+          grpc_server_max_recv_msg_size: 12582912
+          grpc_server_max_send_msg_size: 12582912s
           grpc_server_max_concurrent_streams: 250
           http_server_read_timeout: 90s
         memberlist:
