@@ -128,7 +128,7 @@ spec:
           # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
           tolerationSeconds: 15
       persistence:
-        size: 5Gi
+        size: 25Gi
       resources:
         limits:
           memory: 2048Mi
