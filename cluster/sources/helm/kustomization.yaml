@@ -34,7 +34,7 @@ resources:
   - traefik-charts.yaml
   - vernemq-charts.yaml
   - victoriametrics-charts.yaml
-  - weaveworks-kured-charts.yaml
+  - kured-charts.yaml
   - vmware-tanzu-charts.yaml
   - 1password-charts.yaml
   - vector-charts.yaml
