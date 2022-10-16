@@ -9,7 +9,7 @@ resources:
   # - loki
   - dashboard
   # - influxdb
-  # - karma
+  - karma
   # - thanos
   - speedtest-exporter
   # - cronitor-heartbeat

@@ -7,7 +7,6 @@ resources:
   - kube-prometheus-stack
   - loki
   - influxdb
-  - karma
   - thanos
   - cronitor-heartbeat
   - node-problem-detector
