@@ -11,7 +11,7 @@ resources:
   # - influxdb
   # - karma
   # - thanos
-  # - speedtest-exporter
+  - speedtest-exporter
   # - cronitor-heartbeat
   # - node-problem-detector
   # - vector

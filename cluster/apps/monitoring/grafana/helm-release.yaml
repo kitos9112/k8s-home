@@ -57,7 +57,7 @@ spec:
         minio:
           datasource: Prometheus
           gnetId: 13502
-          revision: 13
+          #revision: 19
         loki-logs:
           datasource: Loki-new
           gnetId: 12019
@@ -65,7 +65,7 @@ spec:
         speedtest:
           datasource: Prometheus
           gnetId: 13665
-          revision: 3
+          revision: 4
         traefik-ingress:
           datasource: Prometheus
           gnetId: 4475
