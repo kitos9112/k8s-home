@@ -32,7 +32,6 @@ spec:
         - name: v1/services
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -45,7 +44,6 @@ spec:
         - name: apps/v1/deployments
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -59,7 +57,6 @@ spec:
         - name: apps/v1/statefulsets
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -73,7 +70,6 @@ spec:
         - name: networking.k8s.io/v1beta1/ingresses
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -86,7 +82,6 @@ spec:
         - name: v1/nodes
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -99,7 +94,6 @@ spec:
         - name: v1/namespaces
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -112,7 +106,6 @@ spec:
         - name: v1/persistentvolumes
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -125,7 +118,6 @@ spec:
         - name: v1/persistentvolumeclaims
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -138,7 +130,6 @@ spec:
         - name: v1/configmaps
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -151,7 +142,6 @@ spec:
         - name: apps/v1/daemonsets
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -164,7 +154,6 @@ spec:
         - name: batch/v1/jobs
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -176,7 +165,6 @@ spec:
         - name: rbac.authorization.k8s.io/v1/rolebindings
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -189,7 +177,6 @@ spec:
         - name: rbac.authorization.k8s.io/v1/clusterrolebindings
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
@@ -202,7 +189,6 @@ spec:
         - name: rbac.authorization.k8s.io/v1/clusterroles
           namespaces:
             include:
-              - default
               - home
               - kube-system
               - media
