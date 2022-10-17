@@ -71,6 +71,7 @@ spec:
         node-exporter-full:
           datasource: Prometheus
           gnetId: 1860
+          revision: 27
     datasources:
       datasources.yaml:
         apiVersion: 1
