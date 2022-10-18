@@ -37,10 +37,15 @@ spec:
           log_level: info
           http_listen_port: 3100
           grpc_listen_port: 9095
-          grpc_server_max_recv_msg_size: 12582912
-          grpc_server_max_send_msg_size: 12582912
           grpc_server_max_concurrent_streams: 250
-          http_server_read_timeout: 90s
+          grpc_server_max_recv_msg_size: 10485760000
+          grpc_server_max_send_msg_size: 10485760000
+          http_server_write_timeout: 10m
+          http_server_read_timeout: 10m
+          http_server_idle_timeout: 10m
+          graceful_shutdown_timeout: 2m
+        tracing:
+          enabled: false
         memberlist:
           join_members: ["loki-memberlist"]
         limits_config:
@@ -50,12 +55,13 @@ spec:
           retention_period: 168h
           max_query_lookback: 168h
           max_query_series: 5000
+          max_query_parallelism: 5000
           max_streams_matchers_per_query: 10000
           max_entries_limit_per_query: 2500000
-          max_cache_freshness_per_query: 60m
-          per_stream_rate_limit: "25MB"
-          per_stream_rate_limit_burst: "50MB"
-          split_queries_by_interval: 15m
+          max_cache_freshness_per_query: 10m
+          per_stream_rate_limit: "40MB"
+          per_stream_rate_limit_burst: "80MB"
+          split_queries_by_interval: 5m
         storage_config:
           aws:
             access_key_id: ${SECRET_MINIO_ACCESS_KEY}
@@ -136,7 +142,7 @@ spec:
           cpu: 50m
           memory: 64Mi
     read:
-      replicas: 1
+      replicas: 3
       tolerations:
         - key: "node.kubernetes.io/unreachable"
           operator: "Exists"
