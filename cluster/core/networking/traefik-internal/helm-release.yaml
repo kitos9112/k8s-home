@@ -31,6 +31,8 @@ spec:
       enabled: true
       replicas: 3
     experimental:
+      http3:
+        enabled: true
       plugins:
         enabled: true
     globalArguments:
@@ -59,10 +61,6 @@ spec:
               X-Forwarded-User: keep
       general:
         level: INFO
-    pilot:
-      enabled: true
-      token: ${SECRET_TRAEFIK_PILOT_TOKEN}
-      dashboard: true
     ports:
       traefik:
         port: 9000
