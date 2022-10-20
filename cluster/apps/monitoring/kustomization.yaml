@@ -5,13 +5,8 @@ namespace: monitoring
 resources:
   - botkube
   - grafana
-  # - kube-prometheus-stack
-  # - loki
   - dashboard
-  # - influxdb
   - karma
-  # - thanos
   - speedtest-exporter
   # - cronitor-heartbeat
   # - node-problem-detector
-  # - vector
