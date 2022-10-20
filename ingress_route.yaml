@@ -1,0 +1,525 @@
+apiVersion: v1
+items:
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2022-05-08T10:47:50Z"
+    generation: 11
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: flux-ingress
+    namespace: flux-system
+    resourceVersion: "8729071"
+    uid: 1da5a76c-7f4e-4ea3-9259-48ebe88fc8ef
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`flux.uk.msrpi.com`)
+      services:
+      - name: webhook-receiver
+        namespace: flux-system
+        port: 80
+        scheme: http
+    tls:
+      secretName: flux-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2021-11-05T17:35:30Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: apps
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: hass-config-ingress
+    namespace: home
+    resourceVersion: "451"
+    uid: f3bedb01-9c2f-4e59-b4fe-6dca206f1c8c
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`hass-config.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: home-assistant-codeserver
+        namespace: home
+        port: 12321
+        scheme: http
+    tls:
+      secretName: hass-config-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2021-11-05T17:35:30Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: apps
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: hass-ingress
+    namespace: home
+    resourceVersion: "452"
+    uid: 9ae1f716-72a2-46c6-8365-c203c86f4e56
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`hass.uk.msrpi.com`)
+      services:
+      - name: home-assistant
+        namespace: home
+        port: 8123
+        scheme: http
+    tls:
+      secretName: hass-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2021-11-05T17:35:06Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: apps
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: k8s-ingress
+    namespace: kube-system
+    resourceVersion: "8988626"
+    uid: 64c11f2d-4b93-443a-9421-14af75da4daf
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`k8s.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: kubernetes-dashboard
+        port: https
+        scheme: https
+    tls:
+      secretName: k8s-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2022-02-06T15:18:31Z"
+    generation: 3
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: longhorn-frontend-ingress
+    namespace: longhorn-system
+    resourceVersion: "1724"
+    uid: 6b74bd74-760e-4b04-b614-aa5835608c74
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`longhorn.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: longhorn-frontend
+        namespace: longhorn-system
+        port: 80
+        scheme: http
+    tls:
+      secretName: longhorn-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2021-11-05T17:35:06Z"
+    generation: 2
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: alertmanager-ingress
+    namespace: monitoring
+    resourceVersion: "547"
+    uid: 75dc4512-2edf-4d58-96e1-aebe7b4e04d4
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`alertmanager.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: prometheus-alertmanager
+        namespace: monitoring
+        port: 9093
+        scheme: http
+    tls:
+      secretName: alertmanager-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2021-11-05T17:35:06Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: apps
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: dashboard-ingress
+    namespace: monitoring
+    resourceVersion: "48965444"
+    uid: d142a434-994f-4ca6-9bfe-4f31689c07e2
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`dashboard.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: heimdall
+        namespace: monitoring
+        port: 80
+        scheme: http
+    tls:
+      secretName: dashboard-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2022-05-08T13:50:34Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: apps
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: grafana-ingress
+    namespace: monitoring
+    resourceVersion: "8788618"
+    uid: 2444a196-ce03-4a56-a18f-1ccf8882fe68
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`grafana.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: grafana
+        namespace: monitoring
+        port: 80
+        scheme: http
+    tls:
+      secretName: grafana-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2022-02-26T11:19:20Z"
+    generation: 3
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: influxdb-ingress
+    namespace: monitoring
+    resourceVersion: "948"
+    uid: 0812bd6c-72fa-4dfa-b74c-bf54c40889a6
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`influxdb.uk.msrpi.com`)
+      services:
+      - name: influxdb-influxdb2
+        namespace: monitoring
+        port: 80
+        scheme: http
+    tls:
+      secretName: influxdb-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2022-04-10T13:39:47Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: apps
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: karma-ingress
+    namespace: monitoring
+    resourceVersion: "50514752"
+    uid: 35697c9a-01f0-4433-96c4-5cfa040eaadb
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`karma.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: karma
+        namespace: monitoring
+        port: 8080
+        scheme: http
+    tls:
+      secretName: karma-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2021-11-05T17:35:06Z"
+    generation: 3
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: loki-ingress
+    namespace: monitoring
+    resourceVersion: "1093"
+    uid: 297a4376-cfb3-4b1b-b022-809134a6a078
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`loki.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: loki
+        namespace: monitoring
+        port: 3100
+        scheme: http
+    tls:
+      secretName: loki-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2021-11-05T17:35:06Z"
+    generation: 2
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: prometheus-ingress
+    namespace: monitoring
+    resourceVersion: "548"
+    uid: 48405106-3633-4e05-864d-e3d78e9e1ebb
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`prometheus.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: prometheus-prometheus
+        namespace: monitoring
+        port: 9090
+        scheme: http
+    tls:
+      secretName: prometheus-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2021-11-05T17:35:06Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: thanos-ingress
+    namespace: monitoring
+    resourceVersion: "441"
+    uid: 558109c9-2b7c-4987-b4f9-61df85318317
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`thanos.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: thanos-query
+        namespace: monitoring
+        port: 9090
+        scheme: http
+    tls:
+      secretName: thanos-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2022-02-06T12:54:06Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: traefik-dashboard-v2
+    namespace: networking
+    resourceVersion: "699"
+    uid: 52ef2849-360f-481a-bc96-42395713e0b8
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`traefik.uk.msrpi.com`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      middlewares:
+      - name: rfc1918
+        namespace: networking
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - kind: TraefikService
+        name: api@internal
+    tls:
+      secretName: uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2022-02-06T12:54:06Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: traefik-forward-auth-ingress
+    namespace: networking
+    resourceVersion: "700"
+    uid: 6ef68509-e45d-44d1-9656-ccb83228c090
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`auth.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: traefik-forward-auth
+        port: 4181
+    tls:
+      secretName: auth-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2022-02-06T12:54:06Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: traefik-healthcheck
+    namespace: networking
+    resourceVersion: "701"
+    uid: f372b695-52cb-4677-8a60-cb4d7685834c
+  spec:
+    entryPoints:
+    - traefik
+    routes:
+    - kind: Rule
+      match: Host(`traefik.uk.msrpi.com`) && Path(`/healthz`)
+      priority: 10
+      services:
+      - kind: TraefikService
+        name: ping@internal
+    tls:
+      secretName: uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2022-03-05T17:21:11Z"
+    generation: 2
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: pgo-ingress
+    namespace: postgres
+    resourceVersion: "1008"
+    uid: cc8facf8-01c7-489f-bed6-cd077146e61b
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`pgo.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: zalando-postgres-operator-ui
+        namespace: postgres
+        port: 80
+        scheme: http
+    tls:
+      secretName: pgo-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2021-11-05T17:35:30Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: apps
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: change-detection-ingress
+    namespace: tools
+    resourceVersion: "453"
+    uid: 1f616a0a-d6f3-4aaa-8986-6723e6bd3474
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`change-detection.uk.msrpi.com`)
+      middlewares:
+      - name: traefik-forward-auth
+        namespace: networking
+      services:
+      - name: changedetection-io
+        namespace: tools
+        port: 5000
+        scheme: http
+    tls:
+      secretName: change-detection-uk-msrpi.com-tls
+- apiVersion: traefik.containo.us/v1alpha1
+  kind: IngressRoute
+  metadata:
+    creationTimestamp: "2022-02-07T21:49:06Z"
+    generation: 1
+    labels:
+      kustomize.toolkit.fluxcd.io/name: core
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: minio-ingress
+    namespace: tools
+    resourceVersion: "717"
+    uid: 2232c7bb-4c3c-47b0-8075-6a2e62a1115c
+  spec:
+    entryPoints:
+    - websecure
+    routes:
+    - kind: Rule
+      match: Host(`minio.uk.msrpi.com`)
+      services:
+      - name: minio
+        namespace: tools
+        port: 9001
+        scheme: http
+    - kind: Rule
+      match: Host(`s3.uk.msrpi.com`)
+      services:
+      - name: minio
+        namespace: tools
+        port: 9000
+        scheme: api
+    tls:
+      secretName: minio-uk-msrpi.com-tls
+kind: List
+metadata:
+  resourceVersion: ""
