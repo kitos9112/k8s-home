@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 15.3.1
+      version: 17.0.3
       interval: 5m
       sourceRef:
         kind: HelmRepository
@@ -22,6 +22,7 @@ spec:
     crds: Skip
   upgrade:
     crds: Skip
+    force: true
   values:
     nodeSelector:
       node_locality: "internal"
@@ -31,8 +32,8 @@ spec:
       enabled: true
       replicas: 3
     experimental:
-      # http3:
-      #   enabled: true
+      http3:
+        enabled: true
       plugins:
         enabled: true
     globalArguments:
