@@ -5,6 +5,6 @@ metadata:
   name: portainer-charts
   namespace: flux-system
 spec:
-  interval: 60m
+  interval: 20m
   url: https://portainer.github.io/k8s/
   timeout: 3m
