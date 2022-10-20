@@ -3,6 +3,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: minio-ingress
+  namespace: tools
 spec:
   entryPoints:
     - websecure
@@ -20,6 +21,5 @@ spec:
         - name: minio
           namespace: tools
           port: 9000
-          scheme: api
   tls:
     secretName: "minio-${SECRET_DOMAIN/./-}-tls"
