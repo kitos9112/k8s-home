@@ -15,9 +15,6 @@ spec:
         name: vmware-tanzu-charts
         namespace: flux-system
       interval: 5m
-  # dependsOn:
-  #   - name: minio
-  #     namespace: tools
   values:
     annotations:
       secret.reloader.stakater.com/reload: velero-s3-creds
@@ -31,17 +28,7 @@ spec:
         default: true
         config:
           region: eu-west-2
-          # s3ForcePathStyle: true
-          # s3Url: "http://minio.tools.svc.cluster.local:9000"
-          #s3Url: https://s3.${SECRET_DOMAIN}
       resticTimeout: 4h
-    initContainers:
-      - name: velero-plugin-for-aws
-        image: velero/velero-plugin-for-aws:v1.5.1
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - mountPath: /target
-            name: plugins
     credentials:
       existingSecret: velero-s3-creds
     schedules:
@@ -67,19 +54,7 @@ spec:
       image:
         repository: docker.io/bitnami/kubectl
         tag: 1.25.3
-    deployRestic: true
-    restic:
-      podVolumePath: /var/lib/kubelet/pods
-      privileged: false
-      tolerations:
-        - key: "node-role.kubernetes.io/master"
-          operator: "Exists"
-      resources:
-        requests:
-          memory: 200Mi
-          cpu: 15m
-        limits:
-          memory: 3000Mi
+    deployRestic: false
     resources:
       requests:
         memory: 300Mi
