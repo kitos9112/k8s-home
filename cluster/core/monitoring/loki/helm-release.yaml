@@ -33,6 +33,10 @@ spec:
           engine:
             timeout: 5m
           query_timeout: 5m
+        frontend:
+          max_outstanding_per_tenant: 4096
+        query_range:
+          parallelise_shardable_queries: false
         server:
           log_level: info
           http_listen_port: 3100
