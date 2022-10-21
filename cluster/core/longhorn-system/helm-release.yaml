@@ -46,13 +46,16 @@ spec:
       backupTargetCredentialSecret: longhorn-s3-aws-creds #gitleaks:allow
       createDefaultDiskLabeledNodes: true
       replicaSoftAntiAffinity: false
+      orphanAutoDeletion: true
       upgradeChecker: false
       autoSalvage: true
+      storageMinimalAvailablePercentage: 5
       autoDeletePodWhenVolumeDetachedUnexpectedly: true
       allowVolumeCreationWithDegradedAvailability: true
       nodeDownPodDeletionPolicy: "delete-both-statefulset-and-deployment-pod"
       volumeAttachmentRecoveryPolicy: "wait"
-      replicaReplenishmentWaitInterval: 300
+      replicaReplenishmentWaitInterval: 120
+      concurrentAutomaticEngineUpgradePerNodeLimit: 3
 
     # BEST PRACTICES - https://longhorn.io/docs/1.3.1/best-practices/
 

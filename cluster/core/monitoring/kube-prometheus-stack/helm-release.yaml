@@ -251,7 +251,7 @@ spec:
             spec:
               resources:
                 requests:
-                  storage: 50Gi
+                  storage: 75Gi
               storageClassName: longhorn
         thanos:
           objectStorageConfig:
