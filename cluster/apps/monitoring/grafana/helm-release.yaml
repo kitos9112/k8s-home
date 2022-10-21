@@ -32,6 +32,8 @@ spec:
         apiVersion: 1
         providers:
           - disableDeletion: false
+            allowUiUpdates: true
+            updateIntervalSeconds: 10
             editable: true
             folder: ""
             name: default
@@ -58,10 +60,6 @@ spec:
           datasource: Prometheus
           gnetId: 13502
           revision: 19
-        loki-logs:
-          datasource: Loki
-          gnetId: 12019
-          revision: 2
         speedtest:
           datasource: Prometheus
           gnetId: 13665
