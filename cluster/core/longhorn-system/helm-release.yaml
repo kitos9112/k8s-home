@@ -42,7 +42,7 @@ spec:
       resizerReplicaCount: 1
       snapshotterReplicaCount: 1
     defaultSettings:
-      backupTarget: s3://${SECRET_AWS_S3_BUCKET_NAME}@eu-west-1/
+      backupTarget: s3://${SECRET_AWS_S3_BUCKET_NAME}@eu-west-2/
       backupTargetCredentialSecret: longhorn-s3-aws-creds #gitleaks:allow
       createDefaultDiskLabeledNodes: true
       replicaSoftAntiAffinity: false
