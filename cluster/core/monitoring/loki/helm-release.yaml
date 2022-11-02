@@ -15,6 +15,9 @@ spec:
         name: grafana-charts
         namespace: flux-system
   interval: 5m
+  test:
+    # This is a workaround for the helm chart v3.3.0 that does not support running helm tests without self-monitoring enabled
+    enable: false
   dependsOn:
     - name: minio
       namespace: tools
