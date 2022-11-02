@@ -190,6 +190,9 @@ spec:
           cpu: 50m
           memory: 64Mi
     monitoring:
+      serviceMonitor:
+        metricsInstance:
+          enabled: false
       selfMonitoring:
         enabled: false
         lokiCanary:
