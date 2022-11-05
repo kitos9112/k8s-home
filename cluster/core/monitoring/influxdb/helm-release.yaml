@@ -24,11 +24,11 @@ spec:
   values:
     resources:
       limits:
-        cpu: 1000m
-        memory: 1024Mi
+        cpu: 8000m
+        memory: 4096Mi
       requests:
-        cpu: 100m
-        memory: 256Mi
+        cpu: 250m
+        memory: 512Mi
     adminUser:
       organization: "home"
     persistence:
