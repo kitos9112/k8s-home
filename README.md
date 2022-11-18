@@ -34,7 +34,7 @@ Flux watches the aforementioned cluster folders in the `main` Git branch. Also, 
 
 Med Renovate watches the **entire repository** looking for dependency updates, when they are found, a Pull Request is automatically created (and auto-applied oftentimes).
 
-Personally, I use a Github app under the name of `Henrry PA` that kindly assist me with the PR creation, and fillings.
+Personally, I use a Github app under the name of `Henry PA` that kindly assist me with the PR creation, and fillings.
 
 ## 🔧 Hardware
 
