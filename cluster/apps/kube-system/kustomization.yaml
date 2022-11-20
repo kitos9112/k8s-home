@@ -8,3 +8,5 @@ resources:
   - reloader
   - external-snapshotter
   - 1password
+  - descheduler
+  #- kyverno
