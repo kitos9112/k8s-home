@@ -38,3 +38,6 @@ resources:
   - vmware-tanzu-charts.yaml
   - 1password-charts.yaml
   - vector-charts.yaml
+  - kyverno-charts.yaml
+  - descheduler-charts.yaml
+  - aqua-charts.yaml
