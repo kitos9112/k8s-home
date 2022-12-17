@@ -41,10 +41,13 @@
                 "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
                 // GitRepository where 'Git ref/tag' matches 'Helm' version
                 "# renovate:(\\s+datasource=(?<datasource>.+?))?\\s+registryUrl=(?<registryUrl>\\S+)\\s+chart=(?<depName>\\S+)$\\s+tag:\\s*v?(?<currentValue>[^-\\s]*)$",
+                // Custom GitRepository where 'Git ref/tag' matches 'Helm' version but there is a special version type
+                "# renovate:(\\s+datasource=(?<datasource>.+?))?(\\s+extractVersion=(?<extractVersion>\\S+))?(\\s+depName=(?<depName>\\S+))?$\\s+tag:\\s*v?(?<currentValue>\\S+)",
                 // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version
                 "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n"
               ],
-              "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
+              "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}",
+              "extractVersionTemplate": "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}"
             },
             {
               "description": "Process various dependencies",
