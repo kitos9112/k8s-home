@@ -2,7 +2,7 @@
   "regexManagers": [
     {
       description: "Process Cluster Flux, Apps and Core dependencies",
-      fileMatch: ["cluster\/apps\/.+\\.ya?ml$", "cluster\/core\/.+\\.ya?ml$", "cluster\/flux\/.+\\.ya?ml$"],
+      fileMatch: ["cluster/apps\/.+\\.ya?ml$", "cluster\/core\/.+\\.ya?ml$", "cluster\/flux\/.+\\.ya?ml$"],
       "matchStrings": [
         // GitRepository where 'Git release/tag' matches 'Helm' version
         "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",
@@ -12,15 +12,16 @@
     {
       "description": "Process CRD dependencies",
       "fileMatch": ["cluster\/crds\/.+\\.ya?ml$"],
+      "matchStringsStrategy": "any",
       "matchStrings": [
         // GitRepository where 'Git release/tag' matches 'Helm' version
-        "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",
+        "# renovate: registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",
         // GitRepository where 'Git ref/tag' matches 'Helm' version
         "# renovate:(\\s+datasource=(?<datasource>.+?))?\\s+registryUrl=(?<registryUrl>\\S+)\\s+chart=(?<depName>\\S+)$\\s+tag:\\s*v?(?<currentValue>[^-\\s]*)$",
         // Custom GitRepository where 'Git ref/tag' matches 'Helm' version but there is a special version type
         "# renovate:(\\s+datasource=(?<datasource>.+?))?(\\s+extractVersion=(?<extractVersion>\\S+))?(\\s+depName=(?<depName>\\S+))?$\\s+tag:\\s*v?(?<currentValue>\\S+)$",
-        // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version
-        "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+$"
+        // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version within an URL
+        "# renovate: datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\\n.*?-\\s(.*?)\\/(?<currentValue>[^\\/]+)\\/[^\\/]+$"
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}",
       "extractVersionTemplate": "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}"
