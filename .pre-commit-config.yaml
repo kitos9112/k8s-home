@@ -33,6 +33,11 @@ repos:
       - id: pretty-format-json
         args: [--autofix, --indent=2]
 
+  - repo: https://github.com/whtsky/pre-commit-pretty-format-json5
+    rev: "1.0.0"
+    hooks:
+      - id: pretty-format-json5
+
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.3.1
     hooks:
