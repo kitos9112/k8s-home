@@ -15,6 +15,8 @@
       "matchStrings": [
         // GitRepository where 'Git release/tag' matches 'Helm' version
         "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",
+        // GitRepository where 'Git ref/tag' matches 'Helm' version
+        "# renovate:(\\s+datasource=(?<datasource>.+?))?\\s+registryUrl=(?<registryUrl>\\S+)\\s+chart=(?<depName>\\S+)$\\s+tag:\\s*v?(?<currentValue>[^-\\s]*)$",
         // Custom GitRepository where 'Git ref/tag' matches 'Helm' version but there is a special version type
         "# renovate:(\\s+datasource=(?<datasource>.+?))?(\\s+extractVersion=(?<extractVersion>\\S+))?(\\s+depName=(?<depName>\\S+))?$\\s+tag:\\s*v?(?<currentValue>\\S+)$",
         // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version
