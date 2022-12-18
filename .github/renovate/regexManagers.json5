@@ -1,66 +1,62 @@
 {
-  "regexManagers": [
+  regexManagers: [
     {
       description: "Process Cluster Flux, Apps and Core dependencies",
-      fileMatch: ["cluster/apps\/.+\\.ya?ml$", "cluster\/core\/.+\\.ya?ml$", "cluster\/flux\/.+\\.ya?ml$"],
-      "matchStrings": [
-        // GitRepository where 'Git release/tag' matches 'Helm' version
+      extractVersionTemplate: "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}",
+      fileMatch: [
+        "cluster/apps/.+\\.ya?ml$",
+        "cluster/core/.+\\.ya?ml$",
+        "cluster/flux/.+\\.ya?ml$",
+      ],
+      matchStrings: [
         "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",
       ],
-      "extractVersionTemplate": "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}"
     },
     {
-      "description": "Process Kube Prometheus CRD dependencies",
-      "fileMatch": ["cluster/crds/kube-prometheus-stack/crds.yaml"],
-      "matchStrings": [
-        "# renovate:( datasource=(?<datasource>.*?))?( extractVersion=(?<extractVersion>.*))?( depName=(?<depName>.*))?\\n\\s+tag: (?<currentValue>.*)\\n"
+      datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}",
+      description: "Process Cluster CRD dependencies",
+      extractVersionTemplate: "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}",
+      fileMatch: [
+        "^cluster/.+\\.y[a]?ml$",
       ],
-      "datasourceTemplate": "github-releases",
-      "extractVersionTemplate": "^kube-prometheus-stack-(?<version>.+)$"
-    },
-    {
-      "description": "Process Cluster CRD dependencies",
-      "fileMatch": ["cluster/.+\\.ya?ml$"],
-      "matchStrings": [
-        // GitRepository where 'Git release/tag' matches 'Helm' version
+      matchStrings: [
         "# renovate: registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",
-        // GitRepository where 'Git ref/tag' matches 'Helm' version
         "# renovate:(\\s+datasource=(?<datasource>.+?))?\\s+registryUrl=(?<registryUrl>\\S+)\\s+chart=(?<depName>\\S+)$\\s+tag:\\s*v?(?<currentValue>[^-\\s]*)$",
-        // Custom GitRepository where 'Git ref/tag' matches 'Helm' version but there is a special version type
-        "# renovate:( datasource=(?<datasource>.*?))?( extractVersion=(?<extractVersion>.*))?( depName=(?<depName>.*))?\\n\\s+tag: (?<currentValue>.*)\\n",
-        // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version within an URL
-        "# renovate: datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\\n.*?-\\s(.*?)\\/(?<currentValue>[^\\/]+)\\/[^\\/]+$"
+        "# renovate: datasource=(?<datasource>.*) extractVersion=(?<extractVersion>.*) depName=(?<depName>.*)\\n\\s+tag: (?<currentValue>.*)\\n",
+        "# renovate: datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\\n.*?-\\s(.*?)\\/(?<currentValue>[^\\/]+)\\/[^\\/]+$",
       ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}",
-      "extractVersionTemplate": "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}"
     },
     {
-      "description": "Process various dependencies",
-      "fileMatch": [
-        "cluster/.+\\.ya?ml$"
+      datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      description: "Process various dependencies",
+      fileMatch: [
+        "cluster/.+\\.ya?ml$",
       ],
-      "matchStrings": [
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
+      matchStrings: [
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n",
       ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
     {
-      "description": "Process raw GitHub URLs",
-      "fileMatch": ["cluster/.+\\.ya?ml$"],
-      "matchStrings": [
-        "https:\\/\\/raw.githubusercontent.com\\/(?<depName>[\\w\\d\\-_]+\\/[\\w\\d\\-_]+)\\/(?<currentValue>[\\w\\d\\.\\-_]+)\\/.*"
+      datasourceTemplate: "github-releases",
+      description: "Process raw GitHub URLs",
+      fileMatch: [
+        "cluster/.+\\.ya?ml$",
       ],
-      "datasourceTemplate": "github-releases",
-      "versioningTemplate": "semver"
+      matchStrings: [
+        "https:\\/\\/raw.githubusercontent.com\\/(?<depName>[\\w\\d\\-_]+\\/[\\w\\d\\-_]+)\\/(?<currentValue>[\\w\\d\\.\\-_]+)\\/.*",
+      ],
+      versioningTemplate: "semver",
     },
     {
-      "description": "Process standalone ASDF tool versions",
-      "fileMatch": ["^.tool-versions$"],
-      "matchStrings": [
-          "# renovate: datasource=(?<datasource>.+?) packageName=(?<packageName>.+?)( extractVersion=(?<extractVersion>.+?))?( registryUrl=(?<registryUrl>.+?))?\\s+(?<depName>.+?) (?<currentValue>.+)"
+      description: "Process standalone ASDF tool versions",
+      extractVersionTemplate: "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}",
+      fileMatch: [
+        "^.tool-versions$",
       ],
-      "extractVersionTemplate": "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}"
+      matchStrings: [
+        "# renovate: datasource=(?<datasource>.+?) packageName=(?<packageName>.+?)( extractVersion=(?<extractVersion>.+?))?( registryUrl=(?<registryUrl>.+?))?\\s+(?<depName>.+?) (?<currentValue>.+)",
+      ],
     },
   ],
 }
