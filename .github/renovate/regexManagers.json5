@@ -19,7 +19,7 @@
         // GitRepository where 'Git ref/tag' matches 'Helm' version
         "# renovate:(\\s+datasource=(?<datasource>.+?))?\\s+registryUrl=(?<registryUrl>\\S+)\\s+chart=(?<depName>\\S+)$\\s+tag:\\s*v?(?<currentValue>[^-\\s]*)$",
         // Custom GitRepository where 'Git ref/tag' matches 'Helm' version but there is a special version type
-        "# renovate:(\\s+datasource=(?<datasource>.+?))?(\\s+extractVersion=(?<extractVersion>\\S+))?(\\s+depName=(?<depName>\\S+))?$\\s+tag:\\s*v?(?<currentValue>\\S+)$",
+        "# renovate:(\\s+datasource=(?<datasource>.+?))?(\\s+extractVersion=(?<extractVersion>\\S+))?(\\s+depName=(?<depName>\\S+))?$\\s+tag:\\s*v?(?<currentValue>.*)$",
         // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version within an URL
         "# renovate: datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\\n.*?-\\s(.*?)\\/(?<currentValue>[^\\/]+)\\/[^\\/]+$"
       ],
