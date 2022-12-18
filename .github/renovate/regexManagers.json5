@@ -17,7 +17,7 @@
       ],
       "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^kube-prometheus-stack-(?<version>.+)$"
-    }
+    },
     {
       "description": "Process Cluster CRD dependencies",
       "fileMatch": ["cluster/.+\\.ya?ml$"],
