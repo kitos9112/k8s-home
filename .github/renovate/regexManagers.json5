@@ -17,7 +17,7 @@
       description: "Process Cluster CRD dependencies",
       extractVersionTemplate: "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}",
       fileMatch: [
-        "^cluster/.+\\.y[a]?ml$",
+        "cluster/.+\\.ya?ml$",
       ],
       matchStrings: [
         "# renovate: registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",
