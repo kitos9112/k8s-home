@@ -11,7 +11,7 @@
     },
     {
       "description": "Process CRD dependencies",
-      "fileMatch": ["cluster/crds.+\\.ya?ml$"],
+      "fileMatch": ["cluster/.+\\.ya?ml$"],
       "matchStringsStrategy": "any",
       "matchStrings": [
         // GitRepository where 'Git release/tag' matches 'Helm' version
