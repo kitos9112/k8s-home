@@ -10,9 +10,17 @@
       "extractVersionTemplate": "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}"
     },
     {
-      "description": "Process CRD dependencies",
+      "description": "Process Kube Prometheus CRD dependencies",
+      "fileMatch": ["cluster/crds/kube-prometheus-stack/crds.yaml"],
+      "matchStrings": [
+        "# renovate:( datasource=(?<datasource>.*?))?( extractVersion=(?<extractVersion>.*))?( depName=(?<depName>.*))?\\n\\s+tag: (?<currentValue>.*)\\n"
+      ],
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^kube-prometheus-stack-(?<version>.+)$"
+    }
+    {
+      "description": "Process Cluster CRD dependencies",
       "fileMatch": ["cluster/.+\\.ya?ml$"],
-      "matchStringsStrategy": "any",
       "matchStrings": [
         // GitRepository where 'Git release/tag' matches 'Helm' version
         "# renovate: registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",

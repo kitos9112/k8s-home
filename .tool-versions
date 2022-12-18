@@ -1,6 +1,4 @@
 # renovate: datasource=github-tags packageName=kubernetes/kubernetes
 kubectl 1.25.5
-# renovate: datasource=github-tags packageName=helm/helm
 helm 3.10.3
-# renovate: datasource=github-releases packageName=hashicorp/terraform
 terraform 1.3.6
