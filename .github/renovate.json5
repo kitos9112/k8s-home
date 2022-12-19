@@ -1,90 +1,155 @@
- {
-         "extends": [
-           ":enableRenovate",
-           "config:base",
-           ":disableRateLimiting",
-           ":dependencyDashboard",
-           ":semanticCommits",
-           ":separatePatchReleases",
-           "docker:enableMajor",
-           ":enablePreCommit",
-           "github>kitos9112/k8s-home//.github/renovate/autoMerge.json",
-           "github>kitos9112/k8s-home//.github/renovate/labels.json",
-           "github>kitos9112/k8s-home//.github/renovate/groups.json5",
-           "github>kitos9112/k8s-home//.github/renovate/semanticCommits.json",
-           "github>kitos9112/k8s-home//.github/renovate/regexManagers.json5"
-         ],
-         "platform": "github",
-         "username": "henry-pa-bot[bot]",
-         "repositories": ["kitos9112/k8s-home"],
-         "onboarding": false,
-         "requireConfig": "optional",
-         "gitAuthor": "henry-pa-bot <***+henry-bot[bot]@users.noreply.github.com>",
-         "assignees": ["@kitos9112"],
-         "timezone": "Europe/London",
-         "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-         "suppressNotifications": ["prIgnoreNotification"],
-         "rebaseWhen": "conflicted",
-         "commitBodyTable": true,
-         "helm-values": {
-          "fileMatch": ["cluster/.+\\.ya?ml$"]
-          },
-         "flux": {
-          "fileMatch": ["cluster/.+\\.ya?ml$"],
-          // TODO: Longhorn helm chart `1.3.2` is not compatible with K8s>=1.25
-          "ignorePaths": ["cluster/core/longhorn-system"]
-          },
-         "kubernetes": {
-          "fileMatch": ["cluster/.+\\.yaml$"]
-          },
-         "packageRules": [
-           {"matchDatasources": ["helm"], "ignoreDeprecated": true},
-           {"matchDatasources": ["docker"], "commitMessageExtra": "to {{newVersion}}"},
-           {
-             "matchDatasources": ["docker"],
-             "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>.*)$",
-             "matchPackageNames": ["blakeblackshear/frigate"]
-           },
-           {
-             "matchDatasources": ["docker"],
-             "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$",
-             "matchPackageNames": ["quay.io/minio/minio"]
-           },
-           {
-             "matchDatasources": ["docker", "github-releases"],
-             "versioning": "loose",
-             "matchPackageNames": [
-               "ghcr.io/k8s-at-home/plex",
-               "ghcr.io/k8s-at-home/qbittorrent",
-               "Hypfer/Valetudo"
-             ]
-           },
-           {
-             "matchDatasources": ["github-releases", "docker"],
-             "matchPackagePatterns": ["external-snapshotter", "snapshot-controller"],
-             "groupName": "external-snapshotter-suite",
-             "additionalBranchPrefix": "",
-             "separateMinorPatch": true
-           },
-           {
-             "matchDatasources": ["github-tags", "docker"],
-             "matchPackagePatterns": ["rancher/system-upgrade-controller"],
-             "groupName": "system-upgrade-controller-suite",
-             "additionalBranchPrefix": "",
-             "separateMinorPatch": true
-           },
-           {
-             "groupName": "vector-suite",
-             "matchDatasources": ["docker", "github-releases", "helm"],
-             "matchPackagePatterns": ["vector"],
-             "additionalBranchPrefix": "",
-             "separateMinorPatch": true
-           },
-            {
-              description: "Disable kubernetes-api",
-              matchManagers: ["kubernetes"],
-              matchDatasources: ["kubernetes-api"],
-              enabled: false,
-            }
-         ]
-       }
+{
+  assignees: [
+    "@kitos9112",
+  ],
+  commitBodyTable: true,
+  dependencyDashboardTitle: "Renovate Dashboard 🤖",
+  "extends": [
+    ":enableRenovate",
+    "config:base",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":separatePatchReleases",
+    "docker:enableMajor",
+    ":enablePreCommit",
+    "github>kitos9112/k8s-home//.github/renovate/autoMerge.json",
+    "github>kitos9112/k8s-home//.github/renovate/labels.json",
+    "github>kitos9112/k8s-home//.github/renovate/groups.json5",
+    "github>kitos9112/k8s-home//.github/renovate/semanticCommits.json",
+    "github>kitos9112/k8s-home//.github/renovate/regexManagers.json5",
+  ],
+  flux: {
+    fileMatch: [
+      "cluster/.+\\.ya?ml$",
+    ],
+    ignorePaths: [
+      "cluster/core/longhorn-system",
+    ],
+  },
+  gitAuthor: "henry-pa-bot <***+henry-bot[bot]@users.noreply.github.com>",
+  "helm-values": {
+    fileMatch: [
+      "cluster/.+\\.ya?ml$",
+    ],
+  },
+  kubernetes: {
+    fileMatch: [
+      "cluster/.+\\.yaml$",
+    ],
+  },
+  onboarding: false,
+  packageRules: [
+    {
+      ignoreDeprecated: true,
+      matchDatasources: [
+        "helm",
+      ],
+    },
+    {
+      commitMessageExtra: "to {{newVersion}}",
+      matchDatasources: [
+        "docker",
+      ],
+    },
+    {
+      matchDatasources: [
+        "docker",
+      ],
+      matchPackageNames: [
+        "blakeblackshear/frigate",
+      ],
+      versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>.*)$",
+    },
+    {
+      matchDatasources: [
+        "docker",
+      ],
+      matchPackageNames: [
+        "quay.io/minio/minio",
+      ],
+      versioning: "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$",
+    },
+    {
+      matchDatasources: [
+        "github-releases",
+      ],
+      matchPackageNames: [
+        "prometheus-community/helm-charts",
+        "vmware-tanzu/helm-charts",
+      ],
+      versioning: "regex:^(?<compatibility>.*)-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
+    },
+    {
+      matchDatasources: [
+        "docker",
+        "github-releases",
+      ],
+      matchPackageNames: [
+        "ghcr.io/k8s-at-home/plex",
+        "ghcr.io/k8s-at-home/qbittorrent",
+        "Hypfer/Valetudo",
+      ],
+      versioning: "loose",
+    },
+    {
+      additionalBranchPrefix: "",
+      groupName: "external-snapshotter-suite",
+      matchDatasources: [
+        "github-releases",
+        "docker",
+      ],
+      matchPackagePatterns: [
+        "external-snapshotter",
+        "snapshot-controller",
+      ],
+      separateMinorPatch: true,
+    },
+    {
+      additionalBranchPrefix: "",
+      groupName: "system-upgrade-controller-suite",
+      matchDatasources: [
+        "github-tags",
+        "docker",
+      ],
+      matchPackagePatterns: [
+        "rancher/system-upgrade-controller",
+      ],
+      separateMinorPatch: true,
+    },
+    {
+      additionalBranchPrefix: "",
+      groupName: "vector-suite",
+      matchDatasources: [
+        "docker",
+        "github-releases",
+        "helm",
+      ],
+      matchPackagePatterns: [
+        "vector",
+      ],
+      separateMinorPatch: true,
+    },
+    {
+      description: "Disable kubernetes-api",
+      enabled: false,
+      matchDatasources: [
+        "kubernetes-api",
+      ],
+      matchManagers: [
+        "kubernetes",
+      ],
+    },
+  ],
+  platform: "github",
+  rebaseWhen: "conflicted",
+  repositories: [
+    "kitos9112/k8s-home",
+  ],
+  requireConfig: "optional",
+  suppressNotifications: [
+    "prIgnoreNotification",
+  ],
+  timezone: "Europe/London",
+  username: "henry-pa-bot[bot]",
+}
