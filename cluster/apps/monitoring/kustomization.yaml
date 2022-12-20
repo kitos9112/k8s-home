@@ -8,6 +8,7 @@ resources:
   - dashboard
   - karma
   - speedtest-exporter
+  - vpa
   - goldilocks
   # - cronitor-heartbeat
   # - node-problem-detector
