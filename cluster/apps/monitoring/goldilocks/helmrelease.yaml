@@ -12,7 +12,7 @@ spec:
       version: 6.3.3
       sourceRef:
         kind: HelmRepository
-        name: fairwinds
+        name: fairwinds-charts
         namespace: flux-system
       interval: 30m
   timeout: 20m
