@@ -5,3 +5,4 @@ metadata:
   name: falco-system
   labels:
     managed-by: flux
+    goldilocks.fairwinds.com/enabled: "true"

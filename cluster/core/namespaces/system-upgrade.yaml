@@ -4,7 +4,6 @@ kind: Namespace
 metadata:
   name: system-upgrade
   labels:
+    goldilocks.fairwinds.com/enabled: "true"
     managed-by: flux
     kustomize.toolkit.fluxcd.io/prune: disabled
-    goldilocks.fairwinds.com/enabled: "true"
-    k10.kasten.io/ignorebackuppolicy: "true"

@@ -4,4 +4,5 @@ kind: Namespace
 metadata:
   name: kasten-io
   labels:
+    goldilocks.fairwinds.com/enabled: "true"
     managed-by: flux

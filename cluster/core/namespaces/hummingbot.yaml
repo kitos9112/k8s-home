@@ -4,4 +4,5 @@ kind: Namespace
 metadata:
   name: hummingbot
   labels:
+    goldilocks.fairwinds.com/enabled: "true"
     managed-by: flux
