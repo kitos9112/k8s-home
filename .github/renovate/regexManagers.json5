@@ -17,15 +17,6 @@
       ],
     },
     {
-      datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-      description: "Process various dependencies",
-      fileMatch: [
-        "cluster/.+\\.ya?ml$",
-      ],
-      matchStrings: [],
-      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
-    },
-    {
       datasourceTemplate: "github-releases",
       description: "Process raw GitHub URLs",
       fileMatch: [
