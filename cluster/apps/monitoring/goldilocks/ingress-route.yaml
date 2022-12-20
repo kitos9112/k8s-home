@@ -2,19 +2,20 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: traefik-forward-auth
-  namespace: networking
+  name: goldilocks
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`auth.${SECRET_DOMAIN}`)
+    - match: Host(`goldilocks.${SECRET_DOMAIN}`)
       kind: Rule
       services:
-        - name: traefik-forward-auth
-          port: 4181
+        - name: goldilocks
+          namespace: monitoring
+          port: 80
+          scheme: http
       middlewares:
         - name: traefik-forward-auth
           namespace: networking
   tls:
-    secretName: "auth-${SECRET_DOMAIN/./-}-tls"
+    secretName: "goldilocks-${SECRET_DOMAIN/./-}-tls"

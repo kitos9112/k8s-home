@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: prometheus-ingress
+  name: prometheus
   namespace: monitoring
 spec:
   entryPoints:
@@ -24,7 +24,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: alertmanager-ingress
+  name: alertmanager
   namespace: monitoring
 spec:
   entryPoints:

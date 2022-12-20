@@ -16,6 +16,7 @@ resources:
   - influxdata-charts.yaml
   - k8s-at-home-charts.yaml
   - kasten-charts.yaml
+  - fairwinds-charts.yaml
   - kubernetes-sigs-descheduler-charts.yaml
   - kubernetes-dashboard-charts.yaml
   - longhorn-charts.yaml

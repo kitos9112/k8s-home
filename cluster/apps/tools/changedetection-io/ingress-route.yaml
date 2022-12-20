@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: change-detection-ingress
+  name: change-detection
 spec:
   entryPoints:
     - websecure

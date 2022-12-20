@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: grafana-ingress
+  name: grafana
 spec:
   entryPoints:
     - websecure
