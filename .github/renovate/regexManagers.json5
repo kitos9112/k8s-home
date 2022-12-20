@@ -9,8 +9,8 @@
       ],
       matchStrings: [
         "# renovate: registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",
-        "# renovate:(\\s+datasource=(?<datasource>.+?))?\\s+registryUrl=(?<registryUrl>\\S+)\\s+chart=(?<depName>\\S+)$\\s+tag:\\s*v?(?<currentValue>[^-\\s]*)$",
-        "# renovate: datasource=(?<datasource>.*)( extractVersion=(?<extractVersion>.*))? depName=(?<depName>.*)\\n\\s+tag: (?<currentValue>.*)\\n",
+        "# renovate:(\\s+datasource=(?<datasource>.+))?\\s+registryUrl=(?<registryUrl>\\S+)\\s+chart=(?<depName>\\S+)$\\s+tag:\\s*v?(?<currentValue>[^-\\s]*)$",
+        "# renovate: datasource=(?<datasource>\\S+)( extractVersion=(?<extractVersion>.*))? depName=(?<depName>.*)\\n\\s+tag: (?<currentValue>.*)\\n",
         "# renovate: datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\\n.*?-\\s(.*?)\\/(?<currentValue>[^\\/]+)\\/[^\\/]+$",
         "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n",
