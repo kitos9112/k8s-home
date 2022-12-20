@@ -10,8 +10,7 @@ spec:
     - match: Host(`goldilocks.${SECRET_DOMAIN}`)
       kind: Rule
       services:
-        - name: goldilocks
-          namespace: monitoring
+        - name: goldilocks-dashboard
           port: 80
           scheme: http
       middlewares:
