@@ -6,7 +6,7 @@ on: # yamllint disable-line rule:truthy
     inputs:
       dryRun:
         description: "Dry-Run"
-        default: "true"
+        default: "false"
         required: false
       logLevel:
         description: "Log-Level"
