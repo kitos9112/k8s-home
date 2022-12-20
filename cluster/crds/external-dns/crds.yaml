@@ -2,13 +2,13 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
-  name: external-dns-source
+  name: external-dns
   namespace: flux-system
 spec:
   interval: 30m
-  # renovate: datasource=github-releases
   url: https://github.com/kubernetes-sigs/external-dns.git
   ref:
+    # renovate: datasource=github-releases depName=kubernetes-sigs/external-dns
     tag: v0.13.1
   ignore: |
     # exclude all
@@ -26,7 +26,7 @@ spec:
   prune: false
   sourceRef:
     kind: GitRepository
-    name: external-dns-source
+    name: external-dns
   healthChecks:
     - apiVersion: apiextensions.k8s.io/v1beta1
       kind: CustomResourceDefinition

@@ -6,10 +6,10 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  # renovate: datasource=github-releases
   url: https://github.com/kubernetes-csi/external-snapshotter.git
   ref:
-    tag: v6.1.0
+    # renovate: datasource=github-releases depName=kubernetes-csi/external-snapshotter
+    tag: v6.0.1
   ignore: |
     # exclude all
     /*
