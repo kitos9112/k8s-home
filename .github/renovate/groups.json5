@@ -1,32 +1,61 @@
 {
-  "packageRules": [
+  packageRules: [
     {
-      "description": "Rook-Ceph image and chart",
-      "groupName": "Rook Ceph",
-      "matchPackagePatterns": ["rook.ceph"],
-      "matchDatasources": ["docker", "helm"],
-      "group": { "commitMessageTopic": "{{{groupName}}} group" },
-      "separateMinorPatch": true
+      description: "Rook-Ceph image and chart",
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      groupName: "Rook Ceph",
+      matchDatasources: [
+        "docker",
+        "helm",
+      ],
+      matchPackagePatterns: [
+        "rook.ceph",
+      ],
+      separateMinorPatch: true,
     },
     {
-      "description": "Thanos image and chart versions do not match",
-      "groupName": "Thanos",
-      "matchPackagePatterns": ["thanos"],
-      "matchDatasources": ["docker", "github-releases", "helm"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "group": { "commitMessageTopic": "{{{groupName}}} group" },
-      "stabilityDays": 3,
-      "separateMinorPatch": false
+      description: "Thanos image and chart versions do not match",
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      groupName: "Thanos",
+      matchDatasources: [
+        "docker",
+        "github-releases",
+        "helm",
+      ],
+      matchPackagePatterns: [
+        "thanos",
+      ],
+      matchUpdateTypes: [
+        "minor",
+        "patch",
+      ],
+      separateMinorPatch: false,
+      stabilityDays: 3,
     },
     {
-      "description": "Vector image and chart versions do not match",
-      "groupName": "Vector",
-      "matchPackagePatterns": ["vector"],
-      "matchDatasources": ["docker", "github-releases", "helm"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "group": { "commitMessageTopic": "{{{groupName}}} group" },
-      "stabilityDays": 3,
-      "separateMinorPatch": false
-    }
-  ]
+      description: "Vector image and chart versions do not match",
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      groupName: "Vector",
+      matchDatasources: [
+        "docker",
+        "github-releases",
+        "helm",
+      ],
+      matchPackagePatterns: [
+        "vector",
+      ],
+      matchUpdateTypes: [
+        "minor",
+        "patch",
+      ],
+      separateMinorPatch: false,
+      stabilityDays: 3,
+    },
+  ],
 }
