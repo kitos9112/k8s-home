@@ -40,20 +40,14 @@ spec:
           http:
             port: *port
 
-    # ingress:
-    #   main:
-    #     enabled: true
-    #     hosts:
-    #       - host: &host "openbooks.bjw-s.dev"
-    #         paths:
-    #           - path: /
-    #     tls:
-    #       - hosts:
-    #           - *host
     persistence:
       books:
         enabled: true
+        type: pvc
         mountPath: /books
+        accessMode: ReadWriteOnce
+        size: 5Gi
+
     resources:
       requests:
         cpu: 15m
