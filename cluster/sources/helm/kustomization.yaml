@@ -6,6 +6,7 @@ resources:
   - bitnami-charts.yaml
   - blakeshome-charts.yaml
   - coredns-charts.yaml
+  - bjw-charts.yaml
   - deliveryhero-charts.yaml
   - grafana-charts.yaml
   - infracloudio-charts.yaml

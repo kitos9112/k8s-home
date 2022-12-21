@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "openbooks-${SECRET_DOMAIN/./-}"
+spec:
+  secretName: "openbooks-${SECRET_DOMAIN/./-}-tls"
+  issuerRef:
+    name: ${SETTING_CERT_MANAGER_CLUSTER_ISSUER}
+    kind: ClusterIssuer
+  commonName: "openbooks.${SECRET_DOMAIN}"
+  dnsNames:
+    - "openbooks.${SECRET_DOMAIN}"

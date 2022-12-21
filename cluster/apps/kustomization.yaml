@@ -7,4 +7,5 @@ resources:
   - monitoring
   - system-upgrade
   - kube-system
+  - media
   # - hummingbot

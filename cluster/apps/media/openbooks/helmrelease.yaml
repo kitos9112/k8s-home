@@ -1,0 +1,62 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: openbooks
+  namespace: downloads
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.2.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-charts
+        namespace: flux-system
+  values:
+    image:
+      repository: docker.io/evanbuss/openbooks
+      tag: latest@sha256:dc4dab4c6cea1f662a8be5d13c3f8cc6974d406b707d09abb4d88fa0e925f7b7
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 65539
+    command:
+      - ./openbooks
+    args:
+      - server
+      - --dir
+      - /books
+      - --port
+      - &port "8080"
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     hosts:
+    #       - host: &host "openbooks.bjw-s.dev"
+    #         paths:
+    #           - path: /
+    #     tls:
+    #       - hosts:
+    #           - *host
+    persistence:
+      books:
+        enabled: true
+        mountPath: /books
+    resources:
+      requests:
+        cpu: 15m
+        memory: 64M
+      limits:
+        memory: 176M
