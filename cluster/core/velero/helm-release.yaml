@@ -46,15 +46,17 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
+      prometheusRule:
+        enabled: true
     backupsEnabled: true
     snapshotsEnabled: false
     upgradeCRDs: false
-    cleanUpCRDs: false
+    cleanUpCRDs: falsex
     kubectl:
       image:
         repository: docker.io/bitnami/kubectl
         tag: 1.25.5
-    deployRestic: false
+    deployNodeAgent: false
     resources:
       requests:
         memory: 300Mi
