@@ -18,6 +18,13 @@ spec:
     installCRDs: false
     webhook:
       enabled: true
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          cpu: 125m
+          memory: 64Mi
     extraArgs:
       - --dns01-recursive-nameservers=1.1.1.1:53
       - --dns01-recursive-nameservers-only
@@ -25,11 +32,11 @@ spec:
       replicaCount: 1
     resources:
       requests:
-        cpu: "10m"
-        memory: "32Mi"
+        cpu: 10m
+        memory: 64Mi
       limits:
-        cpu: "1000m"
-        memory: "250Mi"
+        cpu: 2000m
+        memory: 250Mi
     podDnsPolicy: "None"
     podDnsConfig:
       nameservers:

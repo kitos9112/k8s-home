@@ -73,6 +73,7 @@
     {
       matchDatasources: [
         "github-releases",
+        "helm",
       ],
       matchPackageNames: [
         "prometheus-community/helm-charts",
