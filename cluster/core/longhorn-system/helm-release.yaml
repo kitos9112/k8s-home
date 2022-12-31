@@ -36,6 +36,7 @@ spec:
       backupTarget: s3://${SECRET_AWS_S3_BUCKET_NAME}@eu-west-2/
       backupTargetCredentialSecret: longhorn-s3-aws-creds #gitleaks:allow
       createDefaultDiskLabeledNodes: true
+      removeSnapshotsDuringFilesystemTrim: true
       replicaSoftAntiAffinity: false
       orphanAutoDeletion: true
       upgradeChecker: false
