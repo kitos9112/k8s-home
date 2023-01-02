@@ -39,9 +39,9 @@ spec:
           ttl: "168h"
       weekly-backup:
         # At the end of the week on a Sunday morning, at 6:00am
-        schedule: "0 6 * * 0"
+        schedule: "0 3 * * 0"
         template:
-          ttl: "672h"
+          ttl: "338h"
     metrics:
       enabled: true
       serviceMonitor:
