@@ -74,6 +74,13 @@ spec:
         repository: docker.io/bitnami/kubectl
         tag: 1.25.5
     deployNodeAgent: false
+    initContainers:
+      - name: velero-plugin-for-aws
+        image: velero/velero-plugin-for-aws:v1.6.0
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
     resources:
       requests:
         memory: 300Mi
