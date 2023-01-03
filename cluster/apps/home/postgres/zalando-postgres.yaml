@@ -17,7 +17,7 @@ spec:
               operator: In
               values:
                 - home
-  numberOfInstances: 2
+  numberOfInstances: 3
   enableConnectionPooler: false
   enableReplicaConnectionPooler: false
   enableLogicalBackup: false
@@ -43,5 +43,5 @@ spec:
       cpu: 150m
       memory: 512Mi
     limits:
-      cpu: 2000m
+      cpu: 4000m
       memory: 2500Mi
