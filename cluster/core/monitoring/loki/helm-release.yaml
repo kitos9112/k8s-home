@@ -138,7 +138,7 @@ spec:
     gateway:
       enabled: false
     write:
-      replicas: 1
+      replicas: 3
       nodeSelector:
         node_locality: "internal"
         kubernetes.io/arch: "amd64"
