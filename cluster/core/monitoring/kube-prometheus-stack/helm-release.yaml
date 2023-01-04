@@ -200,6 +200,7 @@ spec:
           - honor_timestamps: true
             job_name: minio
             metrics_path: /minio/v2/metrics/cluster
+            bearer_token: ${SECRET_MINIO_MONITORING_BEARER_TOKEN}
             static_configs:
               - targets:
                   - minio.tools:9000
