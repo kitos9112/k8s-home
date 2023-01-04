@@ -40,6 +40,7 @@ spec:
           max_outstanding_per_tenant: 4096
         query_range:
           parallelise_shardable_queries: false
+          split_queries_by_interval: 5m
           cache_results: true
           results_cache:
             cache:
