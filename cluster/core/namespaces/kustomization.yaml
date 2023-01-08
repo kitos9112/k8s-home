@@ -19,4 +19,5 @@ resources:
   - system-upgrade.yaml
   - portainer.yaml
   - postgres.yaml
+  - trivy-system.yaml
   - velero.yaml
