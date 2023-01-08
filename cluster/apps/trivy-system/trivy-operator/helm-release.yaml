@@ -13,7 +13,7 @@ spec:
       version: 0.10.1
       sourceRef:
         kind: HelmRepository
-        name: aqua
+        name: aqua-charts
         namespace: flux-system
   maxHistory: 5
   install:
@@ -31,7 +31,7 @@ spec:
   values:
     excludeNamespaces: "{{ .Release.Namespace }}"
     operator:
-      replicas: 2
+      replicas: 3
       scanJobsConcurrentLimit: 3
       vulnerabilityScannerScanOnlyCurrentRevisions: true
       configAuditScannerScanOnlyCurrentRevisions: true
