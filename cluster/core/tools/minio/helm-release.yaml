@@ -22,6 +22,8 @@ spec:
       - ":9001"
     env:
       MINIO_PROMETHEUS_AUTH_TYPE: public
+      MINIO_PROMETHEUS_URL: thanos-query.tools.svc.cluster.local:9090
+      MINIO_PROMETHEUS_JOB_ID: minio
       MINIO_UPDATE: "off"
       TZ: Europe/London
     envFrom:
