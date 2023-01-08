@@ -28,7 +28,7 @@ spec:
   values:
     alertmanager:
       alertmanagerSpec:
-        replicas: 2
+        replicas: 3
         storage:
           volumeClaimTemplate:
             spec:
@@ -236,15 +236,15 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         replicaExternalLabelName: replica
-        replicas: 1
+        replicas: 3
         retention: 6h
         retentionSize: 6GB
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         resources:
           requests:
-            cpu: 10m
-            memory: 750Mi
+            cpu: 50m
+            memory: 350Mi
           limits:
             memory: 8000Mi
         storageSpec:
@@ -252,7 +252,7 @@ spec:
             spec:
               resources:
                 requests:
-                  storage: 75Gi
+                  storage: 25Gi
               storageClassName: longhorn
         thanos:
           objectStorageConfig:
