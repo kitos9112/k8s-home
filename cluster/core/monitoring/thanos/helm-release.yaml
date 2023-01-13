@@ -54,7 +54,7 @@ spec:
           memory: 256Mi
     query:
       enabled: true
-      replicaCount: 2
+      replicaCount: 3
       dnsDiscovery:
         sidecarsNamespace: monitoring
         sidecarsService: prometheus-thanos-discovery
@@ -65,10 +65,10 @@ spec:
         kubernetes.io/arch: amd64
       resources:
         requests:
-          cpu: 100m
+          cpu: 50m
           memory: 256Mi
         limits:
-          memory: 512Mi
+          memory: 1024Mi
       autoscaling:
         enabled: true
         minReplicas: 1
