@@ -8,7 +8,7 @@ metadata:
     k3s-upgrade: server
 spec:
   # renovate: datasource=github-releases depName=k3s-io/k3s
-  version: "1.25.6+k3s1"
+  version: "1.26.1+k3s1"
   serviceAccountName: system-upgrade
   concurrency: 1
   cordon: true
