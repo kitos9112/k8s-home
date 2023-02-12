@@ -1,0 +1,41 @@
+{
+  regexManagers: [
+    {
+      datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}",
+      description: "Process Helm Cluster CRD dependencies",
+      extractVersionTemplate: "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.*)${{/if}}",
+      fileMatch: [
+        "cluster/.+\\.ya?ml$",
+      ],
+      matchStrings: [
+        "# renovate: registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",
+        "# renovate:(\\s+datasource=(?<datasource>.+))?\\s+registryUrl=(?<registryUrl>\\S+)\\s+chart=(?<depName>\\S+)$\\s+tag:\\s*v?(?<currentValue>[^-\\s]*)$",
+        "# renovate: datasource=(?<datasource>\\S+)( extractVersion=(?<extractVersion>.*))? depName=(?<depName>.*)\\n\\s+tag: (?<currentValue>.*)\\n",
+        "# renovate:( registryUrl=(?<registryUrl>\\S+))? datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.*?-\\s(.*?)\\/(?<currentValue>[^\\/]+)\\/[^\\/]+$",
+        "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)$",
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n",
+      ],
+    },
+    {
+      datasourceTemplate: "github-releases",
+      description: "Process raw GitHub URLs",
+      fileMatch: [
+        "cluster/.+\\.ya?ml$",
+      ],
+      matchStrings: [
+        "https:\\/\\/raw.githubusercontent.com\\/(?<depName>[\\w\\d\\-_]+\\/[\\w\\d\\-_]+)\\/(?<currentValue>[\\w\\d\\.\\-_]+)\\/.*",
+      ],
+      versioningTemplate: "semver",
+    },
+    {
+      description: "Process standalone ASDF tool versions",
+      extractVersionTemplate: "{{#if extractVersion}}{{extractVersion}}{{else}}^v?(?<version>.+)${{/if}}",
+      fileMatch: [
+        "^.tool-versions$",
+      ],
+      matchStrings: [
+        "# renovate: datasource=(?<datasource>.+?) packageName=(?<packageName>.+?)( extractVersion=(?<extractVersion>.+?))?( registryUrl=(?<registryUrl>.+?))?\\s+(?<depName>.+?) (?<currentValue>.+)",
+      ],
+    },
+  ],
+}
