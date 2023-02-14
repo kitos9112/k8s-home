@@ -23,7 +23,7 @@ spec:
     remediation:
       retries: 5
   upgrade:
-    timeout: 2048Mi
+    timeout: 20m
     remediation:
       retries: 5
   values:
@@ -196,8 +196,7 @@ spec:
           enabled: false
       selfMonitoring:
         enabled: false
-        lokiCanary:
-          enabled: false
-        # https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml#L595
         grafanaAgent:
           installOperator: false
+      lokiCanary:
+        enabled: true
