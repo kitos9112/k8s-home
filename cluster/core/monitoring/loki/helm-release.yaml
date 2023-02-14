@@ -23,6 +23,7 @@ spec:
     remediation:
       retries: 5
   upgrade:
+    timeout: 2048Mi
     remediation:
       retries: 5
   values:
