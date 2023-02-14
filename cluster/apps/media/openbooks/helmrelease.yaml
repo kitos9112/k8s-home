@@ -37,6 +37,8 @@ spec:
       - /books
       - --port
       - &port "8080"
+      - --persist
+      - --name
     service:
       main:
         ports:
