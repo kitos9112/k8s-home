@@ -1,4 +1,4 @@
 # renovate: datasource=github-tags packageName=kubernetes/kubernetes
 kubectl 1.25.7
 helm 3.11.2
-terraform 1.3.9
+terraform 1.4.0
