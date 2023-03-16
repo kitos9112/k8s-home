@@ -17,7 +17,7 @@ spec:
       interval: 1m
   values:
     image:
-      repository: k8s.gcr.io/metrics-server/metrics-server
+      repository: registry.k8s.io/metrics-server/metrics-server
       tag: v0.6.2
     resources:
       requests:
