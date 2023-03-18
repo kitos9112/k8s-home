@@ -20,29 +20,48 @@ spec:
     remediation:
       retries: 3
   values:
-  image:
-    longhorn:
-      engine:
-        repository: longhornio/longhorn-engine
-        tag: v1.4.1
-      manager:
-        repository: longhornio/longhorn-manager
-        tag: v1.4.1
-      ui:
-        repository: longhornio/longhorn-ui
-        tag: v1.4.1
-      instanceManager:
-        repository: longhornio/longhorn-instance-manager
-        tag: v1.4.1
-      shareManager:
-        repository: longhornio/longhorn-share-manager
-        tag: v1.4.1
-      backingImageManager:
-        repository: longhornio/backing-image-manager
-        tag: v1.4.1
-      supportBundleKit:
-        repository: longhornio/support-bundle-kit
-        tag: v0.0.19
+    image:
+      longhorn:
+        engine:
+          repository: longhornio/longhorn-engine
+          tag: v1.4.1
+        manager:
+          repository: longhornio/longhorn-manager
+          tag: v1.4.1
+        ui:
+          repository: longhornio/longhorn-ui
+          tag: v1.4.1
+        instanceManager:
+          repository: longhornio/longhorn-instance-manager
+          tag: v1.4.1
+        shareManager:
+          repository: longhornio/longhorn-share-manager
+          tag: v1.4.1
+        backingImageManager:
+          repository: longhornio/backing-image-manager
+          tag: v1.4.1
+        supportBundleKit:
+          repository: longhornio/support-bundle-kit
+          tag: v0.0.19
+      csi:
+        attacher:
+          repository: longhornio/csi-attacher
+          tag: v3.4.0
+        provisioner:
+          repository: longhornio/csi-provisioner
+          tag: v2.1.2
+        nodeDriverRegistrar:
+          repository: longhornio/csi-node-driver-registrar
+          tag: v2.5.0
+        resizer:
+          repository: longhornio/csi-resizer
+          tag: v1.3.0
+        snapshotter:
+          repository: longhornio/csi-snapshotter
+          tag: v5.0.1
+        livenessProbe:
+          repository: longhornio/livenessprobe
+          tag: v2.8.0
     persistence:
       defaultClass: true
       defaultClassReplicaCount: 2
