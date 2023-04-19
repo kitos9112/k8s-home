@@ -62,6 +62,6 @@ repos:
       - id: forbid-secrets
 
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.16.2
+    rev: v8.16.3
     hooks:
       - id: gitleaks
