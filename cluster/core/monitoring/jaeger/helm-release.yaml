@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: grafana
-      version: 6.55.1
+      version: 6.56.1
       interval: 5m
       sourceRef:
         kind: HelmRepository
