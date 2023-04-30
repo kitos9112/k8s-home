@@ -110,8 +110,8 @@ spec:
           alertmanager_url: http://prometheus-alertmanager:9093
           storage:
             type: local
-            local:
-              directory: /rules
+            # local:
+            #   directory: /rules
           rule_path: /tmp/scratch
           ring:
             kvstore:
@@ -168,8 +168,8 @@ spec:
         node_locality: "internal"
         kubernetes.io/arch: "amd64"
       extraVolumeMounts:
-        - name: loki-rules
-          mountPath: /rules/fake
+        # - name: loki-rules
+        #   mountPath: /rules/fake
         - name: loki-rules-tmp
           mountPath: /tmp/scratch
         - name: loki-tmp
