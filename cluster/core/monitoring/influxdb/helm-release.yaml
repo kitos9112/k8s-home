@@ -22,6 +22,9 @@ spec:
     remediation:
       retries: 3
   values:
+    image:
+      repository: influxdb
+      tag: 2.7.1-alpine
     resources:
       limits:
         cpu: 8000m
