@@ -61,7 +61,9 @@ spec:
           gnetId: 13502
           revision: 19
         speedtest:
-          datasource: Prometheus
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
           gnetId: 13665
           revision: 4
         traefik-ingress:
