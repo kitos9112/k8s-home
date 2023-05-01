@@ -21,13 +21,13 @@ spec:
     configuration:
       extraEnvVars:
         TZ: "Europe/London"
-      provider: aws
       backupStorageLocation:
-        name: default
-        bucket: k8s-home-velero
-        default: true
-        config:
-          region: eu-west-2
+        - name: default
+          bucket: k8s-home-velero
+          provider: aws
+          default: true
+          config:
+            region: eu-west-2
       resticTimeout: 4h
     credentials:
       existingSecret: velero-s3-creds
