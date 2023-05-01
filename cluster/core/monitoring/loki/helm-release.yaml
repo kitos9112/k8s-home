@@ -14,6 +14,7 @@ spec:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
+  maxHistory: 2
   interval: 5m
   dependsOn:
     - name: minio
@@ -21,11 +22,13 @@ spec:
   install:
     createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
-    timeout: 20m
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     test:
       # This is a workaround for the helm chart v3.3.0 that does not support running helm tests without self-monitoring enabled
@@ -64,6 +67,8 @@ spec:
         memberlist:
           join_members: ["loki-memberlist"]
         limits_config:
+          ingestion_rate_mb: 50
+          ingestion_burst_size_mb: 1000
           enforce_metric_name: false
           reject_old_samples: true
           reject_old_samples_max_age: 168h
@@ -74,9 +79,11 @@ spec:
           max_streams_matchers_per_query: 10000
           max_entries_limit_per_query: 2500000
           max_cache_freshness_per_query: 10m
-          per_stream_rate_limit: "40MB"
-          per_stream_rate_limit_burst: "80MB"
+          per_stream_rate_limit: 20MB
+          per_stream_rate_limit_burst: 80MB
           split_queries_by_interval: 5m
+          shard_streams:
+            enabled: true
         storage_config:
           aws:
             access_key_id: ${SECRET_MINIO_ACCESS_KEY}
@@ -91,16 +98,16 @@ spec:
             shared_store: s3
         schema_config:
           configs:
-            - from: "2021-08-01"
+            - from: "2022-01-11"
               store: boltdb-shipper
               object_store: s3
-              schema: v11
+              schema: v12
               index:
                 prefix: loki_index_
                 period: 24h
         common:
           path_prefix: /var/loki
-          replication_factor: 1
+          replication_factor: 3
           ring:
             kvstore:
               store: memberlist
@@ -110,8 +117,8 @@ spec:
           alertmanager_url: http://prometheus-alertmanager:9093
           storage:
             type: local
-            # local:
-            #   directory: /rules
+            local:
+              directory: /rules
           rule_path: /tmp/scratch
           ring:
             kvstore:
@@ -138,18 +145,8 @@ spec:
     gateway:
       enabled: false
     write:
-      replicas: 3
-      nodeSelector:
-        node_locality: "internal"
-        kubernetes.io/arch: "amd64"
-      tolerations:
-        - key: "node.kubernetes.io/unreachable"
-          operator: "Exists"
-          effect: "NoExecute"
-          # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
-          tolerationSeconds: 15
       persistence:
-        size: 25Gi
+        storageClass: local-path
       resources:
         limits:
           memory: 2048Mi
@@ -157,33 +154,28 @@ spec:
           cpu: 50m
           memory: 64Mi
     read:
-      replicas: 3
-      tolerations:
-        - key: "node.kubernetes.io/unreachable"
-          operator: "Exists"
-          effect: "NoExecute"
-          # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
-          tolerationSeconds: 15
-      nodeSelector:
-        node_locality: "internal"
-        kubernetes.io/arch: "amd64"
+      persistence:
+        storageClass: local-path
       extraVolumeMounts:
-        # - name: loki-rules
-        #   mountPath: /rules/fake
-        - name: loki-rules-tmp
-          mountPath: /tmp/scratch
-        - name: loki-tmp
-          mountPath: /tmp/loki-tmp
+        - name: rules
+          mountPath: /rules
       extraVolumes:
-        - name: loki-rules
+        - name: rules
+          emptyDir: {}
+    backend:
+      persistence:
+        storageClass: local-path
+      extraVolumeMounts:
+        - name: rules
+          mountPath: /rules/fake
+        - name: scratch
+          mountPath: /tmp/scratch
+      extraVolumes:
+        - name: rules
           configMap:
             name: loki-alerting-rules
-        - name: loki-rules-tmp
+        - name: scratch
           emptyDir: {}
-        - name: loki-tmp
-          emptyDir: {}
-      persistence:
-        size: 5Gi
       resources:
         limits:
           memory: 2048Mi
@@ -191,7 +183,13 @@ spec:
           cpu: 50m
           memory: 64Mi
     monitoring:
+      dashboards:
+        annotations:
+          kustomize.toolkit.fluxcd.io/substitute: disabled
+        labels:
+          grafana_dashboard: "true"
       serviceMonitor:
+        enabled: false
         metricsInstance:
           enabled: false
       selfMonitoring:
@@ -199,4 +197,4 @@ spec:
         grafanaAgent:
           installOperator: false
       lokiCanary:
-        enabled: true
+        enabled: false
