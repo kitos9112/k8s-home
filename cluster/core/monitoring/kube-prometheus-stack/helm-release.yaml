@@ -196,6 +196,12 @@ spec:
       ingress:
         enabled: false
       prometheusSpec:
+        containers:
+          - name: prometheus
+            livenessProbe:
+              failureThreshold: 500
+            readinessProbe:
+              failureThreshold: 500
         additionalScrapeConfigs:
           - honor_timestamps: true
             job_name: minio
