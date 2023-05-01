@@ -198,10 +198,9 @@ spec:
       prometheusSpec:
         containers:
           - name: prometheus
-            livenessProbe:
-              failureThreshold: 500
-            readinessProbe:
-              failureThreshold: 500
+            startupProbe:
+              failureThreshold: 120 # periodSeconds is 15 so this would give (120 x 15s = 1800s) for the WAL replay
+              initialDelaySeconds: 600 # 10 minutes before even checking the probe
         additionalScrapeConfigs:
           - honor_timestamps: true
             job_name: minio
