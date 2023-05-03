@@ -25,7 +25,6 @@
         "docker"
       ],
       "matchPackagePattern": [
-        "ghcr.io/k8s-at-home",
         "ghcr.io/onedr0p"
       ],
       "matchUpdateTypes": [

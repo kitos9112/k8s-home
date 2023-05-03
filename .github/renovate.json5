@@ -88,8 +88,8 @@
         "github-releases",
       ],
       matchPackageNames: [
-        "ghcr.io/k8s-at-home/plex",
-        "ghcr.io/k8s-at-home/qbittorrent",
+        "ghcr.io/onedr0p/plex",
+        "ghcr.io/onedr0p/qbittorrent",
         "Hypfer/Valetudo",
       ],
       versioning: "loose",
