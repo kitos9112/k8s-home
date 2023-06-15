@@ -72,7 +72,7 @@ spec:
     kubectl:
       image:
         repository: docker.io/bitnami/kubectl
-        tag: 1.25.10
+        tag: 1.25.11
     deployNodeAgent: false
     initContainers:
       - name: velero-plugin-for-aws
