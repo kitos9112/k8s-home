@@ -16,7 +16,7 @@ spec:
     # path to crds
     !/charts/connect/crds/
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: 1password-crds
