@@ -41,7 +41,7 @@ Update cluster/base/flux-system/gotk-sync.yaml:
 
 ```yaml
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: flux-system
