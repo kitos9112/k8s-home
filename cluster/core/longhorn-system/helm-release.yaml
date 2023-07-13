@@ -44,6 +44,8 @@ spec:
       volumeAttachmentRecoveryPolicy: "wait"
       replicaReplenishmentWaitInterval: 120
       concurrentAutomaticEngineUpgradePerNodeLimit: 3
+      backupCompressionMethod: "lz4"
+      offlineReplicaRebuilding: "enabled"
 
     # BEST PRACTICES - https://longhorn.io/docs/1.3.1/best-practices/
 
