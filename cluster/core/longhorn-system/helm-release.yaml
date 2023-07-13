@@ -21,64 +21,18 @@ spec:
       retries: 3
   timeout: 15m0s
   values:
-    # image:
-      # longhorn:
-      #   engine:
-      #     repository: longhornio/longhorn-engine
-      #     tag: v1.5.0
-      #   manager:
-      #     repository: longhornio/longhorn-manager
-      #     tag: v1.5.0
-      #   ui:
-      #     repository: longhornio/longhorn-ui
-      #     tag: v1.5.0
-      #   instanceManager:
-      #     repository: longhornio/longhorn-instance-manager
-      #     tag: v1.5.0
-      #   shareManager:
-      #     repository: longhornio/longhorn-share-manager
-      #     tag: v1.5.0
-      #   backingImageManager:
-      #     repository: longhornio/backing-image-manager
-      #     tag: v1.5.0
-      #   supportBundleKit:
-      #     repository: longhornio/support-bundle-kit
-      #     tag: v0.0.24
-      # csi:
-      #   attacher:
-      #     repository: longhornio/csi-attacher
-      #     tag: v4.2.0
-      #   provisioner:
-      #     repository: longhornio/csi-provisioner
-      #     tag: v3.4.1
-      #   nodeDriverRegistrar:
-      #     repository: longhornio/csi-node-driver-registrar
-      #     tag: v2.7.0
-      #   resizer:
-      #     repository: longhornio/csi-resizer
-      #     tag: v1.7.0
-      #   snapshotter:
-      #     repository: longhornio/csi-snapshotter
-      #     tag: v6.2.1
-      #   livenessProbe:
-      #     repository: longhornio/livenessprobe
-      #     tag: v2.9.0
     persistence:
       defaultClass: true
       defaultClassReplicaCount: 2
+      removeSnapshotsDuringFilesystemTrim: "enabled"
     longhornManager:
       priorityClass: system-node-critical
     csi:
       kubeletRootDir: /var/lib/kubelet
-      attacherReplicaCount: 1
-      provisionerReplicaCount: 1
-      resizerReplicaCount: 1
-      snapshotterReplicaCount: 1
     defaultSettings:
       backupTarget: s3://${SECRET_AWS_S3_BUCKET_NAME}@eu-west-2/
       backupTargetCredentialSecret: longhorn-s3-aws-creds #gitleaks:allow
       createDefaultDiskLabeledNodes: true
-      removeSnapshotsDuringFilesystemTrim: true
       replicaSoftAntiAffinity: false
       orphanAutoDeletion: true
       upgradeChecker: false
