@@ -27,7 +27,12 @@ spec:
       resourceAutoRefreshTimeInterval: 5
       ## Hide all access denied warnings in the notification panel
       disableAccessDeniedNotifications: false
+    cert-manager:
+      installCRDs: false
+    nginx:
+      enabled: false
     pinnedCRDs: []
-    metricsScraper:
-      ## Wether to enable dashboard-metrics-scraper
+    serviceMonitor:
       enabled: true
+    metrics-server:
+      enabled: false
