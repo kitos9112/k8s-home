@@ -5,17 +5,17 @@ metadata:
   name: loki
   namespace: monitoring
 spec:
+  interval: 30m
+  timeout: 15m
   chart:
     spec:
       chart: loki
       version: 5.8.9
-      interval: 5m
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
   maxHistory: 2
-  interval: 5m
   dependsOn:
     - name: minio
       namespace: tools
@@ -72,7 +72,7 @@ spec:
           enforce_metric_name: false
           reject_old_samples: true
           reject_old_samples_max_age: 168h
-          retention_period: 168h
+          retention_period: 14d
           max_query_lookback: 168h
           max_query_series: 5000
           max_query_parallelism: 5000
@@ -81,7 +81,7 @@ spec:
           max_cache_freshness_per_query: 10m
           per_stream_rate_limit: 20MB
           per_stream_rate_limit_burst: 80MB
-          split_queries_by_interval: 5m
+          split_queries_by_interval: 15m
           shard_streams:
             enabled: true
         storage_config:
@@ -130,8 +130,8 @@ spec:
         compactor:
           working_directory: /var/loki/boltdb-shipper-compactor
           shared_store: s3
-          retention_enabled: true
           compaction_interval: 10m
+          retention_enabled: true
           retention_delete_delay: 2h
           retention_delete_worker_count: 150
         ingester:
