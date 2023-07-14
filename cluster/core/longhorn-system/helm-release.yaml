@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: longhorn
-      version: 1.5.0
+      version: 1.4.3
       sourceRef:
         kind: HelmRepository
         name: longhorn-charts
@@ -65,6 +65,12 @@ spec:
           effect: "NoExecute"
           # Evict pods from the node if the node becomes unreachable after this toleration timer expires.
           tolerationSeconds: 15
+    longhornAdmissionWebhook:
+      replicas: 0
+    longhornRecoveryBackend:
+      replicas: 0
+    longhornConversionWebhook:
+      replicas: 0
     ingress:
       enabled: false
     longhornUI:
