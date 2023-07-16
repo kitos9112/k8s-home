@@ -9,7 +9,7 @@ spec:
   url: https://github.com/vmware-tanzu/helm-charts.git
   ref:
     # TODO: Automate velero CRD auto-upgrade via Renovate bot
-    # renovate: datasource=helm depName=vmware-tanzu/helm-charts
+    # renovate: depName=vmware-tanzu/helm-charts
     tag: velero-3.0.0
   ignore: |
     # exclude all
