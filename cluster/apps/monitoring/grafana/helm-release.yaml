@@ -59,25 +59,25 @@ spec:
         minio:
           datasource: Prometheus
           gnetId: 13502
-          revision: 19
+          revision: 22
         speedtest:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
           gnetId: 13665
           revision: 4
-        traefik-ingress:
+        traefik:
           datasource: Prometheus
-          gnetId: 4475
-          revision: 5
+          gnetId: 17346
+          revision: 7
         longhorn:
           datasource: Prometheus
-          gnetId: 13032
-          revision: 6
+          gnetId: 17626
+          revision: 1
         node-exporter-full:
           datasource: Prometheus
           gnetId: 1860
-          revision: 27
+          revision: 31
         kubernetes-views-pods:
           datasource: Prometheus
           gnetId: 15760
@@ -90,6 +90,10 @@ spec:
           datasource: Prometheus
           gnetId: 15758
           revision: 24
+        kubernetes-views-nodes:
+          datasource: Prometheus
+          gnetId: 15759
+          revision: 19
     datasources:
       datasources.yaml:
         apiVersion: 1
