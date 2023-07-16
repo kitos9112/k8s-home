@@ -37,6 +37,7 @@ spec:
       orphanAutoDeletion: true
       upgradeChecker: false
       autoSalvage: true
+      engineReplicaTimeout: 20
       storageMinimalAvailablePercentage: 5
       autoDeletePodWhenVolumeDetachedUnexpectedly: true
       allowVolumeCreationWithDegradedAvailability: true

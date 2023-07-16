@@ -32,12 +32,13 @@ spec:
         - 65539
     command:
       - ./openbooks
-    args:
-      - --name
-      - --persist true
       - server
+      - --name
+      - "${SECRET_OPENBOOKS_USERNAME}"
+      - --persist
+      - "true"
       - --dir
-      - /books
+      - "/books"
       - --port
       - &port "8080"
     service:

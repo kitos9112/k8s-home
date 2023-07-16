@@ -15,9 +15,13 @@ spec:
         name: prometheus-community-charts
         namespace: flux-system
       version: 47.5.0
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
+  # TODO: Fix broken Longhorn v1.5.0 upgrade
+  #  Longhorn v1.5.0 came out a bit broken and its upgrade path was not throughly tested. So many issues were found. Longhorn v1.5.1 is coming out soon to fix those issues. Awaiting for the release of Longhorn v1.5.1 before upgrading.
+  #
+  # Keep an eye on https://github.com/longhorn/longhorn/issues/6259#issuecomment-1636987565
+  # dependsOn:
+  #   - name: longhorn
+  #     namespace: longhorn-system
   install:
     remediation:
       retries: 3
