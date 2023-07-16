@@ -5,42 +5,51 @@ metadata:
   name: minio
   namespace: tools
 spec:
+  interval: 30m
   chart:
     spec:
-      chart: ./charts/kah-common
-      interval: 5m
+      chart: app-template
+      version: 1.5.1
+      interval: 30m
       sourceRef:
-        kind: GitRepository
-        name: flux-cluster
+        kind: HelmRepository
+        name:  bjw-s-charts
         namespace: flux-system
-  interval: 5m
   values:
+    global:
+      nameOverride: minio
+
+    image:
+      repository: quay.io/minio/minio
+      tag: RELEASE.2023-07-11T21-29-34Z
+
     args:
       - server
       - /data
       - "--console-address"
       - ":9001"
+
     env:
       MINIO_PROMETHEUS_AUTH_TYPE: public
       MINIO_PROMETHEUS_URL: http://thanos-query.monitoring.svc.cluster.local:9090
       MINIO_PROMETHEUS_JOB_ID: minio
       MINIO_UPDATE: "off"
       TZ: Europe/London
+
     envFrom:
       - secretRef:
           name: minio
-    image:
-      repository: quay.io/minio/minio
-      tag: RELEASE.2023-07-11T21-29-34Z
-    nameOverride: minio
+
     persistence:
       config:
         enabled: true
         type: pvc
         existingClaim: minio-s3
         mountPath: /data
+
     podAnnotations:
       secret.reloader.stakater.com/reload: minio
+
     resources:
       limits:
         cpu: 4000m
@@ -48,19 +57,24 @@ spec:
       requests:
         cpu: 250m
         memory: 512Mi
+
     service:
       main:
         enabled: true
+        primary: true
         ports:
           api:
             enabled: true
             port: 9000
           http:
             enabled: true
+            primary: false
             port: 9001
+
     nodeSelector:
       node_locality: "internal"
       kubernetes.io/arch: "amd64"
+
     tolerations:
       - key: "node.kubernetes.io/unreachable"
         operator: "Exists"
