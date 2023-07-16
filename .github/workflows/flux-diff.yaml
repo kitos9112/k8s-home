@@ -5,8 +5,11 @@ on:
   pull_request:
     branches: ["main"]
     paths:
-      - "cluster/**.yml"
-      - "cluster/**.yaml"
+      - "cluster/core/**.yml"
+      - "cluster/apps/**.yml"
+      - "cluster/core/**.yaml"
+      - "cluster/apps/**.yaml"
+
 
 jobs:
   flux-diff:
