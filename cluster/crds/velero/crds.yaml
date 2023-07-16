@@ -10,7 +10,7 @@ spec:
   ref:
     # TODO: Automate velero CRD auto-upgrade via Renovate bot
     # renovate: datasource=github-releases depName=vmware-tanzu/helm-charts
-    tag: velero-3.0.0
+    tag: velero-4.1.2
   ignore: |
     # exclude all
     /*
