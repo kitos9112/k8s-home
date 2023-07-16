@@ -14,22 +14,21 @@ spec:
       interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: bjw-charts
+        name: bjw-s
         namespace: flux-system
   values:
+    controller:
+      type: deployment
+      annotations:
+        reloader.stakater.com/auto: "true"
+
     image:
       repository: docker.io/evanbuss/openbooks
       # TODO: Replace latest tag for OpenBooks once they had fixed multi-arch support
       #  It seems to be an issue with their latest 4.5.0 release
       #  labels: todo, area/cluster, bug, lifecycle
       tag: latest
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 65539
+
     command:
       - ./openbooks
       - server
@@ -41,6 +40,15 @@ spec:
       - "/books"
       - --port
       - &port "8080"
+
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 65539
+
     service:
       main:
         ports:
@@ -51,6 +59,7 @@ spec:
       books:
         enabled: true
         type: pvc
+        storageClass: longhorn
         mountPath: /books
         accessMode: ReadWriteOnce
         size: 5Gi
