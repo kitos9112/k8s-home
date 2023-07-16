@@ -8,26 +8,32 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: ./charts/kah-common
+      chart: app-template
+      version: 1.5.1
+      interval: 30m
       sourceRef:
-        kind: GitRepository
-        name: flux-cluster
+        kind: HelmRepository
+        name:  bjw-s-charts
         namespace: flux-system
-      interval: 5m
   values:
+    global:
+      nameOverride: changedetection-io
+
     image:
       repository: dgtlmoon/changedetection.io
       tag: "0.43.2"
-    nameOverride: changedetection-io
+
     env:
       BASE_URL: "https://change-detection.${SECRET_DOMAIN}"
       WEBDRIVER_URL: http://localhost:4444/wd/hub
       TZ: "Europe/London"
+
     service:
       main:
         ports:
           http:
             port: 5000
+
     persistence:
       config:
         enabled: true
@@ -39,18 +45,21 @@ spec:
         medium: Memory
         sizeLimit: 2Gi
         mountPath: /dev/shm
+
     podAnnotations:
       backup.velero.io/backup-volumes: config
       pre.hook.backup.velero.io/container: fsfreeze
       pre.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--freeze", "/datastore"]'
       post.hook.backup.velero.io/container: fsfreeze
       post.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--unfreeze", "/datastore"]'
+
     resources:
       requests:
         memory: 100Mi
         cpu: 100m
       limits:
         memory: 750Mi
+
     additionalContainers:
       chrome-webdriver:
         name: chrome-webdriver
