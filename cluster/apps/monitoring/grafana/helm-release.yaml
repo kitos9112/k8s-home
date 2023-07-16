@@ -78,6 +78,18 @@ spec:
           datasource: Prometheus
           gnetId: 1860
           revision: 27
+        kubernetes-views-pods:
+          datasource: Prometheus
+          gnetId: 15760
+          revision: 20
+        kubernetes-views-global:
+          datasource: Prometheus
+          gnetId: 15757
+          revision: 34
+        kubernetes-views-namespaces:
+          datasource: Prometheus
+          gnetId: 15758
+          revision: 24
     datasources:
       datasources.yaml:
         apiVersion: 1
