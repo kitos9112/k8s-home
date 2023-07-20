@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community-charts
         namespace: flux-system
-      version: 48.1.1
+      version: 48.1.2
   # TODO: Fix broken Longhorn v1.5.0 upgrade
   #  Longhorn v1.5.0 came out a bit broken and its upgrade path was not throughly tested. So many issues were found. Longhorn v1.5.1 is coming out soon to fix those issues. Awaiting for the release of Longhorn v1.5.1 before upgrading.
   #
