@@ -9,7 +9,7 @@ spec:
   url: https://github.com/1Password/connect-helm-charts.git
   ref:
     # renovate: datasource=github-releases depName=1Password/connect-helm-charts
-    tag: connect-1.12.0
+    tag: connect-1.12.1
   ignore: |
     # exclude all but the CDRs
     /*
