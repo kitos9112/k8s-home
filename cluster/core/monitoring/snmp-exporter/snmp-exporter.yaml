@@ -106,7 +106,7 @@ spec:
     spec:
       containers:
         - name: snmp-exporter
-          image: quay.io/prometheus/snmp-exporter:v0.22.0
+          image: quay.io/prometheus/snmp-exporter:v0.23.0
           imagePullPolicy: IfNotPresent
           ports:
             - name: monitoring
