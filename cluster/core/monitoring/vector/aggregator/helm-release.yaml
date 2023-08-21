@@ -32,7 +32,7 @@ spec:
         cpu: "4000m"
     image:
       repository: timberio/vector
-      tag: 0.32.0-alpine
+      tag: 0.32.1-alpine
     customConfig:
       data_dir: /vector-data-dir
       api:
