@@ -9,29 +9,34 @@ spec:
   chart:
     spec:
       chart: kubernetes-dashboard
-      version: 7.0.3
+      version: 7.0.0-alpha1
       sourceRef:
         kind: HelmRepository
         name: kubernetes-dashboard-charts
         namespace: flux-system
       interval: 1m
   values:
-    settings:
-      ## Cluster name that appears in the browser window title if it is set
-      clusterName: ${SECRET_DOMAIN}
-      ## Max number of items that can be displayed on each list page
-      itemsPerPage: 100
-      ## Number of seconds between every auto-refresh of logs
-      logsAutoRefreshTimeInterval: 5
-      ## Number of seconds between every auto-refresh of every resource. Set 0 to disable
-      resourceAutoRefreshTimeInterval: 5
-      ## Hide all access denied warnings in the notification panel
-      disableAccessDeniedNotifications: false
+    app:
+      settings:
+        global:
+        ## Cluster name that appears in the browser window title if it is set
+        clusterName: ${SECRET_DOMAIN}
+        ## Max number of items that can be displayed on each list page
+        itemsPerPage: 100
+        ## Number of seconds between every auto-refresh of logs
+        logsAutoRefreshTimeInterval: 5
+        ## Number of seconds between every auto-refresh of every resource. Set 0 to disable
+        resourceAutoRefreshTimeInterval: 5
+        ## Hide all access denied warnings in the notification panel
+        disableAccessDeniedNotifications: false
+        pinnedCRDs:
+          - ingressroutes.traefik.containo.us
+          - helmreleases.helm.toolkit.fluxcd.io
     cert-manager:
+      enabled: false
       installCRDs: false
     nginx:
       enabled: false
-    pinnedCRDs: []
     serviceMonitor:
       enabled: true
     metrics-server:
