@@ -42,8 +42,9 @@ spec:
     persistence:
       config:
         enabled: true
-        type: pvc
+        type: persistentVolumeClaim
         storageClass: longhorn
         accessMode: ReadWriteOnce
         size: 1Gi
+        retain: true
         mountPath: /config
