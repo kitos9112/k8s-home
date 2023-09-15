@@ -8,22 +8,37 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.0-beta.3
       interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
   values:
-    controller:
-      type: deployment
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: linuxserver/heimdall
-      tag: 2.5.6
-    env:
-      TZ: Europe/London
+    controllers:
+      main:
+        strategy: Recreate
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: linuxserver/heimdall
+              tag: 2.5.6
+            env:
+              TZ: Europe/London
+            resources:
+              requests:
+                cpu: 15m
+                memory: 64M
+              limits:
+                memory: 176M
+    service:
+      main:
+        ports:
+          http:
+            port: 80
     persistence:
       config:
         enabled: true
@@ -32,9 +47,3 @@ spec:
         accessMode: ReadWriteOnce
         size: 1Gi
         mountPath: /config
-    resources:
-      requests:
-        cpu: 15m
-        memory: 64M
-      limits:
-        memory: 176M
