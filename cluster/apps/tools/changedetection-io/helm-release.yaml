@@ -21,7 +21,7 @@ spec:
 
     image:
       repository: dgtlmoon/changedetection.io
-      tag: "0.45.1"
+      tag: "0.45.2"
 
     env:
       BASE_URL: "https://change-detection.${SECRET_DOMAIN}"
