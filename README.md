@@ -49,10 +49,16 @@ Personally, I use a Github app under the name of `Henry PA` that kindly assist m
 
 ## Bootstrap cluster using Flux
 
-Make sure to follow the steps described (here)[cluster/flux/flux-system/README.md] to bootstrap de cluster.
+Make sure to follow the steps described (here)[cluster/flux/flux-system/README.md] to bootstrap de cluster, the GPG/AGE keys are deployed in the cluster already.
 
 ```sh
 kubectl apply -k cluster/bootstrap
+kubectl apply -k cluster/flux/flux-systemd
+export FLUX_KEY_FP=<<KEY_ID>>
+gpg --export-secret-keys --armor "${FLUX_KEY_FP}" |
+kubectl create secret generic sops-gpg \
+    --namespace=flux-system \
+    --from-file=sops.asc=/dev/stdin
 ```
 
 After the aforementioned command is fired off against a nuked cluster, the cluster bootstrapping logic should take place starting with CRDs, sources, and config categories, them moving to core items, whilst finalising with the apps objects.
