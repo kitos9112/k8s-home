@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: influxdb
-      tag: 2.7.3-alpine
+      tag: 2.7.4-alpine
     resources:
       limits:
         cpu: 8000m
