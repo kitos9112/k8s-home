@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: vector
-      version: 0.24.1
+      version: 0.29.0
       sourceRef:
         kind: HelmRepository
         name: vector-charts
@@ -32,7 +32,7 @@ spec:
         cpu: "4000m"
     image:
       repository: timberio/vector
-      tag: 0.32.2-alpine
+      tag: 0.34.1-alpine
     customConfig:
       data_dir: /vector-data-dir
       api:
