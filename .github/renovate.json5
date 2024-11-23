@@ -23,9 +23,6 @@
     fileMatch: [
       "cluster/.+\\.ya?ml$",
     ],
-    ignorePaths: [
-      "cluster/core/longhorn-system",
-    ],
   },
   gitAuthor: "henry-pa-bot <***+henry-bot[bot]@users.noreply.github.com>",
   "helm-values": {

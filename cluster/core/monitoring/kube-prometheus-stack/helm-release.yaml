@@ -14,9 +14,6 @@ spec:
         name: prometheus-community-charts
         namespace: flux-system
       version: 51.2.0
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
   install:
     remediation:
       retries: 3

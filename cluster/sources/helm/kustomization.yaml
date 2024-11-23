@@ -20,7 +20,6 @@ resources:
   - fairwinds-charts.yaml
   - kubernetes-sigs-descheduler-charts.yaml
   - kubernetes-dashboard-charts.yaml
-  - longhorn-charts.yaml
   - lwolf-charts.yaml
   - minio-charts.yaml
   - metallb-charts.yaml

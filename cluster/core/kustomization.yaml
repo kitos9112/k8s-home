@@ -6,7 +6,6 @@ resources:
   - cert-manager
   - flux-system
   - networking
-  - longhorn-system
   - monitoring
   - tools
   - postgres

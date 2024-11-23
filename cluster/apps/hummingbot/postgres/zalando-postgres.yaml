@@ -13,7 +13,6 @@ spec:
     retry_timeout: 60
   volume:
     size: 15Gi
-    storageClass: longhorn-civo
   users:
     superuser:
       - superuser
