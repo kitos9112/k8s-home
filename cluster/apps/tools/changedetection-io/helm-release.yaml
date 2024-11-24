@@ -18,7 +18,7 @@ spec:
   values:
     controllers:
       main:
-        Annotations:
+        annotations:
           backup.velero.io/backup-volumes: config
           pre.hook.backup.velero.io/container: fsfreeze
           pre.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--freeze", "/datastore"]'
@@ -30,7 +30,6 @@ spec:
             image:
               repository: dgtlmoon/changedetection.io
               tag: "0.47.06"
-              # -- image pull policy
               pullPolicy: IfNotPresent
             env:
               BASE_URL: "https://change-detection.${SECRET_DOMAIN}"
@@ -45,11 +44,13 @@ spec:
           chrome-webdriver:
             image:
               repository: selenium/standalone-chrome-debug
-              tags: "3.141.59"
-            imagePullPolicy: IfNotPresent
+              tag: "3.141.59"
+              pullPolicy: IfNotPresent
           fsfreeze:
-            name: fsfreeze
-            image: ghcr.io/k8s-at-home/fsfreeze:v2.37-r0
+            image:
+              repository: ghcr.io/k8s-at-home/fsfreeze
+              tag: v2.37-r0
+              pullPolicy: IfNotPresent
             securityContext:
               privileged: true
     global:
@@ -64,7 +65,7 @@ spec:
 
     persistence:
       config:
-        type: PersistentVolumeClaim
+        type: persistentVolumeClaim
         enabled: true
         existingClaim: changedetection-io-config-v1
         advancedMounts:
