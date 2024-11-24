@@ -1,5 +1,5 @@
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: ingressroutes.traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: github-hooks-ips
@@ -15,7 +15,7 @@ spec:
       - 2a0a:a440::/29
       - 2606:50c0::/32
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: ingressroutes.traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: github-hooks
