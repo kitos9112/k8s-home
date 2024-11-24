@@ -50,7 +50,7 @@ spec:
   interval: 5m0s
   url: ssh://git@github.com/kitos9112/k8s-home
   ref:
-    branch: main
+    branch: next
   secretRef:
     name: github-deploy-key
 ```
