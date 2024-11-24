@@ -9,73 +9,76 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 3.5.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
   values:
+    controllers:
+      main:
+        Annotations:
+          backup.velero.io/backup-volumes: config
+          pre.hook.backup.velero.io/container: fsfreeze
+          pre.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--freeze", "/datastore"]'
+          post.hook.backup.velero.io/container: fsfreeze
+          post.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--unfreeze", "/datastore"]'
+        strategy: Recreate
+        containers:
+          main:
+            image:
+              repository: dgtlmoon/changedetection.io
+              tag: "0.47.06"
+              # -- image pull policy
+              pullPolicy: IfNotPresent
+            env:
+              BASE_URL: "https://change-detection.${SECRET_DOMAIN}"
+              WEBDRIVER_URL: http://localhost:4444/wd/hub
+              TZ: "Europe/London"
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 750Mi
+          chrome-webdriver:
+            image:
+              repository: selenium/standalone-chrome-debug
+              tags: "3.141.59"
+            imagePullPolicy: IfNotPresent
+          fsfreeze:
+            name: fsfreeze
+            image: ghcr.io/k8s-at-home/fsfreeze:v2.37-r0
+            securityContext:
+              privileged: true
     global:
       nameOverride: changedetection-io
 
-    image:
-      repository: dgtlmoon/changedetection.io
-      tag: "0.45.3"
-
-    env:
-      BASE_URL: "https://change-detection.${SECRET_DOMAIN}"
-      WEBDRIVER_URL: http://localhost:4444/wd/hub
-      TZ: "Europe/London"
-
     service:
       main:
+        controller: main
         ports:
           http:
             port: 5000
 
     persistence:
       config:
+        type: PersistentVolumeClaim
         enabled: true
         existingClaim: changedetection-io-config-v1
-        mountPath: /datastore
+        advancedMounts:
+          main:
+            main:
+              - path: /datastore
+            fsfreeze:
+              - path: /datastore
       cache:
         enabled: true
         type: emptyDir
         medium: Memory
         sizeLimit: 2Gi
-        mountPath: /dev/shm
-
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-      pre.hook.backup.velero.io/container: fsfreeze
-      pre.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--freeze", "/datastore"]'
-      post.hook.backup.velero.io/container: fsfreeze
-      post.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--unfreeze", "/datastore"]'
-
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 100m
-      limits:
-        memory: 750Mi
-
-    additionalContainers:
-      chrome-webdriver:
-        name: chrome-webdriver
-        image: selenium/standalone-chrome-debug:3.141.59
-        imagePullPolicy: IfNotPresent
-        ports:
-          - name: web
-            containerPort: 4444
-        volumeMounts:
-          - name: cache
-            mountPath: /dev/shm
-      fsfreeze:
-        name: fsfreeze
-        image: ghcr.io/k8s-at-home/fsfreeze:v2.37-r0
-        volumeMounts:
-          - name: config
-            mountPath: /datastore
-        securityContext:
-          privileged: true
+        globalMounts:
+          - path: /dev/shm
+    nodeSelector:
+      kubernetes.io/arch: amd64
