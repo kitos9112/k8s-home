@@ -30,7 +30,7 @@ spec:
         ## Hide all access denied warnings in the notification panel
         disableAccessDeniedNotifications: false
         pinnedCRDs:
-          - ingressroutes.ingressroutes.traefik.io
+          - ingressroutes.traefik.containo.us
           - helmreleases.helm.toolkit.fluxcd.io
     cert-manager:
       enabled: false
