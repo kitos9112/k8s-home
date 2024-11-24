@@ -8,4 +8,4 @@ resources:
   - networking
   - monitoring
   - postgres
-  - velero
+  # - velero
