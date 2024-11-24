@@ -67,7 +67,10 @@ spec:
       metrics:
         port: 8082
       web:
-        redirectTo: websecure
+        redirectTo:
+          entryPoint:
+            to: websecure
+            scheme: https
       websecure:
         http3:
           enabled: true

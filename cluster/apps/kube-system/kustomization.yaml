@@ -9,4 +9,3 @@ resources:
   - external-snapshotter
   - 1password
   - descheduler
-  #- kyverno
