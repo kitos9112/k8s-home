@@ -35,9 +35,6 @@ spec:
     deployment:
       enabled: true
       replicas: 2
-    experimental:
-      plugins:
-        enabled: true
     globalArguments:
       - "--serverstransport.insecureskipverify=true"
       - "--providers.kubernetesingress.ingressclass=traefik"
@@ -68,9 +65,7 @@ spec:
         port: 8082
       web:
         redirectTo:
-          entryPoint:
-            to: websecure
-            scheme: https
+          port: websecure
       websecure:
         http3:
           enabled: true
