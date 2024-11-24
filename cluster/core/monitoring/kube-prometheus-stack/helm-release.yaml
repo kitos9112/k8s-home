@@ -152,17 +152,13 @@ spec:
     kubeApiServer:
       enabled: true
     kubeControllerManager:
+      enabled: true
+      endpoints:
+        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
+    kubeEtcd:
       enabled: false
       endpoints:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_2}
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_3}
-    kubeEtcd:
-      enabled: false # Running on single master node
-      endpoints:
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_2}
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_3}
       service:
         enabled: true
         port: 2381
@@ -171,14 +167,10 @@ spec:
       enabled: true
       endpoints:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_2}
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_3}
     kubeScheduler:
       enabled: true
       endpoints:
         - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_2}
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_3}
       service:
         port: 10250
         targetPort: 10250

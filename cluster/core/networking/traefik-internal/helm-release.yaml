@@ -1,5 +1,5 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: traefik-internal
@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 24.0.0
+      version: 33.0.0
       interval: 5m
       sourceRef:
         kind: HelmRepository
@@ -20,20 +20,22 @@ spec:
       namespace: networking
   install:
     crds: Skip
+    remediation:
+      retries: 3
   upgrade:
     crds: Skip
     force: true
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
   values:
-    nodeSelector:
-      node_locality: "internal"
     additionalArguments:
       - "--providers.kubernetesingress.ingressendpoint.hostname=${SECRET_DOMAIN}"
     deployment:
       enabled: true
-      replicas: 3
+      replicas: 2
     experimental:
-      http3:
-        enabled: true
       plugins:
         enabled: true
     globalArguments:
@@ -44,7 +46,6 @@ spec:
         entryPoint: metrics
     ingressClass:
       enabled: true
-      fallbackApiVersion: v1
       isDefaultClass: true
     ingressRoute:
       dashboard:
@@ -60,8 +61,6 @@ spec:
           headers:
             names:
               X-Forwarded-User: keep
-      general:
-        level: INFO
     ports:
       traefik:
         port: 9000
@@ -70,6 +69,8 @@ spec:
       web:
         redirectTo: websecure
       websecure:
+        http3:
+          enabled: true
         tls:
           enabled: true
           options: default
@@ -80,8 +81,6 @@ spec:
       requests:
         cpu: 100m
         memory: 50Mi
-    podSecurityPolicy:
-      enabled: false
     podDisruptionBudget:
       enabled: true
       maxUnavailable: 1
