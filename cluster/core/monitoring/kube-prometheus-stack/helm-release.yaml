@@ -37,7 +37,6 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
-              storageClassName: longhorn
       config:
         global:
           resolve_timeout: 5m
@@ -258,7 +257,6 @@ spec:
               resources:
                 requests:
                   storage: 50Gi
-              storageClassName: longhorn
         thanos:
           objectStorageConfig:
             key: objstore.yml

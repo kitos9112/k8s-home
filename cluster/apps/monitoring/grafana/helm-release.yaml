@@ -70,10 +70,6 @@ spec:
           datasource: Prometheus
           gnetId: 17346
           revision: 7
-        longhorn:
-          datasource: Prometheus
-          gnetId: 17626
-          revision: 1
         node-exporter-full:
           datasource: Prometheus
           gnetId: 1860

@@ -43,7 +43,6 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
-        storageClass: longhorn
         accessMode: ReadWriteOnce
         size: 1Gi
         retain: true

@@ -7,6 +7,5 @@ resources:
   - flux-system
   - networking
   - monitoring
-  - tools
   - postgres
   - velero

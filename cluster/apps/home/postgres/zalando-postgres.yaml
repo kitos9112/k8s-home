@@ -29,7 +29,6 @@ spec:
     retry_timeout: 5
   volume:
     size: 50Gi
-    storageClass: longhorn
   preparedDatabases:
     grafana:
       defaultUsers: true

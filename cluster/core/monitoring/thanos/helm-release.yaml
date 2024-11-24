@@ -85,8 +85,6 @@ spec:
           memory: 250Mi
         limits:
           memory: 2048Mi
-      persistence:
-        storageClass: longhorn
     metrics:
       enabled: true
       serviceMonitor:

@@ -58,7 +58,6 @@ spec:
       books:
         enabled: true
         type: pvc
-        storageClass: longhorn
         mountPath: /books
         accessMode: ReadWriteOnce
         size: 5Gi

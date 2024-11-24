@@ -35,7 +35,6 @@ spec:
     adminUser:
       organization: "home"
     persistence:
-      storageClass: longhorn
       size: 20Gi
     nodeSelector:
       node_locality: "internal"
