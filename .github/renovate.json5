@@ -6,7 +6,7 @@
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   "extends": [
     ":enableRenovate",
-    "config:base",
+    "config:recommended",
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
@@ -35,7 +35,6 @@
       "cluster/.+\\.yaml$",
     ],
   },
-  onboarding: false,
   packageRules: [
     {
       ignoreDeprecated: true,
@@ -139,15 +138,9 @@
       ],
     },
   ],
-  platform: "github",
   rebaseWhen: "conflicted",
-  repositories: [
-    "kitos9112/k8s-home",
-  ],
-  requireConfig: "optional",
   suppressNotifications: [
     "prIgnoreNotification",
   ],
   timezone: "Europe/London",
-  username: "henry-pa-bot[bot]",
 }
