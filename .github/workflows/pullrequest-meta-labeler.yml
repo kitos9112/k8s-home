@@ -5,6 +5,7 @@ on: # yamllint disable-line rule:truthy
   pull_request:
     branches:
       - main
+      - next
 
 jobs:
   labeler:
@@ -19,7 +20,7 @@ jobs:
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: Labeler
-        uses: actions/labeler@v4
+        uses: actions/labeler@v5
         with:
           configuration-path: .github/labeler.yaml
           repo-token: "${{ steps.generate-token.outputs.token }}"

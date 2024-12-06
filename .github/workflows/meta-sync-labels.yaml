@@ -5,6 +5,7 @@ on: # yamllint disable-line rule:truthy
   push:
     branches:
       - main
+      - next
     paths:
       - ".github/labels.yaml"
 
