@@ -9,13 +9,23 @@ spec:
   chart:
     spec:
       chart: cert-manager
-      version: v1.13.6
+      version: v1.16.2
       sourceRef:
         kind: HelmRepository
         name: jetstack-charts
         namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
   values:
-    installCRDs: false
+    crds:
+      enabled: true
+    replicaCount: 1
     webhook:
       enabled: true
       resources:
