@@ -6,3 +6,4 @@ resources:
   - tools
   - monitoring
   - media
+  - kube-system
