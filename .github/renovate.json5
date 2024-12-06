@@ -100,9 +100,9 @@
         "github-releases",
         "docker",
       ],
-      matchPackagePatterns: [
-        "external-snapshotter",
-        "snapshot-controller",
+      matchPackageNames: [
+        "/external-snapshotter/",
+        "/snapshot-controller/",
       ],
       separateMinorPatch: true,
     },
@@ -113,8 +113,8 @@
         "github-tags",
         "docker",
       ],
-      matchPackagePatterns: [
-        "rancher/system-upgrade-controller",
+      matchPackageNames: [
+        "/rancher/system-upgrade-controller/",
       ],
       separateMinorPatch: true,
     },
@@ -126,8 +126,8 @@
         "github-releases",
         "helm",
       ],
-      matchPackagePatterns: [
-        "vector",
+      matchPackageNames: [
+        "/vector/",
       ],
       separateMinorPatch: true,
     },

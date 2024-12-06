@@ -12,7 +12,7 @@ on:
 jobs:
   detect-file-changes:
     name: Detect File Changes
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - uses: dorny/paths-filter@v2
@@ -27,7 +27,7 @@ jobs:
       yaml_files: ${{ steps.filter.outputs.yaml_files }}
   detect-containers:
     name: Detect Containers
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: detect-file-changes
     strategy:
       matrix:
@@ -48,7 +48,7 @@ jobs:
       containers: ${{ steps.containers.outputs.containers }}
   scan-containers:
     name: Scan Containers
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: detect-containers
     strategy:
       matrix: ${{ fromJSON(needs.detect-containers.outputs.containers) }}

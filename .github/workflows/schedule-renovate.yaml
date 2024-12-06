@@ -28,7 +28,7 @@ env:
 jobs:
   renovate:
     name: Renovate
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Verify Renovate Configuration
         uses: suzuki-shunsuke/github-action-renovate-config-validator@v1.1.1
@@ -37,8 +37,8 @@ jobs:
         uses: actions/create-github-app-token@v1
         id: generate-token
         with:
-          app_id: "${{ secrets.BOT_APP_ID }}"
-          private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+          app-id: "${{ secrets.BOT_APP_ID }}"
+          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: Checkout
         uses: actions/checkout@v4

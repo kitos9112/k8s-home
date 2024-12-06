@@ -9,14 +9,14 @@ on: # yamllint disable-line rule:truthy
 jobs:
   labeler:
     name: Labeler
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@v1
         id: generate-token
         with:
-          app_id: "${{ secrets.BOT_APP_ID }}"
-          private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+          app-id: "${{ secrets.BOT_APP_ID }}"
+          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: Labeler
         uses: actions/labeler@v4
