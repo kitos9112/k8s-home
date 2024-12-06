@@ -17,6 +17,7 @@ metadata:
 stringData:
     # Contents of: github-deploy-key
     # secretlint-disable
+    # gitleaks-disable
     identity: |
         -----BEGIN OPENSSH PRIVATE KEY-----
             ...

@@ -55,8 +55,7 @@ jobs:
         id: containers
         run: |
           containers=$(.github/scripts/container-parser.sh --file "${{ matrix.file }}")
-          echo "${containers}"
-          echo ::set-output name=containers::${containers}
+          echo "{\"containers\": ${containers}}" > containers.json
     outputs:
       containers: ${{ steps.containers.outputs.containers }}
   scan-containers:
