@@ -21,6 +21,7 @@ on: # yamllint disable-line rule:truthy
   push:
     branches:
       - main
+      - next
     paths:
       - ".github/renovate.json5"
       - ".github/renovate/**.json"

@@ -6,6 +6,7 @@ on: # yamllint disable-line rule:truthy
   push:
     branches:
       - main
+      - next
   schedule:
     - cron: "0 0 * * *" # Every day at midnight
 

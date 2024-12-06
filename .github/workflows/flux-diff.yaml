@@ -3,7 +3,9 @@ name: "Flux Diff"
 
 on:
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
+      - next
     paths:
       - "cluster/core/**.yml"
       - "cluster/apps/**.yml"

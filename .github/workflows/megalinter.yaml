@@ -6,6 +6,7 @@ on: # yamllint disable-line rule:truthy
   pull_request:
     branches:
       - main
+      - next
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
