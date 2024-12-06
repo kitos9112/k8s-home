@@ -7,6 +7,7 @@ metadata:
 spec:
   schedule: "*/2 * * * *"
   concurrencyPolicy: "Forbid"
+  activeDeadlineSeconds: 120
   successfulJobsHistoryLimit: 0
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -16,6 +17,8 @@ spec:
       template:
         spec:
           restartPolicy: Never
+          nodeSelector:
+            kubernetes.io/arch: amd64
           containers:
             - name: cronitor-heartbeat
               image: alpine/curl:8.9.1
