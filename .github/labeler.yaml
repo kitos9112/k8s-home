@@ -1,7 +1,18 @@
 ---
+# Areas
+area/docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**/*"
+          - "README.md"
 area/github:
-  - ".github/**/*"
-area/cluster:
-  - "cluster/**/*"
-area/hack:
-  - "hack/**/*"
+  - changed-files:
+      - any-glob-to-any-file: ".github/**/*"
+area/kubernetes:
+  - changed-files:
+      - any-glob-to-any-file: "cluster/**/*"
+area/taskfile:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".taskfiles/**/*"
+          - "Taskfile.yaml"
