@@ -15,16 +15,19 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-        with:
-          fetch-depth: 0
       - name: Generate Token
-        uses: tibdex/github-app-token@v2
+        uses: actions/create-github-app-token@v1
         id: generate-token
         with:
           app_id: "${{ secrets.BOT_APP_ID }}"
           private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
+      - name: Checkout
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        with:
+          fetch-depth: 0
+          token: "${{ steps.generate-token.outputs.token }}"
+
       - name: Lint
         uses: github/super-linter/slim@v5
         env:

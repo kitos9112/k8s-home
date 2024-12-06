@@ -10,7 +10,6 @@ on:
       - "cluster/core/**.yaml"
       - "cluster/apps/**.yaml"
 
-
 jobs:
   flux-diff:
     name: Flux Diff
@@ -23,7 +22,7 @@ jobs:
         resource: ["helmrelease", "kustomization"]
     steps:
       - name: Generate Token
-        uses: tibdex/github-app-token@v2
+        uses: actions/create-github-app-token@v1
         id: generate-token
         with:
           app_id: "${{ secrets.BOT_APP_ID }}"

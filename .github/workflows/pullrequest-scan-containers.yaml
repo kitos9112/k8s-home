@@ -54,8 +54,19 @@ jobs:
       matrix: ${{ fromJSON(needs.detect-containers.outputs.containers) }}
       fail-fast: false
     steps:
+      - name: Generate Token
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: "${{ secrets.BOT_APP_ID }}"
+          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
       - name: Checkout
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@v4
+        with:
+          token: "${{ steps.generate-token.outputs.token }}"
+          fetch-depth: 0
+
       - name: Scan Container
         uses: aquasecurity/trivy-action@fbd16365eb88e12433951383f5e99bd901fc618f # 0.12.0
         with:
