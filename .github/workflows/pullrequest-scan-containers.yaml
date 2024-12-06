@@ -14,7 +14,7 @@ jobs:
     name: Detect File Changes
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v2
         id: filter
         with:
@@ -33,11 +33,23 @@ jobs:
       matrix:
         file: ${{ fromJSON(needs.detect-file-changes.outputs.yaml_files) }}
     steps:
+      - name: Generate Token
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: "${{ secrets.BOT_APP_ID }}"
+          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
       - name: Checkout
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@v4
+        with:
+          token: "${{ steps.generate-token.outputs.token }}"
+          fetch-depth: 0
+
       - name: Install Jo
         run: |
           sudo apt-get install jo
+
       - name: Detect Containers in Files
         id: containers
         run: |
