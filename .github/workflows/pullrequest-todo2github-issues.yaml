@@ -28,7 +28,7 @@ jobs:
           token: "${{ steps.generate-token.outputs.token }}"
 
       - name: Create Github Issue from TODO comments
-        uses: alstr/todo-to-issue-action@v4.10
+        uses: alstr/todo-to-issue-action@v5.1
         id: "todo"
         with:
           token: "${{ steps.generate-token.outputs.token }}"
