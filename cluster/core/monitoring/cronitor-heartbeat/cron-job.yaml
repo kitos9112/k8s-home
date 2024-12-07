@@ -21,7 +21,7 @@ spec:
             kubernetes.io/arch: amd64
           containers:
             - name: cronitor-heartbeat
-              image: alpine/curl:8.9.1
+              image: alpine/curl:8.10.0
               envFrom:
                 - secretRef:
                     name: cronitor-heartbeat-url
