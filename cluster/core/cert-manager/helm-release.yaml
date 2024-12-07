@@ -27,7 +27,6 @@ spec:
       enabled: true
     replicaCount: 1
     webhook:
-      enabled: true
       resources:
         requests:
           cpu: 10m
