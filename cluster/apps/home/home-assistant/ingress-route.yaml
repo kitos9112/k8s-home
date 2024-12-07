@@ -30,7 +30,7 @@ spec:
     - match: Host(`hass-config.${SECRET_DOMAIN}`)
       kind: Rule
       services:
-        - name: home-assistant-codeserver
+        - name: home-assistant
           namespace: home
           port: 12321
           scheme: http
