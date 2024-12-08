@@ -176,6 +176,7 @@ spec:
             orgId: 1
           - name: Alertmanager
             orgId: 1
+    envFromSecret: grafana-ini-secret
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -192,12 +193,8 @@ spec:
         disable_login_form: false
       auth.google:
         allow_sign_up: true
-        client_id: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_ID}
-        client_secret: ${SECRET_GRAFANA_AUTH_GOOGLE_CLIENT_SECRET}
         enabled: true
         scopes: https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
-      grafana_net:
-        url: https://grafana.net
       log:
         mode: console
       paths:
@@ -247,8 +244,7 @@ spec:
       kubernetes.io/arch: amd64
       node_locality: internal
     persistence:
-      enabled: true
-      size: 5Gi
+      enabled: false
     plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
