@@ -1,200 +1,98 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: loki
-  namespace: monitoring
 spec:
   interval: 30m
   timeout: 15m
   chart:
     spec:
       chart: loki
-      version: 5.22.2
+      version: 6.23.0
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
-  maxHistory: 2
-  dependsOn:
-    - name: minio
-      namespace: tools
   install:
-    createNamespace: true
+    crds: Skip
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
+    crds: Skip
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
-    test:
-      # This is a workaround for the helm chart v3.3.0 that does not support running helm tests without self-monitoring enabled
-      enabled: false
     loki:
-      structuredConfig:
-        auth_enabled: false
-        querier:
-          engine:
-            timeout: 5m
-          query_timeout: 5m
-        frontend:
-          max_outstanding_per_tenant: 4096
-        query_range:
-          parallelise_shardable_queries: false
-          cache_results: true
-          results_cache:
-            cache:
-              enable_fifocache: true
-              fifocache:
-                max_size_items: 1024
-                validity: 24h
-        server:
-          log_level: info
-          http_listen_port: 3100
-          grpc_listen_port: 9095
-          grpc_server_max_concurrent_streams: 250
-          grpc_server_max_recv_msg_size: 10485760000
-          grpc_server_max_send_msg_size: 10485760000
-          http_server_write_timeout: 10m
-          http_server_read_timeout: 10m
-          http_server_idle_timeout: 10m
-          graceful_shutdown_timeout: 2m
-        tracing:
-          enabled: false
-        memberlist:
-          join_members: ["loki-memberlist"]
-        limits_config:
-          ingestion_rate_mb: 50
-          ingestion_burst_size_mb: 1000
-          enforce_metric_name: false
-          reject_old_samples: true
-          reject_old_samples_max_age: 168h
-          retention_period: 14d
-          max_query_lookback: 168h
-          max_query_series: 5000
-          max_query_parallelism: 5000
-          max_streams_matchers_per_query: 10000
-          max_entries_limit_per_query: 2500000
-          max_cache_freshness_per_query: 10m
-          per_stream_rate_limit: 20MB
-          per_stream_rate_limit_burst: 80MB
-          split_queries_by_interval: 15m
-          shard_streams:
-            enabled: true
-        storage_config:
-          aws:
-            access_key_id: ${SECRET_MINIO_ACCESS_KEY}
-            bucketnames: loki-logs
-            endpoint: minio.tools:9000
-            insecure: true
-            s3forcepathstyle: true
-            secret_access_key: ${SECRET_MINIO_SECRET_KEY}
-          boltdb_shipper:
-            resync_interval: 5s
-            cache_ttl: 168h
-            shared_store: s3
-        schema_config:
-          configs:
-            - from: "2022-01-11"
-              store: boltdb-shipper
-              object_store: s3
-              schema: v12
-              index:
-                prefix: loki_index_
-                period: 24h
-        common:
-          path_prefix: /var/loki
-          replication_factor: 3
-          ring:
-            kvstore:
-              store: memberlist
-        ruler:
-          enable_api: true
-          enable_alertmanager_v2: true
-          alertmanager_url: http://prometheus-alertmanager:9093
-          storage:
-            type: local
-            local:
-              directory: /rules
-          rule_path: /tmp/scratch
-          ring:
-            kvstore:
-              store: memberlist
-        distributor:
-          ring:
-            kvstore:
-              store: memberlist
-        compactor:
-          working_directory: /var/loki/boltdb-shipper-compactor
-          shared_store: s3
-          compaction_interval: 10m
-          retention_enabled: true
-          retention_delete_delay: 2h
-          retention_delete_worker_count: 150
-        ingester:
-          max_chunk_age: 1h
-          lifecycler:
-            ring:
-              kvstore:
-                store: memberlist
-        analytics:
-          reporting_enabled: false
+      auth_enabled: false
+      analytics:
+        reporting_enabled: false
+      server:
+        log_level: info
+        grpc_server_max_concurrent_streams: 250
+        grpc_server_max_recv_msg_size: 10485760000
+        grpc_server_max_send_msg_size: 10485760000
+      commonConfig:
+        replication_factor: 1
+      compactor:
+        working_directory: /var/loki/compactor/retention
+        delete_request_store: filesystem
+        retention_enabled: true
+      ingester:
+        chunk_encoding: snappy
+      storage:
+        type: filesystem
+      schemaConfig:
+        configs:
+          - from: "2024-12-08" # quote
+            store: tsdb
+            object_store: filesystem
+            schema: v13
+            index:
+              prefix: loki_index_
+              period: 24h
+      limits_config:
+        retention_period: 30d
+        ingestion_rate_mb: 50
+        ingestion_burst_size_mb: 1000
+        enforce_metric_name: false
+        reject_old_samples: true
+        reject_old_samples_max_age: 168h
+        max_query_lookback: 168h
+        max_query_series: 5000
+        max_query_parallelism: 5000
+        max_streams_matchers_per_query: 10000
+        max_entries_limit_per_query: 2500000
+        max_cache_freshness_per_query: 10m
+        per_stream_rate_limit: 250MB
+        per_stream_rate_limit_burst: 80MB
+        split_queries_by_interval: 15m
+    singleBinary:
+      replicas: 1
+      persistence:
+        enabled: true
+        size: 50Gi
     gateway:
-      enabled: false
-    write:
-      persistence:
-        storageClass: local-path
-      resources:
-        limits:
-          memory: 2048Mi
-        requests:
-          cpu: 50m
-          memory: 64Mi
-    read:
-      persistence:
-        storageClass: local-path
-      extraVolumeMounts:
-        - name: rules
-          mountPath: /rules
-      extraVolumes:
-        - name: rules
-          emptyDir: {}
+      replicas: 0
     backend:
-      persistence:
-        storageClass: local-path
-      extraVolumeMounts:
-        - name: rules
-          mountPath: /rules/fake
-        - name: scratch
-          mountPath: /tmp/scratch
-      extraVolumes:
-        - name: rules
-          configMap:
-            name: loki-alerting-rules
-        - name: scratch
-          emptyDir: {}
-      resources:
-        limits:
-          memory: 2048Mi
-        requests:
-          cpu: 50m
-          memory: 64Mi
-    monitoring:
-      dashboards:
-        annotations:
-          kustomize.toolkit.fluxcd.io/substitute: disabled
-        labels:
-          grafana_dashboard: "true"
-      serviceMonitor:
-        enabled: false
-        metricsInstance:
-          enabled: false
-      selfMonitoring:
-        enabled: false
-        grafanaAgent:
-          installOperator: false
-      lokiCanary:
-        enabled: false
+      replicas: 0
+    read:
+      replicas: 0
+    write:
+      replicas: 0
+    chunksCache:
+      enabled: false
+    resultsCache:
+      enabled: false
+    lokiCanary:
+      enabled: false
+    test:
+      enabled: false
+    sidecar:
+      image:
+        repository: ghcr.io/kiwigrid/k8s-sidecar
+      rules:
+        searchNamespace: ALL

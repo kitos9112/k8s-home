@@ -5,6 +5,7 @@ metadata:
   name: grafana
   namespace: monitoring
 spec:
+  interval: 30m
   chart:
     spec:
       chart: grafana
@@ -17,15 +18,15 @@ spec:
   install:
     remediation:
       retries: 3
-  interval: 5m
   upgrade:
+    cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
   values:
-    replicas: 2
-    rbac:
-      pspEnabled: false
-      pspUseAppArmor: false
+    deploymentStrategy:
+      type: Recreate
+    replicas: 1
     adminPassword: ${SECRET_GRAFANA_PASSWORD}
     dashboardProviders:
       dashboardproviders.yaml:
@@ -52,14 +53,6 @@ spec:
         flux-logs:
           datasource: Prometheus
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/control-plane.json
-        calico-felix:
-          datasource: Prometheus
-          gnetId: 12175
-          revision: 5
-        minio:
-          datasource: Prometheus
-          gnetId: 13502
-          revision: 22
         speedtest:
           datasource:
             - name: DS_PROMETHEUS
@@ -69,27 +62,82 @@ spec:
         traefik:
           datasource: Prometheus
           gnetId: 17346
-          revision: 7
-        node-exporter-full:
+          revision: 9
+        apc-ups:
+          # renovate: depName="APC UPS (SNMP)"
+          gnetId: 12340
+          revision: 1
           datasource: Prometheus
-          gnetId: 1860
-          revision: 31
-        kubernetes-views-pods:
+        cert-manager:
+          # renovate: depName="Cert-manager-Kubernetes"
+          gnetId: 20842
+          revision: 3
           datasource: Prometheus
-          gnetId: 15760
-          revision: 20
-        kubernetes-views-global:
+        cloudflared:
+          # renovate: depName="Cloudflare Tunnels (cloudflared)"
+          gnetId: 17457
+          revision: 6
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        external-dns:
+          # renovate: depName="External-dns"
+          gnetId: 15038
+          revision: 3
           datasource: Prometheus
-          gnetId: 15757
-          revision: 34
-        kubernetes-views-namespaces:
+        external-secrets:
+          url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
           datasource: Prometheus
-          gnetId: 15758
-          revision: 24
-        kubernetes-views-nodes:
+        kubernetes-api-server:
+          # renovate: depName="Kubernetes / System / API Server"
+          gnetId: 15761
+          revision: 18
           datasource: Prometheus
-          gnetId: 15759
+        kubernetes-coredns:
+          # renovate: depName="Kubernetes / System / CoreDNS"
+          gnetId: 15762
           revision: 19
+          datasource: Prometheus
+        kubernetes-global:
+          # renovate: depName="Kubernetes / Views / Global"
+          gnetId: 15757
+          revision: 42
+          datasource: Prometheus
+        kubernetes-namespaces:
+          # renovate: depName="Kubernetes / Views / Namespaces"
+          gnetId: 15758
+          revision: 41
+          datasource: Prometheus
+        kubernetes-nodes:
+          # renovate: depName="Kubernetes / Views / Nodes"
+          gnetId: 15759
+          revision: 32
+          datasource: Prometheus
+        kubernetes-pods:
+          # renovate: depName="Kubernetes / Views / Pods"
+          gnetId: 15760
+          revision: 34
+          datasource: Prometheus
+        kubernetes-volumes:
+          # renovate: depName="K8s / Storage / Volumes / Cluster"
+          gnetId: 11454
+          revision: 14
+          datasource: Prometheus
+        miniflux:
+          url: https://raw.githubusercontent.com/miniflux/v2/main/contrib/grafana/dashboard.json
+          datasource: Prometheus
+        node-exporter-full:
+          # renovate: depName="Node Exporter Full"
+          gnetId: 1860
+          revision: 37
+          datasource: Prometheus
+        node-feature-discovery:
+          url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
+          datasource: Prometheus
+        prometheus:
+          # renovate: depName="Prometheus"
+          gnetId: 19105
+          revision: 6
+          datasource: Prometheus
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -99,22 +147,47 @@ spec:
             name: Prometheus
             type: prometheus
             url: http://thanos-query:9090/
-          - access: proxy
-            name: Loki
+          - name: Prometheus
+            type: prometheus
+            uid: prometheus
+            access: proxy
+            url: http://prometheus-operated.monitoring.svc.cluster.local:9090
+            jsonData:
+              timeInterval: 1m
+            isDefault: true
+          - name: Loki
             type: loki
-            url: http://loki-read:3100
+            uid: loki
+            access: proxy
+            url: http://loki-headless.monitoring.svc.cluster.local:3100
             jsonData:
               maxLines: 2500000
+          - name: Alertmanager
+            type: alertmanager
+            uid: alertmanager
+            access: proxy
+            url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
+            jsonData:
+              implementation: prometheus
         deleteDatasources:
           - name: Loki
             orgId: 1
-    deploymentStrategy:
-      type: RollingUpdate
+          - name: Prometheus
+            orgId: 1
+          - name: Alertmanager
+            orgId: 1
     grafana.ini:
       analytics:
         check_for_updates: false
+        check_for_plugin_updates: false
+        reporting_enabled: false
       auth:
         oauth_auto_login: true
+      auth.anonymous:
+        enabled: true
+        org_id: 1
+        org_name: Main Org.
+        org_role: Viewer
       auth.basic:
         disable_login_form: false
       auth.google:
@@ -146,11 +219,16 @@ spec:
         name: grafana
       dataproxy:
         timeout: 300s
+      news:
+        news_feed_enabled: false
     env:
       GF_DATE_FORMATS_FULL_DATE: MMM Do, YYYY hh:mm:ss a
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
+      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
+      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
       GF_LOG_FILTERS: rendering:debug
+      GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
       GF_PANELS_DISABLE_SANITIZE_HTML: true
     envValueFrom:
       GF_DATABASE_USER:
@@ -169,7 +247,8 @@ spec:
       kubernetes.io/arch: amd64
       node_locality: internal
     persistence:
-      enabled: false
+      enabled: true
+      size: 5Gi
     plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
@@ -180,7 +259,7 @@ spec:
     podAnnotations:
       configmap.reloader.stakater.com/reload: grafana
     serviceAccount:
-      autoMount: true
+      automountServiceAccountToken: true
       create: true
     serviceMonitor:
       enabled: true
@@ -200,3 +279,5 @@ spec:
       datasources:
         enabled: true
         searchNamespace: ALL
+    testFramework:
+      enabled: false

@@ -1,10 +1,13 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
+  interval: 30m
+  timeout: 15m
   chart:
     spec:
       chart: kube-prometheus-stack
@@ -13,11 +16,10 @@ spec:
         kind: HelmRepository
         name: prometheus-community-charts
         namespace: flux-system
-      version: 51.2.0
+      version: 66.3.1
   install:
     remediation:
       retries: 3
-  interval: 5m
   upgrade:
     force: true
     remediation:
@@ -153,8 +155,6 @@ spec:
       enabled: true
     kubeControllerManager:
       enabled: true
-      endpoints:
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
     kubeEtcd:
       enabled: false
       endpoints:
@@ -164,9 +164,7 @@ spec:
         port: 2381
         targetPort: 2381
     kubeProxy:
-      enabled: true
-      endpoints:
-        - ${SECRET_K3S_CONTROL_PLANE_ADDRESS_1}
+      enabled: false
     kubeScheduler:
       enabled: true
       endpoints:
@@ -187,6 +185,7 @@ spec:
       ingress:
         enabled: false
       prometheusSpec:
+        scrapeInterval: 1m # Must match interval in Grafana Helm chart
         containers:
           - name: prometheus
             startupProbe:
@@ -233,31 +232,28 @@ spec:
         probeSelectorNilUsesHelmValues: false
         replicaExternalLabelName: replica
         replicas: 1
-        retention: 6h
-        retentionSize: 6GB
+        retention: 30d
+        retentionSize: 75GB
         ruleSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
+        enableFeatures:
+          - auto-gomemlimit
+          - memory-snapshot-on-shutdown
+          - new-service-discovery-manager
         resources:
           requests:
             cpu: 50m
             memory: 350Mi
           limits:
-            memory: 16000Mi
+            memory: 2500Mi
         storageSpec:
           volumeClaimTemplate:
             spec:
               resources:
                 requests:
                   storage: 50Gi
-        thanos:
-          objectStorageConfig:
-            key: objstore.yml
-            name: thanos-objstore
         walCompression: true
-      thanosService:
-        enabled: true
-      thanosServiceMonitor:
-        enabled: true
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       extraArgs:
@@ -276,14 +272,28 @@ spec:
                 - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
     prometheusOperator:
+      fullnameOverride: prometheus-operator
       admissionWebhooks:
         certManager:
           enabled: true
-      configReloaderCpu: 0
-      prometheusConfigReloaderImage:
-        resources:
-          limits:
-            memory: 100Mi
-          requests:
-            cpu: 100m
-            memory: 50Mi
+    additionalPrometheusRulesMap:
+      dockerhub-rules:
+        groups:
+          - name: dockerhub
+            rules:
+              - alert: DockerhubRateLimitRisk
+                annotations:
+                  summary: Kubernetes cluster Dockerhub rate limit risk
+                expr: count(time() - container_last_seen{image=~"(docker.io).*",container!=""} < 30) > 100
+                labels:
+                  severity: critical
+      oom-rules:
+        groups:
+          - name: oom
+            rules:
+              - alert: OomKilled
+                annotations:
+                  summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
+                expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
+                labels:
+                  severity: critical
