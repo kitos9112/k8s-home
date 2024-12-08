@@ -7,8 +7,8 @@ resources:
   #- jaeger
   - loki
   - influxdb
-  - thanos
   - cronitor-heartbeat
   # TODO: Revisit Node Problem Detector once all their CRITICAL Vulnerabilities are fixed
   # - node-problem-detector
-  - vector
+  # - vector
+  - promtail
