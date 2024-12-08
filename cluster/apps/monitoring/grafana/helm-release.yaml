@@ -142,11 +142,6 @@ spec:
       datasources.yaml:
         apiVersion: 1
         datasources:
-          - access: proxy
-            isDefault: true
-            name: Prometheus
-            type: prometheus
-            url: http://thanos-query:9090/
           - name: Prometheus
             type: prometheus
             uid: prometheus
