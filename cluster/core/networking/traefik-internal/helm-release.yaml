@@ -34,7 +34,7 @@ spec:
       - "--providers.kubernetesingress.ingressendpoint.hostname=${SECRET_DOMAIN}"
     deployment:
       enabled: true
-      replicas: 2
+      replicas: 1
     globalArguments:
       - "--serverstransport.insecureskipverify=true"
       - "--providers.kubernetesingress.ingressclass=traefik"
