@@ -61,7 +61,7 @@ jobs:
         uses: suzuki-shunsuke/github-action-renovate-config-validator@v1.1.1
 
       - name: Renovate
-        uses: renovatebot/github-action@v41.0.5
+        uses: renovatebot/github-action@v41.0.6
         with:
           configurationFile: .github/renovate.json5
           token: "x-access-token:${{ steps.generate-token.outputs.token }}"
