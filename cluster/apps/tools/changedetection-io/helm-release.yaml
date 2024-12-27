@@ -47,7 +47,7 @@ spec:
           main:
             image:
               repository: dgtlmoon/changedetection.io
-              tag: "0.48.04"
+              tag: "0.48.05"
               pullPolicy: IfNotPresent
             env:
               BASE_URL: "https://change-detection.${SECRET_DOMAIN}"
