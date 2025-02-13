@@ -16,7 +16,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community-charts
         namespace: flux-system
-      version: 67.0.0
+      version: 67.1.0
   install:
     remediation:
       retries: 3
