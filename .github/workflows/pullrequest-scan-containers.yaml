@@ -35,7 +35,7 @@ jobs:
         file: ${{ fromJSON(needs.detect-file-changes.outputs.yaml_files) }}
     steps:
       - name: Generate Token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2
         id: generate-token
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
@@ -67,7 +67,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Generate Token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2
         id: generate-token
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
