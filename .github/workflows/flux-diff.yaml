@@ -36,7 +36,7 @@ jobs:
 
       - name: Get Changed Clusters
         id: changed-clusters
-        uses: tj-actions/changed-files@v45
+        uses: tj-actions/changed-files@v47
         with:
           files: cluster/**
           # files_ignore: kubernetes/shared/**
