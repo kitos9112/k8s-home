@@ -58,7 +58,7 @@ jobs:
           token: "${{ steps.generate-token.outputs.token }}"
 
       - name: Verify Renovate Configuration
-        uses: suzuki-shunsuke/github-action-renovate-config-validator@v1.1.1
+        uses: suzuki-shunsuke/github-action-renovate-config-validator@v2.0.0
 
       - name: Renovate
         uses: renovatebot/github-action@v41.0.22
